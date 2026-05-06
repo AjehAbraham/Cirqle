@@ -1,2 +1,2 @@
-# Cirqle-
+# Cirqle
 Chat messaging App
