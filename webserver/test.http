@@ -1,0 +1,7 @@
+
+POST http://localhost:3000/noteRoute
+Content-Type: application/json
+{
+    "title": "Jolly_26",
+    "content": "testing gilberish"
+}
