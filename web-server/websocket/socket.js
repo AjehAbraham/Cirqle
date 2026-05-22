@@ -14,7 +14,7 @@ export const initSocket = (server) => {
 	io = new Server(server, {
 		cors: {
 		 origin: [`http://localhost:${PORT}`,
-		 https://google.com],//TESTIMG ONLY
+		 //https://google.com],//TESTIMG ONLY
 		 credentials: true
 		}
 	});
