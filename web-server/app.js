@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express from "express";
+import helmet from "helmet";
 import cookieParser from "cookie-parser"
 import http from "http";
 import {initSocket} from "./websocket/socket.js";
@@ -12,12 +13,14 @@ import aboutRoute from "./src/routes/aboutRoute.js";
 import forwardRoute from "./src/routes/forwardMessageRoute.js";
 import updateSetting from "./src/routes/resetSettingsRoute.js";
 import refreshToken from "./src/routes/refreshTokenRoute.js";
-
+import editRouter from "./src/router/editMessageRoute.js";
+import loadConvoRoute from "../src/router/loadConvoRoute.js";
 
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+app.use(helmet());
 
 await connectDB();
 
@@ -28,6 +31,8 @@ app.use("/api", messageRouter);
 app.use("/api", forwardRoute);
 app.use("/api", updateSetting );
 app.use("/api", refreshToken);
+app.use("/api", editRouter);
+app.use("/api", loadConvoRoute);
 
 
 app.use( (req, res, next) => {

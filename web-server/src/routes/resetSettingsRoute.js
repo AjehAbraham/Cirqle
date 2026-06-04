@@ -4,6 +4,6 @@ import {restSetting} from "../src/controller/resetSettings.js";
 
 const updateSetting = express.Router();
 
-app.post("/settings/reset", authenticate, resetSetting);
+updateSetting.post("/settings/reset", authenticate, resetSetting);
 
 export default updateSetting;

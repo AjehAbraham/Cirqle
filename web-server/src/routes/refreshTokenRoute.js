@@ -4,5 +4,5 @@ import {regenerate} from "../src/controller/regenerateToken.js";
 
 const refreshToken = express.Router();
 
-app.post("/token/refresh", regenerate);
+refreshToken.post("/token/refresh", regenerate);
 export default refreshToken;

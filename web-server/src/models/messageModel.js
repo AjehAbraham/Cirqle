@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
+import validate from "validator";
+
 
 const messageSchema = new mongoose.Schema({
-    ConversationID: {type: mongoose.Types.ObjectId, ref: "Conversation", required: true, index: true},
+	ConversationID: {type: mongoose.Types.ObjectId, ref: "Conversation", required: true, index: true},
 	SenderID: {type: mongoose.Types.ObjectId, ref: "RegisterDB", required: true},
 	Type: {type: String, required: true, enum: ["text", "image", "text/image", "video", "audio", "file", "system"]},
 	Content: {type: String},
@@ -16,8 +18,9 @@ const messageSchema = new mongoose.Schema({
 	DeletedDate: Date,
 	Edited: {type: Boolean, default: false},
 	EditedAt: Date,
+	EditCount: { type: Number, default: 0},
 	EditHistory: [{OldContent: String, EditedAt: Date}],
-	ReadBy: [{UniqueID: mongoose.Types.ObjectId, ref: "RegisterDB", readAt: Date}],
+	//ReadBy: [{UniqueID: mongoose.Types.ObjectId, ref: "RegisterDB", readAt: Date}],
 	ReplyTo: {type: mongoose.Types.ObjectId, ref: "MessageDB"},
 	IsForwarded: {type: Boolean, default: false},
 	ForwardedFrom: {
@@ -70,7 +73,7 @@ const messageSchema = new mongoose.Schema({
   
 }, { timestamps: true });
 
-conversationSchema.index({"Participants.UniqueID": 1, lastMessageAt: -1 });
+conversationSchema.index({"Participants.UniqueID": 1, LastMessageAt: -1 });
 
 const pinnedSchema = new mongoose.Schema({
 	ConversationID: {type: mongoose.Types.ObjectId, ref: "Conversation", required: true},

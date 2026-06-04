@@ -1,76 +1,96 @@
 
-import {uploadSinleImage, uploadSingleVideo, uploadSingleRaw} from "../src/middleware/upload.js";
-import {UnauthorizeError, ForbiddenError, InternalServerError, BadRequestError} from "../src/utils/AppError.js";
-import {asyncHandler} from "../src/asyncHandler.js";
-import {getOrCreateDm, fetchUser, verifyConversationId, saveMessage} from "../src/service/saveMessage.js";
-import {}
+import { uploadSingleImage, uploadSingleVideo, uploadSingleRaw } from "../src/middleware/upload.js"; 
+import { UnauthorizedError, ForbiddenError, InternalServerError, BadRequestError } from "../src/utils/AppError.js";
+import { asyncHandler } from "../src/asyncHandler.js";
+import { getOrCreateDm, fetchUser, verifyConversationId, saveMessage } from "../src/service/saveMessage.js";
+import { getIO } from "../../socket.js"; 
+import { registerModel } from "../src/models/registerModel.js";
 
-export const sendMessage = asyncHandler (async (req, res, next) =>{
-	const senderId = req.user.id;
-	let {conversationId, receiverId, type, message} = req.body;
-	let convoType;
+export const sendMessage = asyncHandler(async (req, res, next) => {
+  const senderId = req.user.id;
+  let { conversationId, receiverId, type, message, groupId, RuserId } = req.body;
+  
+  
+  if (!conversationId && receiverId) {
+    const convo = await getOrCreateDm(senderId, receiverId);
+    if (!convo.success) throw new BadRequestError("Receiver not found", "BAD_REQUEST_ERROR");
+    conversationId = convo.data._id;
+  }
+  
+  
+  const isMember = await verifyConversationId(conversationId, senderId); // fixed typo
+  if (!isMember.success) {
+    throw new ForbiddenError(`You cannot send message to this ${isMember.data?.Type || 'conversation'}`, "FORBIDDEN_ERROR");
+  }
+  const convoType = isMember.data.Type;
+  
+  
+  let attachment;
+  const samples = ["text/image", "image", "video", "audio", "file"];
+  
+  if (samples.includes(type)) {
+    if (!req.file) throw new BadRequestError("File is missing", "BAD_REQUEST_ERROR");
+    
+    if (type === "text/image" || type === "image") await uploadSingleImage(req, res);
+    else if (type === "video") await uploadSingleVideo(req, res);
+    else if (type === "audio" || type === "file") await uploadSingleRaw(req, res);
+    
+    attachment = {
+      url: req.file.secure_url,
+      type: req.file.mimetype,
+      size: req.file.size,
+      name: req.file.originalname
+    };
+  }
+  
+  
+  let ReplyTo = null;
+  if (RuserId) {
+    const replyUser = await fetchUser(RuserId); 
+    ReplyTo = replyUser.success ? replyUser.data._id : null;
+  }
 	
-	if(!conversationId && receiverId){
-		const convo = await getOrCreateDm(senderId, receiverId);
-		conversationId = convo.data._id;
-	}
-	const isMemeber = await verifyConversationId(conversationId, senderId);
-	convoType = isMemeber.data.Type;
-	
-	if(!isMemeber.success){
-		throw new ForbiddenError(`You cannot send message to this ${isMember.data.Type}`, "FORBIDDEN_ERROR");
-	}
-	
-	const {groupId} = req.body;//CREATE AND SEND GROUP ID FOR MULTIPE IMAGE AND VIDEOS SELECTED//
-    let attachment;
-	const samples = ["text/image", "image", "video", "audio", "file"];
-	 if(samples.includes(type)){
-		 
-		 if(!req.file) throw new BadRequestError("File is missing", "BAD_REQUEST_ERROR");
-		 if(type === "text/image" || type === "image")  {
-		 const upload = await uploadSingleImage(req, res);
-		 }
-		 if(type === "video"){
-		 const upload = await uploadSingleVideo(req, res);
-		 }
-	 if(type === "audio" || type === "file"){
-		 const upload = await uploadSingleRaw(req, res);
-	 }
-		 attachment = {
-			 url: req.file.secure_url,
-			 type: req.file.mimetype,
-			 size: req.file.size,
-			 name: req.file.originalname
-		 };
-	 }
-	
-	let ReplyTo;
-	if(req.body.RuserId){
-	  const fetch = await fetchUser(req.RuserId);
-	  if(fetch){
-		  ReplyTo = fetch._id;
-	  }else{
-		  ReplyTo = null;
-	  }
-	}
+  const send = await saveMessage(conversationId, senderId, type, message, attachment, ReplyTo, groupId);
+  if (!send.success) {
+    throw new InternalServerError("Fail to send message, please retry again", "INTERNAL_SERVER_ERROR");
+  }
+  
+  
+  const sender = await registerModel.findById(senderId).select("CountryCode Phone Name");
+  
 
-	const send = await saveMessage(conversationId, senderId, type, msg, attachment, ReplyTo, groupId);
-	if(!send){
-		throw new InternalServerError("Fail to send message, please retry again", "INTERNAL_SERVER_ERROR");
-	}
-	const sender = await registerModel.findById({_id: req.user.id}).select("CountryCode Phone Name");
-	getIO().to(convoId).emit("message: new",
-	{
-	 data: {
-		userId: sender._id,
-		cCode: sender.CountryCode,
-		phone: sender.Phone,
-		name: sender.Name || null,
-		type: convoType
-	 }	
-	}
-	);
-	res.status(201).json({success: true, conversationId, messageId});
-});
-
-                      
+  const io = getIO();
+  io.to(conversationId).emit("new_message", { // was "message: new"
+    _id: send.data._id,
+    convoId: conversationId,
+    senderId,
+    type,
+    content: message,
+    attachment,
+    replyTo: ReplyTo,
+    groupId: groupId || null,
+    createdAt: send.data.CreatedAt,
+    sender: {
+      userId: sender._id,
+      cCode: sender.CountryCode,
+      phone: sender.Phone,
+      name: sender.Name || null,
+      type: convoType
+    }
+  });
+  
+  
+  isMember.data.Participants.forEach(p => {
+    io.to(p.UniqueID.toString()).emit("convo_updated", {
+      convoId: conversationId,
+      LastMessageAt: send.data.CreatedAt,
+      lastMessage: type === "text" ? message : type
+    });
+  });
+  
+  res.status(201).json({ 
+    success: true, 
+    conversationId, 
+    messageId: send.data._id 
+  });
+});        

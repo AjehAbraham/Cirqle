@@ -1,6 +1,6 @@
 
 import {conversationModel, messageModel} from "../src/models/messageModel.js";
-import {registerUser} from "../src/models/registerModel.js";
+import {registerModel} from "../src/models/registerModel.js";
 
 
 export async function getOrCreateDm(senderId, receiverId){
@@ -10,7 +10,7 @@ export async function getOrCreateDm(senderId, receiverId){
 	
 	let convo = await conversationModel.findOne({
 		Type: "dm",
-		Participants.UniqueID: {$all: [senderId, receiverId]},
+		'Participants.UniqueID': {$all: [senderId, receiverId]},
 		 $expr: { $eq: [{ $size: "$Participants" }, 2] }
 	});
 	if(!convo){
@@ -25,19 +25,19 @@ export async function getOrCreateDm(senderId, receiverId){
 	return convo;
 }
 
-async function fetchUser(userId){
-	const fetch = await registerUser.findOne({_id: userId});
+export async function fetchUser(userId){
+	const fetch = await registerModel.findOne({_id: userId});
 	if(!fetch) return {success: false};
 	return {success: true};
 }
-export async function verifyConversationId(convoID, userID){
-	const verify = await conversationModel.findOne({_id: convoID, 'Participants.UniqueID': userID});
+export async function verifyConversationId(convoID, userId){
+	const verify = await conversationModel.findOne({_id: convoID, 'Participants.UniqueID': userId});
 	if(!verify){
 		return {success: false, data: verify};
 	}
 	return {success: true, data: verify};
 }
- async function saveMessage(conversationId, senderId, type, message, attachement, replyTo, groupId){
+ export async function saveMessage(conversationId, senderId, type, message, attachement, replyTo, groupId){
 		 const msg = await messageModel.create({
 			ConversationID: conversationId,
 			SenderID: senderId,
@@ -54,5 +54,5 @@ export async function verifyConversationId(convoID, userID){
 	   await conversationModel.updateOne({_id: conversationId},
 		   {$set: {LastMessage: msg._id, LastMessageAt: msg.CreatedAt}});
 		   
-       return {success: true, conversationId, messageId: msg._id};
+       return {success: true, conversationId, messageId: msg};
  }

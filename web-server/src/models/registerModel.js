@@ -1,6 +1,6 @@
 
 import mongoose from "mongoose";
-import validator from "validator";
+import validate from "validator";
 
 const userSchema = new mongoose.Schema({
   CountryCode: {type: String, required: true, unique: true, enum: {
@@ -26,4 +26,4 @@ const userSchema = new mongoose.Schema({
 	UserAgent: {type: String, required: true}
 });
 
-export const registerUser = mongoose.model("RegisterDB", userSchema);
+export const registerModel = mongoose.model("RegisterDB", userSchema);

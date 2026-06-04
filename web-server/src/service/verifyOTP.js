@@ -1,7 +1,7 @@
 import "dotenv/config";
 import jwt from "jsonwebtoken";
 import { saveOTP } from "../src/models/OTPmodel.js"; // missing before
-import { registerUser } from "../src/models/registerModel.js";
+import { registerModel } from "../src/models/registerModel.js";
 import { loginHistory } from "../src/models/loginHistoryModel.js";
 import bcrypt from "bcrypt";
 import { ValidationError, ConflictError, InternalServerError } from "../src/utils/AppError.js";
@@ -34,7 +34,7 @@ export async function verify(OTP, cCode, Tel, IP, UserAgent, isVerify) {
 
   if (!user) {
     try {
-      user = await registerUser.create({
+      user = await registerModel.create({
         CountryCode: cCode,
         Phone: Tel,
         Role: "user",

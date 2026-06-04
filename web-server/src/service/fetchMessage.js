@@ -11,7 +11,7 @@ async function verifyConversationId(convoId, userId){
 }
 
  async function fetchUpdated(convoId, LastmessageId, userId){
-	const isMember = await  verifyConversationId(convoId, userId);
+	const isMember = await verifyConversationId(convoId, userId);
 	if(!isMember) return {success: false};
 	
 	const fetch = await messageModel.findOne({ConversationID: convoId, _id: {$gt: LastmessageId}});

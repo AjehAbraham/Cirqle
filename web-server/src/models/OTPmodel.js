@@ -1,5 +1,6 @@
 
 import mongoose from "mongoose";
+import validate from "validator";
 
 const OTPschema = new mongoose.Schema({
 	CountryCode: {

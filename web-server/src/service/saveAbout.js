@@ -1,10 +1,10 @@
 import updateAbout from "../src/models/AboutModel.js";
 import {InternalServerError, UnauthorizedError} from "../src/utils/AppError.js";
-import {registerUser} from "../src/models/registerModel.js";
+import {registerModel} from "../src/models/registerModel.js";
 
 
  async function saveInfo(id, cCode, phone, name, about,imageUrl, publicID, IP, UserAgent){
-	 let findUser = await registerUser.findOne({
+	 let findUser = await registerModel.findOne({
 		 _id: id, CountryCode: cCode, Phone: phone
 	 });
 	 

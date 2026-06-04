@@ -21,7 +21,7 @@ export const forwardMessage = asyncHandler (async (req, res, next) =>  {
 
 	 const forwardedData =  {
 		MessageID: originalMsg._id,
-        OriginalSenderID: originalMsg.SenderID,
+	 		 OriginalSenderID: originalMsg.SenderID,
 		OriginalConversationID: originalMsg.ConversationID
 	 }
 	 
