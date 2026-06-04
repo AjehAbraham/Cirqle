@@ -7,6 +7,7 @@ const messageSchema = new mongoose.Schema({
 	SenderID: {type: mongoose.Types.ObjectId, ref: "RegisterDB", required: true},
 	Type: {type: String, required: true, enum: ["text", "image", "text/image", "video", "audio", "file", "system"]},
 	Content: {type: String},
+	Reaction: {type: String},
 	Attactments: [{url: String, type: String, size: Number, name: String}],
 	GroupID: {type: String, index: true},
 	Status: {type: String, enum: ["sending", "sent", "delivered", "read"], required: true, index: true},
