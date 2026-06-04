@@ -1,4 +1,4 @@
-import {converstionModel} from "../models/messageModel.js";
+import {messageModel, converstionModel} from "../models/messageModel.js";
 
 
 async function Load(userID){
@@ -7,6 +7,9 @@ async function Load(userID){
         'Participants.UniqueID': userID
     }).sort({LastMessageAt: -1});
     if(!result) return {success: false, data: null};
-    return {success: true, data: result};
+    const msg = await messageModel.findOne({_id: result.LastMessage});
+    if(!msg) return {success: false};
+    
+    return {success: true, data: msg, convo: result};
 }
 export default load;
