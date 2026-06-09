@@ -1,0 +1,139 @@
+body{
+    font-size: 13px;
+    width: 100%;
+    margin: 0;
+}
+.login-main-container{
+ justify-content: flex-start;
+ align-items: center;
+ padding: 10px;
+ display: flex;
+ flex-direction: column;
+ min-height: 100vh;
+ gap: 25px;
+}
+.lang-selector{
+ padding: 10px;
+ width: 40%;
+ border: 2px solid #aaaa;
+ border-radius: 10px;
+ margin: 12px;
+ text-align: center;
+ font-size: 18px;
+ overflow: hidden;
+ cursor: pointer;
+}
+.lang-selector span{
+    font-size: 25px;
+}
+.lang-selector span:nth-child(1){
+    color: #00F5D4;
+    float: left;
+    margin-left: 5px;
+    margin: 5px;
+}
+.lang-selector span:nth-child(2){
+    color: #aaaa;
+    float: right;
+    margin-right: 5px;
+    margin-left: 5px;
+
+}
+
+.logo-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 8px 16px #00F5D4;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  padding: 5px;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+}
+.logo-container img{
+    max-width: 120px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+.content-main-container{
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+}
+.content-main-container h1{
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+.content-main-container h1:nth-child(1){
+    margin-top: 10px;
+    margin-bottom: 35px;
+    font-size: 25px;
+}
+.wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input-container{
+display: flex;
+justify-content: center;
+align-items: center;
+border: 2px solid #aaaa;
+border-radius: 10px;
+padding: 1px;
+text-align: center;
+width: 90%;
+margin: 12px;
+}
+.input-container p{
+    font-size: 18px;
+    text-align: center;
+    margin: 5px;
+}
+.phone_error{
+    color: red;
+    padding: 3px;
+    text-align: center;
+    font-size: 15px;
+}
+.input-container img{
+    width: 35px;
+    height: 35px;
+    margin: 5px;
+    object-fit: contain;
+    box-shadow: 0px 8px 16px 0px #00F5D4;
+}
+.input-container span{
+    font-size: 35px;
+    margin: 5px
+}
+.input-container input{
+    border: none;
+    font-size: 15px;
+    padding: 20px;
+    width: 70%;
+}
+.input-container input:focus{
+    outline: none;
+}
+.content-main-container button{
+    background-color: #00F5D4;
+    border: none;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 10px;
+    text-align: center;
+    color: black;
+    width: 70%;
+    cursor: pointer;
+}
+.content-main-container button:disabled{
+    background-color: #6666;
+    color: #aaaa;
+    cursor: none;
+}

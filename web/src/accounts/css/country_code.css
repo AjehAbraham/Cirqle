@@ -1,0 +1,92 @@
+body{
+    width: 100%;
+    height: 100%;
+    font-size: 13px;
+}
+.flag-modal{
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+z-index: 9999;
+position: fixed;
+background-color: rgba(0,0,0,0.4);
+}
+.flag-container{
+    width: 320px;
+    height: 72vh;
+ background-color: black;
+ border: 2px solid #00F5D4;
+ border-radius: 10px;
+ padding: 10px;
+ overflow: auto;
+}
+.flag-container input{
+    border: 1px solid #aaaa;
+    border-radius: 10px;
+    font-size: 15px;
+    padding: 10px;
+    width: 80%;
+    margin: 12px;
+}
+.flag-container input:focus{
+    outline: none;
+}
+.flag-content{
+justify-content: center;
+align-items: center;
+overflow-y: auto;
+height: 60vh;
+}
+.flag-container img{
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+.flag-content p{
+    font-size: 15px;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 10px;
+    width: 90%;
+    display: inline-flex;
+    gap: 10px;
+    overflow: hidden;
+}
+.flag-content span{
+    float: right;
+    margin-right: 5px;
+    font-size: 20px;
+    color: black;
+}
+.selector-btn{
+width: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.selector-btn button{
+    padding: 10px;
+    width: 45%;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.selector-btn button:nth-child(1){
+    background-color: #6666;
+    color: white;
+    cursor: none;
+}
+/*
+.selector-btn button:nth-child(2){
+    background-color: #00F5D4;
+    color: black;
+    float: right;
+    margin-right: 5px;
+}*/
