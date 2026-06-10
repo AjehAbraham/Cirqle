@@ -5,58 +5,88 @@ import "./css/verify_otp.css";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function VerifyOtp(){
-  const [otp, setOtp] = useState(["", "", ""]);
-  const inputsRef = useRef([]);
-
   const location = useLocation();
-  const { code, phone, country, flag } = location.state || {};
+  const { code, phone, country, flag, total } = location.state || {};
   const navigate = useNavigate();
 
+  const otpLength = total === 1? 5 : total || 5;
+  const [otp, setOtp] = useState(() => Array(otpLength).fill(""));
+  const inputsRef = useRef([]);
+
+  // Timer state: 59 seconds countdown
+  const [seconds, setSeconds] = useState(59);
+  const [canResend, setCanResend] = useState(false);
+  const timerRef = useRef(null);
+
   useEffect(() => {
-    inputsRef.current[0]?.focus();
-  }, []);
+    setOtp(Array(otpLength).fill(""));
+    inputsRef.current = Array(otpLength).fill(null);
+    setTimeout(() => inputsRef.current[0]?.focus(), 0);
+  }, [otpLength]);
+
+  // Countdown logic
+  useEffect(() => {
+    if (seconds > 0 &&!canResend) {
+      timerRef.current = setInterval(() => {
+        setSeconds(prev => prev - 1);
+      }, 1000);
+    } else if (seconds === 0) {
+      setCanResend(true);
+      clearInterval(timerRef.current);
+    }
+
+    return () => clearInterval(timerRef.current);
+  }, [seconds, canResend]);
+
+  const restartTimer = () => {
+    setSeconds(59);
+    setCanResend(false);
+    // TODO: call your resend OTP API here
+    console.log("Resending OTP to", code, phone);
+  }
 
   const handleChange = (e, index) => {
     const value = e.target.value.replace(/\D/g, "").slice(-1);
-    const newOtp = [...otp];
-    newOtp[index] = value;
-    setOtp(newOtp);
+    if (!value) return;
 
-    if (value && index < otp.length - 1) {
-      inputsRef.current[index + 1]?.focus();
+    setOtp(prev => {
+      const newOtp = [...prev];
+      newOtp[index] = value;
+      return newOtp;
+    });
+
+    if (index < otpLength - 1) {
+      setTimeout(() => inputsRef.current[index + 1]?.focus(), 0);
     }
   }
 
   const handleKeyDown = (e, index) => {
-    
-    if (e.key === "Backspace" &&!otp[index] && index > 0) {
-      const newOtp = [...otp];
-      newOtp[index - 1] = "";
-      setOtp(newOtp);
-      inputsRef.current[index - 1]?.focus();
+    if (e.key === "Backspace") {
+      e.preventDefault();
+      setOtp(Array(otpLength).fill(""));
+      setTimeout(() => inputsRef.current[0]?.focus(), 0);
     }
   }
 
   const handlePaste = (e) => {
     e.preventDefault();
-    const paste = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, 5);
+    const paste = e.clipboardData.getData("text").replace(/\D/g, "").slice(0, otpLength);
     if (!paste) return;
 
-    const newOtp = paste.split("");
-    while (newOtp.length < 5) newOtp.push("");
+    const newOtp = Array(otpLength).fill("");
+    paste.split("").forEach((char, i) => newOtp[i] = char);
     setOtp(newOtp);
 
-    
-    const lastIndex = Math.min(paste.length - 1, 4);
-    inputsRef.current[lastIndex]?.focus();
+    const lastIndex = Math.min(paste.length - 1, otpLength - 1);
+    setTimeout(() => inputsRef.current[lastIndex]?.focus(), 0);
   }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const fullOtp = otp.join("");
-    if (fullOtp.length === 5) {
+    if (fullOtp.length === otpLength) {
       alert(`Verifying ${fullOtp} for ${code}${phone}`);
-      
+        navigate("/account_setup");
     }
   }
 
@@ -88,17 +118,27 @@ function VerifyOtp(){
                 onChange={(e) => handleChange(e, index)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
                 onPaste={handlePaste}
-                disabled={index > 0 &&!otp[index - 1]} // enable next only after prev filled
                 autoComplete="one-time-code"
               />
             ))}
           </div>
 
-          <button type="submit" disabled={otp.join("").length!== 5}>
+          <button type="submit" disabled={otp.join("").length!== otpLength}>
             Verify
           </button>
         </form>
-
+                {/* Timer / Resend section */}
+        <div className="resend-container">
+          {canResend? (
+            <p className="resend-text">
+              Didn't get the code? <b onClick={restartTimer} >Resend</b>
+            </p>
+          ) : (
+            <p className="timer-text">
+              Resend code in 00:{seconds.toString().padStart(2, '0')}
+            </p>
+          )}
+        </div>
         <p>Having trouble receiving OTP? click <a href="/">here</a></p>
       </div>
     </div>

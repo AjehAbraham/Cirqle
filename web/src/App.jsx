@@ -6,7 +6,8 @@ import WelcomeScreen3 from './home/WelcomeScreen3.jsx';
 import Terms from "./home/Terms_conditions.jsx";
 import Login from './accounts/login.jsx';
 import VerifyOtp from './accounts/verifyOtp.jsx';
-
+import FinishReg from "./accounts/setup_account.jsx";
+import MainChats from "./accounts/message/chats.jsx";
 
 function App() {
  
@@ -22,6 +23,8 @@ function App() {
       <Route path="/verifyOtp" element={<VerifyOtp />} />
       
        {/* AUTHENTICATED PATHS */}
+       <Route path="/account_setup" element={<FinishReg />} />
+       <Route path="/accounts/message/chats" element={<MainChats />} />
       </Routes>
       </BrowserRouter>
 </>

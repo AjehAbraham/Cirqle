@@ -32,7 +32,7 @@ text-align: center;
 }
 .wrapper-container p{
     font-size: 18px;
-    margin: 30px;
+    margin: 20px;
 }
 .wrapper-container img{
     width: 25px;
@@ -67,5 +67,8 @@ text-align: center;
     cursor: none;
     background-color: #6666;
     color: #aaaa;
+}
+.resend-container b{
+  color: #00F5D4;
 }
 

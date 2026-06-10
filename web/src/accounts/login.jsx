@@ -86,7 +86,7 @@ if (digitsOnly.length === config.max && config.strip > 0) {
 const fullNumber = selectedCountry.cCode + digitsOnly;
  alert(selectedCountry.code + " " + fullNumber);
  //const navigate = useNavigate();
- navigate("/verifyOtp", {state: {code: selectedCountry.cCode, phone: digitsOnly, country: selectedCountry, flag: selectedCountry.flag}});
+ navigate("/verifyOtp", {state: {code: selectedCountry.cCode, phone: digitsOnly, country: selectedCountry, flag: selectedCountry.flag, total: 5}});
 }
     return(
       <>

@@ -1,0 +1,39 @@
+
+.footer-container{
+  width: 100%;
+  max-height: 18vh;
+  margin: 0;
+  border-radius: 120px;
+}
+.footer-span-wrapper{
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+}
+.footer-span-wrapper div{
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  display: block;
+  text-align: center;
+}
+.footer-span-wrapper div span{
+  font-size: 20px;
+  color: #aaaa;
+}
+.footer-span-wrapper div h1{
+  color: #aaaa;
+  font-size: 20px;
+}
+.home-wrapper{
+  display: block;
+  text-align: center;
+}
+.home-wrapper span{
+  font-size: 20px;
+  color: #aaaa;
+}
+.home-wrapper h1{
+  color: #aaaa;
+  font-size: 20px;
+}
