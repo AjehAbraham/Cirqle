@@ -4,7 +4,7 @@ body{
     width: 100%;
     margin: 0;
     padding: 0;
-user-select: none;
+   user-select: none;
 }
 
 .terms-main-container {
@@ -16,18 +16,18 @@ user-select: none;
 .terms-main-container p{
     color: #aaaa;
 }
-.header {
+.headers {
     margin: 10px;
     width: 50%;
     margin: 30px;
 }
-.header img{
+.headers img{
     width: 200px;
     height: 200px;
     object-fit: contain;
 
 }
-.header h1{
+.headers h1{
     font-size: 50px;
 }
 .container{
@@ -72,25 +72,25 @@ user-select: none;
 .functional-layout button:nth-child(1){
     background-color: #aaaa;
 }
-.language-selector{
+.language-selectors{
 margin: 12px;
 padding: 10px;
 border: 2px solid #aaaa;
 border-radius: 10px;
 font-size: 18px;
 width: 40%;
-overflow: hidden;
+overflow: ;
 cursor: pointer;
 }
-.language-selector span{
+.language-selectors span{
     margin: 5px;
     font-size: 20px
 }
-.language-selector span:nth-child(1){
+.language-selectors span:nth-child(1){
     color: #00F5D4;
     float: left;
 }
-.language-selector span:nth-child(2){
+.language-selectors span:nth-child(2){
     color: #aaaa;
     float: right;
 }

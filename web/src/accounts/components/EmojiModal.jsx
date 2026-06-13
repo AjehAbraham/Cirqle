@@ -1,10 +1,7 @@
 import {useState, useEffect, useRef} from "react";
 import {createPortal} from "react-dom";
 import "../css/emoji.css";
-
-
-import { createPortal } from 'react-dom';
-import { useState } from 'react';
+import app_logo from "../../assets/app_logo.png";
 
 function EmojiModal({ isOpen, onClose, onSelect }) {
   const [activeTab, setActiveTab] = useState('emoji'); // 'emoji' | 'sticker' | 'gif'
@@ -19,7 +16,7 @@ function EmojiModal({ isOpen, onClose, onSelect }) {
         <span 
           className="material-symbols-outlined close-btn" 
           onClick={onClose}
-        >
+         id="closebtn">
           close
         </span>
 
@@ -58,7 +55,7 @@ function EmojiModal({ isOpen, onClose, onSelect }) {
   );
 }
 function ShowEmoji({ onSelect }) {
-  const emojis = ['😀', '😂', '❤️', '👍', '🔥']; // load from array or API
+  const emojis = ['😀', '😂', '❤️', '👍', '🔥'];
   
   return (
     <div className="container-for-emoji">
@@ -70,7 +67,7 @@ function ShowEmoji({ onSelect }) {
 }
 
 function ShowSticker({ onSelect }) {
-  const stickers = ['/sticker1.png', '/sticker2.png'];
+  const stickers = ['/sticker.gif', '/sticker2.png'];
   return (
     <div className="container-for-sticker">
       {stickers.map(src => (
@@ -83,3 +80,4 @@ function ShowSticker({ onSelect }) {
 function ShowGif({ onSelect }) {
   return <div className="container-for-gif">Giphy API here</div>;
 }
+export default EmojiModal;

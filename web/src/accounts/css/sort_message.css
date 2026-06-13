@@ -7,6 +7,7 @@ user-select: none;
 .filter-options{
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 2px; 
  gap: 5px
  flex-direction: row;
@@ -17,17 +18,18 @@ user-select: none;
   color: #00F5D4;
 }
 .filter-options span{
-  font-size: 40px;
+  font-size: 30px;
   color: #00F5D4;
   cursor: pointer;
 }
 .filter-options p{
   padding: 10px;
   border: 2px solid #aaaa;
-  font-size: 18px;
+  font-size: 13px;
   font-weight: normal;
   text-align: center;
-  border-radius: 30px;
+  border-radius: 10px;
+  padding: 10px;
 }
 .archive-container{
   margin: 5px;

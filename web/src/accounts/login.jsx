@@ -105,8 +105,8 @@ const fullNumber = selectedCountry.cCode + digitsOnly;
           <h1>Login/Sign-up</h1>
           <h1>Enter your phone number to login or create account</h1>
           <form method="post" onSubmit={handleSubmit}>
-          <div className="input-container" >
-            <div className="wrapper" onClick={() => setOpenCountry(true)}>
+          <div className="input-containers" >
+            <div className="wrappers" onClick={() => setOpenCountry(true)}>
             <img src={selectedCountry.flag} alt={selectedCountry.flag} />
             <p>{selectedCountry.cCode}</p>
             <span className="material-symbols-outlined"> keyboard_arrow_down</span>

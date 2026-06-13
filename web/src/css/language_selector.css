@@ -1,7 +1,7 @@
 body{
     font-size: 13px;
     width: 100%;
-    height: 100%;
+    height: 100vh;
     padding: 0;
     margin: 0;
     user-select: none;
@@ -67,6 +67,7 @@ height: 60vh;
 }
 .btn-container {
     width: 100%;
+    display: flex;
 }
 .btn-container button{
     padding: 10px;

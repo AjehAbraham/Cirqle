@@ -1,25 +1,28 @@
 import "../css/footer.css";
 import {useNavigate, useLocation} from "react-router-dom";
 
-function Footer(){
+function Footer({ activeTab, setActiveTab }) {
   return (
     <div className="footer-container">
       <div className="footer-span-wrapper">
-        <div className="home-wrapper">
-          <span className="material-symbols-outlined">chat</span>
-          <h1>Chats</h1>
+        <div className="home-wrapper" onClick={() => setActiveTab('home')}>
+          <span className={`material-symbols-outlined ${activeTab === 'home' ? 'selected' : 'unselect'}`}>chat</span>
+          <h1 className={`selectedText ${activeTab === 'home' ? 'selectedText' : 'unselectText'}`}>Chats</h1>
         </div>
-        <div className="call-wrapper">
-          <span className="material-symbols-outlined">phone</span>
-          <h1>Calls</h1>
+        
+        <div className="call-wrapper" onClick={() => setActiveTab('call')}>
+          <span className={`material-symbols-outlined ${activeTab === 'call' ? 'selected' : 'unselect'}`}>phone</span>
+          <h1 className={`selectedText ${activeTab === 'call' ? 'selectedText' : 'unselectText'}`}>Calls</h1>
         </div>
-        <div className="settings-wrapper">
-          <span className="material-symbols-outlined">settings</span>
-          <h1>Settings</h1>
+        
+        <div className="settings-wrapper" onClick={() => setActiveTab('settings')}>
+          <span className={`material-symbols-outlined ${activeTab === 'settings' ? 'selected' : 'unselect'}`}>settings</span>
+          <h1 className={`selectedText ${activeTab === 'settings' ? 'selectedText' : 'unselectText'}`}>Settings</h1>
         </div>
-        <div className="profile-wrapper">
-          <span className="material-symbols-outlined">person_3</span>
-          <h1>Me</h1>
+        
+        <div className="profile-wrapper" onClick={() => setActiveTab('profile')}>
+          <span className={`material-symbols-outlined ${activeTab === 'profile' ? 'selected' : 'unselect'}`}>person_3</span>
+          <h1 className={`selectedText ${activeTab === 'profile' ? 'selectedText' : 'unselectText'}`}>Me</h1>
         </div>
       </div>
     </div>

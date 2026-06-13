@@ -4,8 +4,12 @@ import "../css/chats.css";
 import Footer from "../components/Footer.jsx";
 import ChatBody from "../components/ChatBody.jsx";
 import app_logo from "../../assets/app_logo.png";
+import  {useState, useEffect} from "react";
+
 
 function MainChats(){
+   useTitle("Chat-Home");
+ const[activeTab, setActiveTab] = useState("home");
   return(
     <>
       <div className="chats-page">
@@ -14,7 +18,7 @@ function MainChats(){
           <b>Cirqle</b>
         </div>
         <ChatBody />
-     <Footer /> 
+     <Footer activeTab={activeTab} setActiveTab={setActiveTab} /> 
    </div>
     </>
     );

@@ -15,7 +15,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-user-select: none;
+  user-select: none;
 }
 
 .footer-span-wrapper{
@@ -33,24 +33,45 @@ user-select: none;
   gap: 4px;
   padding: 0px;
   cursor: pointer;
+  user-select: none;
 }
 
 .footer-span-wrapper div span{
   font-size: 35px;
   color: #aaaaaa;
   padding: 5px;
+  user-select: none;
 }
 .footer-span-wrapper div h1{
   color: #aaaaaa;
   font-size: 15px;
   margin: 0;
   font-weight: 500;
+  user-select: none;
 }
-.footer-span-wrapper div:hover h1{
-  color: #00F5D4;
+.footer-span-wrapper span,
+.footer-span-wrapper h1 {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
-.footer-span-wrapper div:hover span{
+
+.footer-span-wrapper .selected{
   background-color: #00F5D4;
   color: black;
   border-radius: 50%;
+  padding: 5px;
+}
+.footer-span-wrapper .selectedText{
+  color: #00F5D4;
+}
+.footer-span-wrapper .unselect{
+  background-color: transparent;
+  color: #aaaaaa;
+  border-radius: 10px;
+}
+.footer-span-wrapper .unselectText{
+  color: #aaaaaa;
 }

@@ -9,10 +9,10 @@ function SortingList(){
         <p>Groups</p>
         <span className="material-symbols-outlined">add_circle</span>
       </div>
-      <div className="archive-container">
+     {/*} <div className="archive-container">
         <p>Archived</p>
         <p>25</p>
-      </div>
+      </div> */}
     </div>
     );
 }

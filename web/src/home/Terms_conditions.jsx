@@ -20,14 +20,14 @@ function Terms(){
     return (
         <>
 
-            <div className="language-selector" onClick={() => setIsOpen(true)}>
+            <div className="language-selectors" onClick={() => setIsOpen(true)}>
                 <span className="material-symbols-outlined"> language</span>
                 {language}
                 <span className="material-symbols-outlined"> keyboard_arrow_down</span>
             </div>
             <LanguageModal isOpen={isOpen} onClose={() => setIsOpen(false)} onSelect={handleSelect} />
             <div className="terms-main-container">
-          <div className="header">
+          <div className="headers">
             <img src={app_logo} />
             <h1>Cirqle</h1>
             </div>
