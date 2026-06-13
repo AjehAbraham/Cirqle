@@ -8,10 +8,10 @@ const aboutSchema = new mongoose.Schema({
 	About: {type: String, maxlength: 101, minlength: 3},
 	ImageUrl: {type: String},
 	PublicID: {type: String},
-	CreateAt: {type: Date, required: true, default: Date.now}
+	CreateAt: {type: Date, required: true, default: Date.now},
 	IP: {type: String, required: true, maxlength: 18, minlength: 8},
 	UserAgent: {type: String, required: true}
 });
 
-export default const updateAbout = mongoose.model("Profile_info", aboutSchema);
+export const updateAbout = mongoose.model("Profile_info", aboutSchema);
  

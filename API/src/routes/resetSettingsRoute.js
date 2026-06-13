@@ -1,6 +1,6 @@
 import express from "express";
-import {authenticate} from "../src/utils/auth.js";
-import {restSetting} from "../src/controller/resetSettings.js";
+import {authenticate} from "../middleware/auth.js";
+import {resetSetting} from "../controller/resetSettings.js";
 
 const updateSetting = express.Router();
 

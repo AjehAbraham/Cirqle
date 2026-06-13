@@ -3,7 +3,7 @@ import express from "express";
 import helmet from "helmet";
 import cookieParser from "cookie-parser"
 import http from "http";
-import {initSocket} from "./websocket/socket.js";
+import {initSocket} from "./socket.js";
 import verifyRouter from "./src/routes/verifyRoute.js";
 import loginRoute from "./src/routes/loginRoute.js";
 import {NotFoundError} from "./src/utils/AppError.js";
@@ -13,8 +13,8 @@ import aboutRoute from "./src/routes/aboutRoute.js";
 import forwardRoute from "./src/routes/forwardMessageRoute.js";
 import updateSetting from "./src/routes/resetSettingsRoute.js";
 import refreshToken from "./src/routes/refreshTokenRoute.js";
-import editRouter from "./src/router/editMessageRoute.js";
-import loadConvoRoute from "../src/router/loadConvoRoute.js";
+import editRouter from "./src/routes/editMessageRoute.js";
+import loadConvoRoute from "./src/routes/loadConvoRoute.js";
 
 
 const app = express();
@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(helmet());
 
-await connectDB();
+//await connectDB();
 
 app.use("/api", loginRoute);
 app.use("/api", verifyRouter);

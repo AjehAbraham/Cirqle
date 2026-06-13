@@ -1,9 +1,9 @@
 import express from "express";
-import {authenticate} from "../src/middleware/auth.js";
-import {validateMessage} from "../src/middleware/validateMessage";
-import {sendMessage} from "../src/controller/sendMessage.js";
+import {authenticate} from "../middleware/auth.js";
+import {validateMessage} from "../middleware/validateMessage.js";
+import {sendMessage} from "../controller/sendMessage.js";
 import multer from "multer";
-import {uploadSingleImage, uploadSingleVideo, uploadSingleRaw} from "../src/middleware/upload.js";
+import {uploadSingleImage, uploadSingleVideo, uploadSingleRaw} from "../middleware/upload.js";
 
 const messageRouter = express.Router();
 
@@ -29,4 +29,4 @@ multer().none(),
 	}
 	uploadMiddleware(req, res, next);
 }, validateMessage, sendMessage);
-export messageRouter;
+export default messageRouter;

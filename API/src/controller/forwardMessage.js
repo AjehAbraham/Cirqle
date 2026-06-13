@@ -1,7 +1,7 @@
-import {BadRequestError, ForbiddenError, InternalServerError} from "../src/utils/AppError.js";
-import {asyncHandler} from "../src/utils/asyncHandler.js";
-import {original, verifyConversationId, saveForwarded} from "../src/service/saveForwardedMessage.js";
-import {getOrCreateDm, fetchUser} from "../src/service/saveMessage.js";
+import {BadRequestError, ForbiddenError, InternalServerError} from "../utils/AppError.js";
+import {asyncHandler} from "../utils/asyncHandler.js";
+import {original, verifyConversationId, saveForwarded} from "../service/saveForwardedMessage.js";
+import {getOrCreateDm, fetchUser} from "../service/saveMessage.js";
 
 export const forwardMessage = asyncHandler (async (req, res, next) =>  {
 	let {messageId, conversationId} = req.body;

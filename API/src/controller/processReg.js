@@ -1,6 +1,6 @@
-import { asyncHandler } from "../src/utils/asyncHandler.js";
-import {InternalServerError} from "../src/utils/AppError.js";
-import {sendOTP} from "../src/service/sendOTP.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import {InternalServerError} from "../utils/AppError.js";
+import {sendOTP} from "../service/sendOTP.js";
 
 export const processReg = asyncHandler(async (req, res, next) => {
   const cCode = req.body.CountryCode;

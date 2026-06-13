@@ -1,4 +1,4 @@
-import {conversationModel} from "../src/models/messageModel.js";
+import {conversationModel} from "../models/messageModel.js";
 
 
 export async function getOrCreateDm(SenderId, receiverId){

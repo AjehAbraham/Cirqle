@@ -1,7 +1,7 @@
 import cloudinary from "../config/cloudinary.js";
 import { BadRequestError, InternalServerError } from "../utils/AppError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
-import addInfo from "../src/service/saveAbout.js";
+import addInfo from "../service/saveAbout.js";
 
 
 export const addAbout = asyncHandler(async (req, res) => {

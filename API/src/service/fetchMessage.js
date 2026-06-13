@@ -1,8 +1,8 @@
 
-import {registerUser} from "../src/model/registerModel";
-import {messageModel, conversationModel} from "../src/models/messageModel";
-import {updateAbout} from "../src/models/AboutModel.js";
-import {settings} from "../src/models/settings.js";
+import {registerUser} from "../model/registerModel";
+import {messageModel, conversationModel} from "../models/messageModel";
+import {updateAbout} from "../models/AboutModel.js";
+import {settings} from "../models/settings.js";
 
 async function verifyConversationId(convoId, userId){
 	const verify = await conversationModel.findOne({_id: convoId, 'Participants.UniqueID': userId});

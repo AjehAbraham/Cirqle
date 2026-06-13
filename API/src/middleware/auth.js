@@ -1,11 +1,11 @@
 import "dotenv/config";
 import jwt from "jsonwebtoken";
-import {UnauthorizedError, ForbiddenError} from "../src/utils/AppError.js";
-import {regenerate} from "../src/controller/regenerateToken.js";
-import {verifyDevice} from "../src/service/verifyDevice.js";
+import {UnauthorizedError, ForbiddenError} from "../utils/AppError.js";
+import {regenerate} from "../controller/regenerateToken.js";
+import verifyDevice from "../service/verifyDevice.js";
 
 
- const authenticate = async (req, res, next) => {
+export const authenticate = async (req, res, next) => {
 	const authHeader = req.headers.authorization;
 	if(!authHeader?.startsWith("Bearer")){
 		throw new UnauthorizeError("No access token", "UNAUTHORIZE_ERROR");
@@ -26,4 +26,4 @@ import {verifyDevice} from "../src/service/verifyDevice.js";
 		 throw new UnauthorizedError("Invalid token", "BAD_TOKEN_ERROR");
 	 }
 }
-export default authenticate;
+//export authenticate;

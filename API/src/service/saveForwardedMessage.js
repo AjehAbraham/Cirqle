@@ -1,4 +1,4 @@
-import {conversationModel, messageModel} from "../src/models/messageModel.js";
+import {conversationModel, messageModel} from "../models/messageModel.js";
 
 
 export async function original(messageId){
@@ -8,11 +8,11 @@ export async function original(messageId){
 }
 export async function verifyConversationId(convoID, userID){
 	const verify = await conversationModel.findOne({_id: convoID, 'Participants.UniqueID': userID});
-	if(!verify) throw new ForbiddenError("Not authorized for this conversation", "FORBIDDEN_ERROR");
+	if(!verify) return {success: false};/* throw new ForbiddenError("Not authorized for this conversation", "FORBIDDEN_ERROR");*/
 	return verify;
 }
 
-async function saveForwarded(conversationId, messageId, senderId, type, content, attachement, forwarded, originalId ){
+export async function saveForwarded(conversationId, messageId, senderId, type, content, attachement, forwarded, originalId ){
 	const msg = await messageModel.create({
 		ConversationID: conversationId,
 		SenderID: senderId,
@@ -27,11 +27,22 @@ async function saveForwarded(conversationId, messageId, senderId, type, content,
 		ForwardCount: 0
 	});
 	
-       await Promise.all({
-		   messageModel.updateOne({_id: originalId}, {$inc: {ForwardCount: 1}}),
-		   conversationModel.updateOne({_id: conversationId},
-		   {$set: {LastMessage: msg._id, LastMessageAt: new Date() }});
-	   )};
+       await Promise.all([
+  messageModel.updateOne(
+    { _id: originalId },
+    { $inc: { ForwardCount: 1 } }
+  ),
+
+  conversationModel.updateOne(
+    { _id: conversationId },
+    {
+      $set: {
+        LastMessage: msg._id,
+        LastMessageAt: new Date()
+      }
+    }
+  )
+]);
 	   
        return {conversationID: conversationId, messageId: msg._id};
  }

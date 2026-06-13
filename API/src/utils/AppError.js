@@ -9,50 +9,50 @@ export class AppError extends Error {
 	}
 }
 
-export BadRequestError extends AppError{
+export class BadRequestError extends AppError{
 	constructor(message, statusCode, code = "BAD_REQUEST_ERROR"){
 		super(message, 400, code);
 	}
 }
 
-export UnauthorizedError extends AppError{
+export class UnauthorizedError extends AppError{
 	constructor(message, statusCode, code = "UNAUTHORIZED_ERROR"){
 		super(message, 401, code);
 	}
 }
 
-export ForbiddenError extends AppError{
+export class ForbiddenError extends AppError{
 	constructor(message, statusCode, code = "FORBIDDEN"){
 		super(message, 403, code);
 	}
 }
 
-export NotFoundError extends AppError{
+export class NotFoundError extends AppError{
 	constructor(message, statusCode, code = "NOT_FOUND_ERROR"){
 		super(message, 404, code);
 	}
 }
 
-export ConflictError extends AppError{
+export class ConflictError extends AppError{
 	constructor(message, statusCode, code = "CONFLICT_ERROR"){
 		super(message, 409, code);
 	}
 }
 
 
-export ValidationError extends AppError{
+export class ValidationError extends AppError{
 	constructor(message, statusCode, code = "VALIDATION_ERROR"){
 		super(message, 422, code);
 	}
 }
 
-export TooManyRequestsError extends AppError{
+export class TooManyRequestsError extends AppError{
 	constructor(message, statusCode, code = "TOO_MANY_REQUEST"){
-		super(message, 429,? code);
+		super(message, 429,code);
 	}
 }
 
-export InternalServerError extends AppError{
+export class InternalServerError extends AppError{
 	constructor(message, statusCode, code = "INTERNAL_SERVER_ERROR"){
 		super(message, 500, code);
 	}
