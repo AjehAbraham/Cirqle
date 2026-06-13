@@ -1,4 +1,4 @@
-import {messageModel, converstionModel} from "../models/messageModel.js";
+import {messageModel, conversationModel} from "../models/messageModel.js";
 
 
 async function Load(userID){
@@ -12,4 +12,4 @@ async function Load(userID){
     
     return {success: true, data: msg, convo: result};
 }
-export default load;
+export default Load;

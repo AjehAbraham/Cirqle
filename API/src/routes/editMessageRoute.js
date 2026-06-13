@@ -1,7 +1,7 @@
 import express from "express";
 import {authenticate} from "../middleware/auth.js";
-import validateMessage from "../middleware/validateEditMessage.js";
-import editMessage from "../controller/editMessage.js";
+import {validateMessage} from "../middleware/validateEditMessge.js";
+import editMessage from "../controller/editMessge.js";
 
 const editRouter = express.Router()
 

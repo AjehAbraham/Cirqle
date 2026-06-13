@@ -3,7 +3,7 @@ import validator from "validator";
 
 const loginSchema = new mongoose.Schema({
 	UniqueID: {type: mongoose.Types.ObjectId, ref: "RegisterDB"},
-	CountryCode: {type: String, required, enum: {
+	CountryCode: {type: String, required: true, enum: {
 		values: ["+1", "+91", "+222", "+44", "+223","+234"],
 	message: "{VALUE} is not a supported country  code"
   }},

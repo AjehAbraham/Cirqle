@@ -1,13 +1,13 @@
 import "dotenv/config";
 import jwt from "jsonwebtoken";
-import { saveOTP } from "../src/models/OTPmodel.js"; // missing before
-import { registerModel } from "../src/models/registerModel.js";
-import { loginHistory } from "../src/models/loginHistoryModel.js";
+import { saveOTP } from "../models/OTPmodel.js"; // missing before
+import { registerModel } from "../models/registerModel.js";
+import { loginHistory } from "../models/loginHistoryModel.js";
 import bcrypt from "bcrypt";
-import { ValidationError, ConflictError, InternalServerError } from "../src/utils/AppError.js";
-import {sessionManager} from "../src/models/deviceManager.js";
+import { ValidationError, ConflictError, InternalServerError } from "../utils/AppError.js";
+import {sessionManager} from "../models/deviceManagerModel.js";
 import crypto from "crypto";
-import {settings} from "../src/models/settingsModel.js";
+import {settings} from "../models/settingsModel.js";
 
 
 export async function verify(OTP, cCode, Tel, IP, UserAgent, isVerify) {

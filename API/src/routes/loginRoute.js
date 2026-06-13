@@ -1,7 +1,7 @@
 import express from "express";
-import {ValidateTel} from "../src/middleware/validateTel.js";
-import {authenticate} from "../src/middleware/auth.js";
-import {processOTP} from "../src/controller/processOTP.js";
+import {ValidateTel} from "../middleware/validateTel.js";
+import {authenticate} from "../middleware/auth.js";
+import {processOTP} from "../controller/processOTP.js";
 
 const loginRoute = express.Router();
 

@@ -1,4 +1,4 @@
-import Load from "../service/fetchConvo.js";
+import Load from "../service/fetchCovo.js";
 import {asyncHandler} from "../utils/asyncHandler.js";
 import {NotFoundError} from "../utils/AppError.js";
 

@@ -1,5 +1,5 @@
 
-import {BadRequestError} from "../src/utils/AppError.js";
+import {BadRequestError} from "../utils/AppError.js";
 
 export const validateMessage = (req, res, next) =>{
 	const {conversationId, message, type} = req.body;

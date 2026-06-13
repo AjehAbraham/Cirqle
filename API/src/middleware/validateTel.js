@@ -1,4 +1,4 @@
-import { BadRequestError, ValidationError } from "../src/utils/AppError.js";
+import { BadRequestError, ValidationError } from "../utils/AppError.js";
 
 export const ValidateTel = (req, res, next) => {
   const { countryCode, Tel } = req.body;

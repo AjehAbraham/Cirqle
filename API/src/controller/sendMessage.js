@@ -1,10 +1,10 @@
 
-import { uploadSingleImage, uploadSingleVideo, uploadSingleRaw } from "../src/middleware/upload.js"; 
-import { UnauthorizedError, ForbiddenError, InternalServerError, BadRequestError } from "../src/utils/AppError.js";
-import { asyncHandler } from "../src/asyncHandler.js";
-import { getOrCreateDm, fetchUser, verifyConversationId, saveMessage } from "../src/service/saveMessage.js";
+import { uploadSingleImage, uploadSingleVideo, uploadSingleRaw } from "../middleware/upload.js"; 
+import { UnauthorizedError, ForbiddenError, InternalServerError, BadRequestError } from "../utils/AppError.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { getOrCreateDm, fetchUser, verifyConversationId, saveMessage } from "../service/saveMessage.js";
 import { getIO } from "../../socket.js"; 
-import { registerModel } from "../src/models/registerModel.js";
+import { registerModel } from "../models/registerModel.js";
 
 export const sendMessage = asyncHandler(async (req, res, next) => {
   const senderId = req.user.id;

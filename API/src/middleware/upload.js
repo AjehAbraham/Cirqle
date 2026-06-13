@@ -1,5 +1,5 @@
 import multer from "multer";
-import {imageStorage, videoStorage, audioStorage, rawStorage} from "../src/config/cloudinary.js";
+import {imageStorage, videoStorage, audioStorage, rawStorage} from "../config/cloudinary.js";
 
 
 //SINGLE UPLOAD //

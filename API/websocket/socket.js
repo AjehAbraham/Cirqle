@@ -42,8 +42,12 @@ export const initSocket = (server) => {
     console.log("Socket connected:", socket.userId);
     
     
-    socket.on("joinRoom", (conversationId) => {
-      const isMember = await conversationModel.findOne(_id: conversationId, 'Participants.UniqueID': socket.userId);
+    socket.on("joinRoom", async (conversationId) => {
+      const isMember = await conversationModel
+      .findOne({
+    _id: conversationId,
+    'Participants.UniqueID': socket.userId
+});
       if(!isMember){
         socket.emit("error", {code: "FORBIDDEN", msg: "Not a member of this conversation"});
       }

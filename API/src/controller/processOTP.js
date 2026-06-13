@@ -1,7 +1,7 @@
 import "dotenv/config";
-import { asyncHandler } from "../src/utils/asyncHandler.js";
-import { verify } from "../src/service/verifyOTP.js";
-import { BadRequestError, InternalServerError} from "../src/utils/AppError.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
+import { verify } from "../service/verifyOTP.js";
+import { BadRequestError, InternalServerError} from "../utils/AppError.js";
 import jwt from "jsonwebtoken";
 
 
@@ -29,7 +29,7 @@ export const processOTP = asyncHandler(async (req, res, next) => {
    const refreshToken = jwt.sign(payLoad, process.env.REFRESH_SECRET, {expiresIn: "90d"});
    
    
-   res.cookie.('refreshToken', refreshToken, {
+   res.cookie('refreshToken', refreshToken, {
 	 httpOnly: true,
      secure: true,
      sameSite: "lax",

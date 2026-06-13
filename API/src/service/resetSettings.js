@@ -1,4 +1,4 @@
-import {settings} from "../src/models/settingsModel.js";
+import {settings} from "../models/settingsModel.js";
 
 
 export async function reset(userId){

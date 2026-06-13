@@ -1,6 +1,6 @@
 import express from "express";
-import {authenticate} from "../src/utils/auth.js";
-import {forwardMessage} from "../src/controller/forwardMessage.js";
+import {authenticate} from "../middleware/auth.js";
+import {forwardMessage} from "../controller/forwardMessage.js";
 
 const forwardRoute = express.Router();
 

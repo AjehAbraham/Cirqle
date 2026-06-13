@@ -1,5 +1,5 @@
 
-import {BadRequestError, ValidationError} from "../src/utils/AppError.js";
+import {BadRequestError, ValidationError} from "../utils/AppError.js";
 
 
 const validate = (req, res, next) =>{
