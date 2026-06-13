@@ -8,6 +8,8 @@ import Login from './accounts/login.jsx';
 import VerifyOtp from './accounts/verifyOtp.jsx';
 import FinishReg from "./accounts/setup_account.jsx";
 import MainChats from "./accounts/message/chats.jsx";
+import ViewMessage from "./accounts/message/view_message.jsx";
+
 
 function App() {
  
@@ -25,6 +27,7 @@ function App() {
        {/* AUTHENTICATED PATHS */}
        <Route path="/account_setup" element={<FinishReg />} />
        <Route path="/accounts/message/chats" element={<MainChats />} />
+       <Route path="/accounts/message/view" element={<ViewMessage />} />
       </Routes>
       </BrowserRouter>
 </>

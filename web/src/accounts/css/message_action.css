@@ -1,0 +1,61 @@
+.actions-container-modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow-y: auto;
+  z-index: 9999;
+  user-select: none;
+  background-color: rgba(0,0,0,0.8);
+}
+.reaction-container{
+  display: flex;
+  gap: 5px;
+  width: auto;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 10px;
+  border: ;
+  background-color: black;
+}
+.reaction-container span{
+  font-size: 30px;
+  margin: 10px;
+}
+.action-container{
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: 20px;
+  background-color: #aaa;
+  z-index: 2;
+  border-radius: 10px;
+  position: ;
+  bottom: 0;
+  padding: 5px;
+  left: 0;
+  overflow-y: auto;
+}
+.action-container h1{
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 5px;
+  font-size: 20px;
+  font-weight: bold;
+  color: black;
+  padding: 10px;
+  border-bottom: 1px solid #00F5D4;
+}
+.action-container span{
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.action-container h1:nth-child(6){
+  color: rgb(104,0,0);
+}
+.action-container h1:last-child {
+  color: rgb(104, 0,0)
+}

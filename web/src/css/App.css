@@ -2,6 +2,8 @@ body{
 background-color: black;
 color: white;
 font-size: 13px;
+padding: 0;
+user-select: none;
 }
 .home-container{
 display: flex;

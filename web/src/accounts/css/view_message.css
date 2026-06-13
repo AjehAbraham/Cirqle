@@ -1,0 +1,234 @@
+body{
+  margin: 0;
+  height: 100vh;
+ /* padding-top: 150px;*/
+/* padding-bottom: 200px;*/
+  /*box-sizing: border-box;*/
+  background: #111;
+  font-family: system-ui, sans-serif;
+  user-select: none;
+}
+.message-main-container{
+  height: 100%;
+  display: flex ;
+  flex-direction: column;
+  margin: 0;
+}
+.header{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 80px;
+  border-bottom: 1px solid #aaa;
+  /*padding: 8px 16px;*/
+  box-sizing: border-box;
+  background: #1a1a1a;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.header p{
+  margin: 0;
+  text-align: left;
+}
+.header p:nth-of-type(1){
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  margin-left: 10px;
+}
+.header p:nth-of-type(2){
+  color: #aaa;
+  font-size: 14px;
+  margin-top: 2px;
+}
+.header p:last-child{
+color: #aaaa;
+}
+.top-header{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+}
+.top-header img{
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.top-header p{
+  flex: ;
+  min-width: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #fff;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.top-header span{
+  font-size: 24px;
+  color: #fff;
+  flex-shrink: 0;
+}
+.message-body-wrapper{
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding-top: 200px;
+  box-sizing: border-box;
+  gap: 10px;
+  user-select: none;
+  margin: 5px;
+}
+.wrapper-y{
+  max-width: 70%;
+  width: fit-content;
+  align-self: flex-start;
+  color: #000;
+  border-radius: 10px;
+  background-color: #aaa;
+  padding: 8px 12px;
+  text-align: left;
+}
+.wrapper-y p:nth-child(1){
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  text-align: left;
+}
+.wrapper-y p:nth-child(2){
+  text-align: right;
+  margin: 4px 0 0 0;
+  color: #555;
+  font-size: 12px;
+}
+.wrapper-i{
+  max-width: 70%;
+  width: fit-content;
+  align-self: flex-end;
+  color: #000;
+  border-radius: 10px;
+  background-color: #00F5D4;
+  padding: 8px 12px;
+  text-align: left;
+}
+.wrapper-i p:nth-child(1){
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  text-align: left;
+}
+.wrapper-i p:nth-child(2){
+  text-align: right;
+  margin: 4px 0 0 0;
+  color: #333;
+  font-size: 12px;
+}
+.input-container-wrapper{
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  gap: 8px;
+  padding: 8px 16px;
+  box-sizing: border-box;
+  background: #1a1a1a;
+}
+.fields{
+  flex: 1;
+  border-radius: 30px;
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+.fields span{
+  font-size: 24px;
+  color: #fff;
+}
+.fields textarea{
+  flex: 1;
+  outline: none;
+  padding: 10px 8px;
+  font-size: 15px;
+  border: none;
+  background: transparent;
+  color: #fff;
+  resize: none;
+  line-height: 20px;
+  max-height: 40px;
+  overflow-y: auto;
+}
+.action-field {
+  width: 48px;
+  flex-shrink: 0;
+}
+.action-field button{
+  width: 48px;
+  height: 48px;
+  border: none;
+  color: #000;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: #00F5D4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.selection-wrapper{
+  position: fixed;
+  bottom: 70px;
+  left: 0;
+  width: 100%;
+  overflow-y: auto;
+  background: #1a1a1a;
+  padding: 10px;
+  box-sizing: border-box;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: all 0.2s ease;
+}
+.selection-wrapper.open{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.selection-wrapper span{
+  font-size: 25px;
+  margin: 10px;
+  cursor: pointer;
+}
+.wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.wrapper span{
+  flex: 0 0 auto;
+  padding: 10px;
+  font-size: 25px;
+  font-weight: bold;
+  border: 1px solid #aaa;
+  border-radius: 50%;
+  background-color: #666;
+  color: #2FAF87;
+}
+.wrapper span:nth-child(even){
+  color: red;
+}

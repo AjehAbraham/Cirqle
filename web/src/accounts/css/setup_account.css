@@ -2,6 +2,8 @@ body{
   margin: 0;
   width: 100%;
   min-height: 100vh; 
+  padding: 0;
+user-select: none;
 }
 
 .setup-main-container{

@@ -6,7 +6,7 @@ function Footer(){
     <div className="footer-container">
       <div className="footer-span-wrapper">
         <div className="home-wrapper">
-          <span className="material-symbols-outlined">chats</span>
+          <span className="material-symbols-outlined">chat</span>
           <h1>Chats</h1>
         </div>
         <div className="call-wrapper">
@@ -18,7 +18,7 @@ function Footer(){
           <h1>Settings</h1>
         </div>
         <div className="profile-wrapper">
-          <span className="material-symbols-outlined">person_cirqle</span>
+          <span className="material-symbols-outlined">person_3</span>
           <h1>Me</h1>
         </div>
       </div>

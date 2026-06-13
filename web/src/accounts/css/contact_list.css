@@ -1,0 +1,76 @@
+.contact-modal{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  z-index: 9999;
+user-select: none;
+  background-color: rgba(0,0,0,0.9);
+}
+.modal-wrapper{
+  overflow-y: auto;
+  width: 100%;
+  height: 100vh;
+}
+.modal-wrapper span:nth-child(1){
+  font-size: 30px;
+  margin: 10px;
+  cursor: pointer;
+}
+.modal-wrapper h1{
+  font-size: 20px;
+  text-align: center;
+}
+.make-container{
+  margin: 10px;
+}
+.make-container p{
+  padding: 10px;
+  font-size: 15px;
+  margin: 10px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+.make-container p:hover{
+  background-color: #6666;
+}
+.List-container{
+  width: 100%;
+  overflow-y: auto;
+  height: auto;
+  padding: 3px;
+}
+.List-container input{
+  outline: none;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 15px;
+  width: 90%;
+  margin: 10px;
+}
+.my-list{
+  display: block;
+}
+.list{
+  border-bottom: 1px solid #6666;
+  padding: 10px;
+  cursor: pointer;
+}
+.list:hover{
+  background-color: #6666;
+}
+
+.list p:nth-child(1){
+  font-weight: bold;
+  font-size: 20px;
+}
+.list p:nth-child(2){
+  color: #aaaa;
+  font-size: 15px;
+}

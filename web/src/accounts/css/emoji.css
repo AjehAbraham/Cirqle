@@ -1,0 +1,46 @@
+body{
+  margin: 0;
+  padding: 0;
+user-select: none;
+}
+.emoji-modal-container{
+ position: fixed;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ height: 100vh;
+ width: 100%;
+ background-color: black;
+}
+.emoji-modal-container {
+  position: fixed;
+  bottom: 70px; /* above your input bar */
+  left: 0;
+  width: 100%;
+  height: 300px;
+  background: #1a1a1a;
+  z-index: 100;
+}
+
+.top-menu {
+  display: flex;
+  justify-content: space-around;
+  border-bottom: 1px solid #333;
+  padding: 8px 0;
+}
+
+.top-menu .material-symbols-outlined.active {
+  color: #00F5D4; /* highlight active tab */
+}
+
+.emoji-contents {
+  height: calc(100% - 50px);
+  overflow-y: auto;
+}
+
+.container-for-emoji span {
+  font-size: 28px;
+  padding: 8px;
+  cursor: pointer;
+}

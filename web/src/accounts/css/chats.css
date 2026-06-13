@@ -1,0 +1,50 @@
+html, body, #root{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  user-select: none;
+}
+
+.chats-page{
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.header-container{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  flex-shrink: 0;
+  background: #0a0a0a;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.header-container b{
+  font-size: 30px;
+  margin: 0;
+}
+
+.header-container img{
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+/*
+.footer-container{
+  width: 100vw;
+  height: 60px;
+  flex-shrink: 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  border-top: 1px solid #00F5D4;
+  background: #0a0a0a;
+}*/

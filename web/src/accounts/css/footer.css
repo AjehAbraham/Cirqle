@@ -1,39 +1,56 @@
 
 .footer-container{
   width: 100%;
-  max-height: 18vh;
-  margin: 0;
-  border-radius: 120px;
-}
-.footer-span-wrapper{
+  height: 85px;
+  margin: auto;
+  border-radius: 20px;
   display: flex;
-  flex-direction: column;
-  margin: 10px;
-}
-.footer-span-wrapper div{
-  gap: 12px;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  display: block;
-  text-align: center;
+  gap: 10px;
+  padding: ;
+  border-top: 1px solid #00F5D4;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+user-select: none;
 }
+
+.footer-span-wrapper{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin: 10px;
+}
+
+.footer-span-wrapper div{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0px;
+  cursor: pointer;
+}
+
 .footer-span-wrapper div span{
-  font-size: 20px;
-  color: #aaaa;
+  font-size: 35px;
+  color: #aaaaaa;
+  padding: 5px;
 }
 .footer-span-wrapper div h1{
-  color: #aaaa;
-  font-size: 20px;
+  color: #aaaaaa;
+  font-size: 15px;
+  margin: 0;
+  font-weight: 500;
 }
-.home-wrapper{
-  display: block;
-  text-align: center;
+.footer-span-wrapper div:hover h1{
+  color: #00F5D4;
 }
-.home-wrapper span{
-  font-size: 20px;
-  color: #aaaa;
-}
-.home-wrapper h1{
-  color: #aaaa;
-  font-size: 20px;
+.footer-span-wrapper div:hover span{
+  background-color: #00F5D4;
+  color: black;
+  border-radius: 50%;
 }

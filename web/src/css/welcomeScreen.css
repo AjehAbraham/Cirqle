@@ -2,6 +2,9 @@ body{
     font-size: 13px;
     height: 100%;
     width: 100%;
+    margin: 0;
+    padding: 0;
+user-select: none;
 }
 .main-container{
     display: flex;
