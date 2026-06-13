@@ -13,8 +13,8 @@ import aboutRoute from "./src/routes/aboutRoute.js";
 import forwardRoute from "./src/routes/forwardMessageRoute.js";
 import updateSetting from "./src/routes/resetSettingsRoute.js";
 import refreshToken from "./src/routes/refreshTokenRoute.js";
-import editRouter from "./src/router/editMessageRoute.js";
-import loadConvoRoute from "../src/router/loadConvoRoute.js";
+import editRouter from "./src/routes/editMessageRoute.js";
+import loadConvoRoute from "../src/routes/loadConvoRoute.js";
 
 
 const app = express();
