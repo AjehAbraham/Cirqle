@@ -1,0 +1,19 @@
+body{
+  margin: 0;
+  font-size: 13px;
+  user-select: none;
+  --webkit-user-select: none;
+}
+.call-log-main-container{
+  display: flex;
+  flex-direction: column;
+}
+.call-log-main-container span{
+  font-size: 25px;
+  margin: 15px;
+}
+.call-log-main-container h1{
+  font-size: 15px;
+  text-align: center;
+  color: #aaaaaa;
+}
