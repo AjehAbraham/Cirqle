@@ -197,6 +197,20 @@ body{
   margin-left: 12px;
 }
 
+.reply-container{
+  color: white;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 58px;
+  text-align: left;
+  padding: 5px;
+  background-color: black;
+}
+.reply-container p{
+  margin-left: 5px;
+  line-height: 10x;
+}
 .input-container-wrapper{
   width: 100%;
   position: fixed;
@@ -281,11 +295,17 @@ body{
   font-size: 25px;
   margin: 10px;
   cursor: pointer;
+  font-weight: bold;
 }
 
 .wrapper{
   display: flex;
-  flex-wrap: wrap;  gap: 8px;
+  flex-wrap: wrap; 
+  gap: 8px;
+}
+.wrapper p{
+  display: flex;
+  flex-direction: column;
 }
  .wrapper span{
   flex: 0 0 auto;
