@@ -1,169 +1,258 @@
-body{
-  margin: 0;
-  width: 100%;
-  min-height: 100vh; 
-  padding: 0;
-user-select: none;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap');
+
+:root {
+  --bg: #f1f1f1;
+  --text: #111;
+  --accent: #00F5D4;
+  --absText: #aaaaaa;
+  --border: #d1d1d1;
+  --card-bg: #fff;
 }
 
-.setup-main-container{
-  display: flex;      
-  flex-direction: column; 
-  align-items: stretch;   
-  min-height: 100vh;
-  padding: 12px;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000;
+    --text: #f1f1f1;
+    --accent: #00F5D4;
+    --absText: #aaaaaa;
+    --border: #333;
+    --card-bg: #121212;
+  }
 }
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+  padding: 0;
+  user-select: none;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 16px;
+}
+
+.setup-main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  min-height: 100vh;
+  padding: 24px 20px 40px;
+  background-color: var(--bg);
+  gap: 24px;
+}
+
 .min-logo {
   display: flex;
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: 600;
   justify-content: center;
   align-items: center;
   flex-direction: row;
+  gap: 8px;
   margin-top: 5px;
+  font-family: 'Poppins', sans-serif;
 }
-.min-logo img{
+
+.min-logo img {
   width: 30px;
   height: 30px;
   object-fit: contain;
-  font-weight: bold;
-}
-.skip{
-  margin: 15px 0 0 15px;  
-  font-size: 20px;
-  align-self: flex-start; 
 }
 
-.account-content{
-  display: flex;           
-  flex-direction: column;  
-  justify-content: center; 
-  align-items: center;     
-  text-align: center;
-  gap: 16px;               
-  padding: 10px;
-  flex: ;               
-}
-
-.account-content img{
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  object-fit: cover;   
-}
-
-.account-content h1{
-  margin-bottom: 20px;     
-}
-
-.account-content label{
-  width: 100%;
-  text-align: left;        
-  margin-top: 12px;
-  padding: 12px;
-}
-
-.account-content input,
-.account-content textarea{
-  padding: 10px;        
-  width: 90%;
-  max-width: 400px;
-  outline: none;
-  font-size: 15px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  margin-bottom: 8px;
-}
-.avatar-upload{
-  position: relative;
-  width: 202px;
-  height: 202px;
-  border-radius: 50%;
+.skip {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--accent);
+  align-self: flex-start;
   cursor: pointer;
-  overflow: hidden;
-  border: 3px dashed #00F5D4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-.avatar-upload img{
-  width: 200px;
-  height: 200px;
-  object-fit: cover; 
-  border-radius: 50%;
-}
-
-.avatar-upload.edit-icon{
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  background: #00F5D4;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-}
-
-.account-content button{
-  cursor: pointer;
-  background-color: #00F5D4;
-  color: black;
-  padding: 10px;
-  width: 90%;
-  max-width: 400px;
-  border: none;
-  font-size: 15px;
-  border-radius: 10px;
-  font-weight: bold;
-  margin-top: 12px;
-}
-
-
-.container-modal{
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  position: relative;
-  z-index: 9999;
-  background-color: rgba(0,0,0,0.9);
-  width: 100%;
-  height: 100%;
-  overflow-x: hidden;
-  position: fixed;
-}
-.content-message-container{
-  background-color: black;
-  padding: 10px;
+.account-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  gap: 10px;
+  gap: 20px;
+  padding: 20px;
+  flex: 1;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
 }
-.content-message-container img{
-  width: 200px;
-  height: 200px;
+
+.account-content h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+.avatar-upload {
+  position: relative;
+  width: 150px;
+  height: 150px;
   border-radius: 50%;
-  box-shadow: 0px 8px 16px 0px #00F5D4;
-  margin: 25px;
-}
-.content-message-container p{
-  font-size: 18px;
-}
-.content-message-container button{
-  padding: 10px;
   cursor: pointer;
-  color: black;
-  width: 80%;
-  font-size: 15px;
-  font-weight: bold;
-  border-radius: 10px;
+  overflow: hidden;
+  border: 3px dashed var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-bg);
+  flex-shrink: 0;
+}
+
+.avatar-upload img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.avatar-upload .edit-icon {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  background: var(--accent);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #000;
+}
+
+.account-content label {
+  width: 100%;
+  max-width: 400px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  margin-top: 8px;
+  color: var(--text);
+}
+
+.account-content input,
+.account-content textarea {
+  padding: 16px;
+  width: 100%;
+  max-width: 400px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: 2px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.account-content input:focus,
+.account-content textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 245, 212, 0.2);
+}
+
+.account-content textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.account-content button {
+  cursor: pointer;
+  background-color: var(--accent);
+  color: #000;
+  padding: 18px;
+  width: 100%;
+  max-width: 400px;
   border: none;
-  margin:  10px;
-  background-color: #00F5D4;
+  font-size: 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  margin-top: 16px;
+}
+
+.account-content button:disabled {
+  background-color: #444;
+  color: var(--absText);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.container-modal {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  z-index: 9999;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.content-message-container {
+  background-color: var(--card-bg);
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 420px;
+}
+
+.content-message-container img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  box-shadow: 0px 8px 24px rgba(0, 245, 212, 0.3);
+  margin: 0;
+}
+
+.content-message-container p {
+  font-size: 16px;
+  margin: 0;
+  line-height: 1.6;
+  color: var(--text);
+}
+
+.content-message-container button {
+  padding: 16px;
+  cursor: pointer;
+  color: #000;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 12px;
+  border: none;
+  margin: 8px 0 0 0;
+  background-color: var(--accent);
+  font-family: 'Poppins', sans-serif;
+}
+
+@media (min-width: 768px) {
+  .setup-main-container {
+    padding: 60px 20px;
+  }
+  .account-content h1 {
+    font-size: 32px;
+  }
 }

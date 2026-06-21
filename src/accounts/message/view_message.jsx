@@ -18,22 +18,28 @@ export default function Chat() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedMsg, setSelectedMsg] = useState(null);
 const [replyTo, setReplyTo] = useState(null);
-const [forwardMsg, setForwardedMsg] = useState(null);
+const [forwardMsg, setForwardMsg] = useState(null);
 const [showForwardModal, setShowForwardModal] = useState(false);
 
 const [pin, setPinned] = useState("");
 const [star, setStared] = useState("");
 
-  let pressTimer;
+ // let pressTimer;
+const pressTimer = useRef(null);
 
   const start = (msg) => {
-    pressTimer = setTimeout(() => {
-      setSelectedMsg(msg);
-      setIsOpen(true);
-    }, 500);
+    //pressTimer = setTimeout(() => {
+     //setSelectedMsg(msg);
+     // setIsOpen(true);
+   // }, 500);*/
+   pressTimer.current = setTimeout(() => {
+  setSelectedMsg(msg);
+  setIsOpen(true);
+}, 500);
   };
 
-  const cancel = () => clearTimeout(pressTimer);
+ // const cancel = () => clearTimeout(pressTimer);
+ const cancel = () => clearTimeout(pressTimer.current);
   function sendMessage(e, content, type = "text") {
     if (e) e.preventDefault();
     if (type === "text" && !input.trim()) return;
@@ -114,9 +120,9 @@ const [star, setStared] = useState("");
   }
 
   if (action.startsWith("forward-")) {
-    setForwarded(selectedMsg); 
+    setForwardMsg(selectedMsg);
     setShowForwardModal(true);
-  }
+ }
 
   if (action === 'copy') {
     navigator.clipboard.writeText(selectedMsg.text);
@@ -143,20 +149,22 @@ const sendToBackend = async (data) => {
   };
   const messageEndRef = useRef(null);
   const scrollToBottom = () =>{
-    messageEndRef.current?.scrollIntoView({behaviour: 'auto'});
+    messageEndRef.current?.scrollIntoView({behavior: 'auto'});
   }
   useEffect(() => {
     scrollToBottom();
   }, [messages.length]);
   return (
     <>
-    { showForwardModal && (
-  <ForwardModal 
-    onClose={() => setForwarded(false)} 
-    msg={forwardMsg} 
-    setForwardedMsg={false}
+{showForwardModal && (
+  <ForwardModal
+    msg={forwardMsg}
+    onClose={() => {
+      setShowForwardModal(false);
+      setForwardMsg(null);
+    }}
   />
-      )}
+)}
       
       <div className="message-main-container">
         <div className="header">

@@ -24,9 +24,9 @@ function LanguageModal({isOpen, onClose, onSelect, currentLang = "English"}){
  useEffect( () => {
   if(isOpen){
     setSearch("");
-    document.body.style.display = "hidden";
+    document.body.style.overflow = "hidden";
   }else{
-    document.body.style.display = "auto";
+    document.body.style.overflow = "auto";
   }
  }, [isOpen, currentLang]);
 

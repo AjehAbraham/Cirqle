@@ -1,0 +1,198 @@
+:root {
+  --bg: #f1f1f1;
+  --text: #111;
+  --accent: #00F5D4;
+  --absText: #aaaaaa;
+  --border: #d1d1d1;
+  --card-bg: #fff;
+  --hover: #f5f5f5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000;
+    --text: #f1f1f1;
+    --accent: #00F5D4;
+    --absText: #888;
+    --border: #2a2a2a;
+    --card-bg: #121212;
+    --hover: #1a1a1a;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  color: var(--text);
+  background-color: var(--bg);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Status Modal - from AddContact */
+.contact-status-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.contact-status-modal button{
+  padding: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+}
+.status_container {
+  background: var(--card-bg);
+  padding: 32px 24px;
+  border-radius: 16px;
+  text-align: center;
+  max-width: 320px;
+  width: 90%;
+  border: 1px solid var(--border);
+}
+.status_icon_success { color: var(--accent); font-size: 48px; }
+.status_icon_error { color: #ff4d4d; font-size: 48px; }
+.status_title { font-weight: 600; font-size: 18px; margin: 12px 0 4px; }
+.status_message { color: var(--absText); margin: 0 0 20px; }
+.status_buttons { display: flex; gap: 10px; width: 100%; }
+.status_btn_close { flex: 1; background: var(--border); color: var(--text); }
+
+/* Create Group */
+.group-container-main {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+.group-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+  background: var(--card-bg);
+}
+.group-header span { cursor: pointer; }
+.group-header p { margin: 0; font-size: 18px; font-weight: 600; }
+
+.selector-container {
+  padding: 16px;
+}
+.selector-container input[type="text"] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--card-bg);
+  color: var(--text);
+  margin-bottom: 16px;
+  outline: none;
+}
+.mylist-contact { margin-bottom: 80px; }
+.list-contact {
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.list-contact:hover { background: var(--hover); }
+.list-layout-contact {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.list-layout-contact img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.list-layout-contact p { margin: 0; flex: 1; font-weight: 500; }
+.list-layout-contact input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
+.list-contact > p:last-child {
+  font-size: 13px;
+  color: var(--absText);
+  margin: 4px 0 0 56px;
+}
+.selector-container > button {
+  position: fixed;
+  bottom: 20px;
+  left: 16px;
+  right: 16px;
+  padding: 14px;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent);
+  color: #000;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+.selector-container > button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Group Info Modal */
+.group-modal-container {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.modal-content {
+  background: var(--card-bg);
+  padding: 24px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 400px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+.modal-content img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 16px;
+  object-fit: cover;
+}
+.top-header {
+  display: flex;
+  gap: 8px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 8px;
+}
+.top-header input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 18px;
+  color: var(--text);
+}
+.top-header span { cursor: pointer; color: var(--absText); }
+.char_count { font-size: 13px; color: var(--absText); margin-top: 8px; text-align: right; }
+.modal-content button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent);
+  color: #000;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+.modal-content button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

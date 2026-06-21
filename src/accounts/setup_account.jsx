@@ -29,10 +29,10 @@ const handleContinue = () => {
     <>
       <Completed isOpen={isOpen} onClose={() => setIsOpen(false)} />
       <div className="setup-main-container">
-        <div className="min-logo">
+       {/* <div className="min-logo">
           <img src={app_logo} />
           Cirqle
-        </div>
+        </div> */}
         <h1 className="skip" onClick={handleContinue}>Skip</h1>
         <div className="account-content">
 
@@ -49,9 +49,9 @@ const handleContinue = () => {
             style={{display: 'none'}}
           />
 
-          <h1>Finish setting up profile</h1>
+          <h1>Setup Your Profile</h1>
           <form method="post">
-            <label>Name (what you want other non saved contact to see)</label><br />
+            <label>Display Name</label><br />
             <input type="text" placeholder="your name (optional)"/><br />
             <label>Bio (optional)</label><br />
             <textarea placeholder="write about yourself"></textarea><br />
@@ -81,10 +81,10 @@ function Completed({isOpen, onClose}){
     <div className="container-modal">
       <div className="content-message-container">
         <img src={interaction_logo} alt="congrats" />
-        <h1>Congratulation!!!</h1>
+        <h1>Welcome to Cirqle 🎉</h1>
         <p>Registration Completed</p>
-        <button onClick={startConversation}>Start a conversation</button>
-        <button onClick={handleContinue}>Continue</button>
+        <button onClick={startConversation}>Start  messaging</button>
+        <button onClick={handleContinue}>Go to Chats</button>
       </div>
     </div>,
     document.body

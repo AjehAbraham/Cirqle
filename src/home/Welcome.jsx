@@ -19,6 +19,7 @@ function Welcome(){
         <h1>Cirqle</h1>
         <h3>Simple.Private.Connected</h3>
         <button onClick={navigator}>Get Started </button>
+        <p><span className="material-symbols-outlined">shield_lock</span>Secure and Encrypted</p>
     </div>
     </>
     );

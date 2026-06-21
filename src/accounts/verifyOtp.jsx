@@ -91,57 +91,59 @@ function VerifyOtp(){
   }
 
   return(
-    <div className="otp-main-container">
-      <div className="otp-logo">
-        <img src={app_logo} alt="logo" />
-      </div>
+<div className="wrapper-container">
+  <h1>Verify phone number</h1>
 
-      <div className="wrapper-container">
-        <h1>Verify phone number</h1>
-
-        <form onSubmit={handleSubmit}>
-          <p>
-            Enter OTP sent to <img src={flag} alt="country" />
-            <b>{code} {phone}</b>
-            <span onClick={() => navigate("/login")}> Change</span>
-          </p>
-
-          <div className="otp-inputs">
-            {otp.map((digit, index) => (
-              <input
-                key={index}
-                ref={el => inputsRef.current[index] = el}
-                type="tel"
-                inputMode="numeric"
-                maxLength={1}
-                value={digit}
-                onChange={(e) => handleChange(e, index)}
-                onKeyDown={(e) => handleKeyDown(e, index)}
-                onPaste={handlePaste}
-                autoComplete="one-time-code"
-              />
-            ))}
-          </div>
-
-          <button type="submit" disabled={otp.join("").length!== otpLength}>
-            Verify
-          </button>
-        </form>
-                {/* Timer / Resend section */}
-        <div className="resend-container">
-          {canResend? (
-            <p className="resend-text">
-              Didn't get the code? <b onClick={restartTimer} >Resend</b>
-            </p>
-          ) : (
-            <p className="timer-text">
-              Resend code in 00:{seconds.toString().padStart(2, '0')}
-            </p>
-          )}
-        </div>
-        <p>Having trouble receiving OTP? click <a href="/">here</a></p>
-      </div>
+  <div className="otp-main-container">
+    <div className="otp-logo">
+      <img src={app_logo} alt="logo" />
     </div>
+
+    <form onSubmit={handleSubmit}>
+      <p>
+        Enter the {otpLength}-digit code sent to<br />
+        <img src={flag} alt="country" />
+        <b>{code} {phone}</b><br />
+        <span onClick={() => navigate("/login")}>Change</span>
+      </p>
+
+      <div className="otp-inputs">
+        {otp.map((digit, index) => (
+          <input
+            key={index}
+            ref={el => inputsRef.current[index] = el}
+            type="tel"
+            inputMode="numeric"
+            maxLength={1}
+            value={digit}
+            onChange={(e) => handleChange(e, index)}
+            onKeyDown={(e) => handleKeyDown(e, index)}
+            onPaste={handlePaste}
+            autoComplete="one-time-code"
+          />
+        ))}
+      </div>
+
+      <div className="resend-container">
+        {canResend? (
+          <p className="resend-text">
+            Didn't get the code? <b onClick={restartTimer}>Resend</b>
+          </p>
+        ) : (
+          <p className="timer-text">
+            Resend code in 00:{seconds.toString().padStart(2, '0')}
+          </p>
+        )}
+      </div>
+
+      <button type="submit" disabled={otp.join("").length!== otpLength}>
+        Verify
+      </button>
+
+      <p>Having trouble receiving OTP? click <a href="/">here</a></p>
+    </form>
+  </div>
+</div>
   );
 }
 

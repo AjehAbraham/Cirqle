@@ -3,7 +3,6 @@ import { createPortal } from "react-dom";
 import "../css/message_action.css";
 import app_logo from "../../assets/app_logo.png";
 
-
 export default function MessageAction({ isOpen, onClose, onSelect, option, msg }) {
   useEffect(() => {
     if (isOpen) {
@@ -14,7 +13,7 @@ export default function MessageAction({ isOpen, onClose, onSelect, option, msg }
     return () => document.body.style.overflow = 'unset';
   }, [isOpen]);
 
-  if (!isOpen) return null;
+  if (!isOpen || !msg) return null;
 
   return createPortal(
     <div className="actions-container-modal" onClick={onClose}>
@@ -81,7 +80,7 @@ export function ForwardModal({ msg, onClose }) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         originalMsgId: msg.id,
-        content: msg.content,
+        content: msg.text,
         type: msg.type,
         to: selectedChats
       })
@@ -97,14 +96,16 @@ export function ForwardModal({ msg, onClose }) {
       <div className="forward-modal" onClick={e => e.stopPropagation()}>
         <div className="modal-header">
           <h3>Forward to...</h3>
-          <button onClick={onClose}>✕</button>
+          <button onClick={onClose}>Close</button>
         </div>
 
         {/* Preview of message being forwarded */}
-        <div className="forward-preview">
-          {msg.type === 'text'? msg.content : <img src={msg.content} alt="media" />}
-          <span className="forward-label">Forwarded</span>
-        </div>
+{<div className="forward-preview">
+  {msg.type === 'text' && msg.text}
+  {msg.type === 'emoji' && <span style={{fontSize: 36}}>{msg.text}</span>}
+  {msg.type === 'sticker' && <img src={msg.text} alt="sticker" />}
+  <span className="forward-label">Forwarded</span>
+</div> }
 
         {/* Chat list */}
         <div className="chat-list">
@@ -129,6 +130,7 @@ export function ForwardModal({ msg, onClose }) {
           Forward {selectedChats.length > 0 && `(${selectedChats.length})`}
         </button>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

@@ -9,7 +9,8 @@ import VerifyOtp from './accounts/verifyOtp.jsx';
 import FinishReg from "./accounts/setup_account.jsx";
 import MainChats from "./accounts/message/chats.jsx";
 import ViewMessage from "./accounts/message/view_message.jsx";
-
+import AddContact from "./accounts/components/AddContact";
+import CreateGroup from "./accounts/components/CreateGroup";
 
 function App() {
  
@@ -27,7 +28,9 @@ function App() {
        {/* AUTHENTICATED PATHS */}
        <Route path="/account_setup" element={<FinishReg />} />
        <Route path="/accounts/message/chats" element={<MainChats />} />
-       <Route path="/accounts/message/view" element={<ViewMessage />} />
+       <Route path="/accounts/message/:id/view" element={<ViewMessage />} />
+       <Route path="/accounts/contacts/view" element={<AddContact />} />
+       <Route path="/accounts/create-group" element={<CreateGroup />} />
       </Routes>
       </BrowserRouter>
 </>

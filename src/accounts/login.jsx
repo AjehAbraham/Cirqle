@@ -92,38 +92,55 @@ const fullNumber = selectedCountry.cCode + digitsOnly;
       <>
       <LanguageModal isOpen={isOpen} onClose={() => setIsOpen(false)} onSelect={handleSelect} currentLang={language} />
         <CountryCodeSelector isOpen={openCountry} onClose={() => setOpenCountry(false)} onSelect={setSelectedCountry} currentCountry={selectedCountry.country} />
-        <div className="lang-selector" onClick={() => setIsOpen(true)}>
-         <span className="material-symbols-outlined">language</span>
-          {language}
-         <span className="material-symbols-outlined"> keyboard_arrow_down</span>
-        </div>
-        <div className="login-main-container">
-         <div className="logo-container">
-          <img src={app_logo} alt="Cirqle logo" />
-         </div>
-        <div className="content-main-container">
-          <h1>Login/Sign-up</h1>
-          <h1>Enter your phone number to login or create account</h1>
-          <form method="post" onSubmit={handleSubmit}>
-          <div className="input-containers" >
-            <div className="wrappers" onClick={() => setOpenCountry(true)}>
-            <img src={selectedCountry.flag} alt={selectedCountry.flag} />
+               <div className="lang-selector" onClick={() => setIsOpen(true)}>
+  <span className="material-symbols-outlined">language</span>
+  <span>{language}</span>
+  <span className="material-symbols-outlined">keyboard_arrow_down</span>
+</div>
+
+<div className="login-main-container">
+  <h1>Login/Sign-up</h1>
+  
+  <div className="logo-container">
+    <img src={app_logo} alt="Cirqle logo" />
+  </div>
+  
+  <div className="content-main-container">
+    <h1>Enter your phone number to login or create account</h1>
+    
+    <form method="post" onSubmit={handleSubmit} style={{width: '100%'}}>
+      <div className="input-wrapper">
+        <div className="input-containers" style={{borderColor: phone && !isValid ? "#ff4d4f" : "var(--border)"}}>
+          <div className="wrappers" onClick={() => setOpenCountry(true)}>
+            <img src={selectedCountry.flag} alt={selectedCountry.name} />
             <p>{selectedCountry.cCode}</p>
-            <span className="material-symbols-outlined"> keyboard_arrow_down</span>
-            </div>
-            <input type="tel" value={phone} inputMode="numeric" placeholder={config.placeholder}
-             onChange={handlePhoneChange} style={{border: phone && !isValid ? "2px solid #ff4d4f" : "2px solid #aaaa"}}/>
+            <span className="material-symbols-outlined">keyboard_arrow_down</span>
           </div>
-          {phone && !isValid && (
-            <p className="phone_error">Enter {config.max - config.strip } digits</p>
-          )}
-          <p>By clicking continue you agree to the <a href="/">Terms & Conditions</a></p>
-          <p>Privacy policy</p>
-          <button disabled={!isValid}>Continue</button>
-          </form>
+          <input 
+            type="tel" 
+            value={phone} 
+            inputMode="numeric" 
+            placeholder={config.placeholder}
+            onChange={handlePhoneChange}
+          />
         </div>
-        <p>Having trouble trying to sign-in? Click <a href="/">here</a></p>
+        
+        {phone && !isValid && (
+          <p className="phone_error">Enter {config.max - config.strip} digits</p>
+        )}
       </div>
+      
+      <div className="terms-text">
+        <p>By clicking continue you agree to the <a href="/terms_conditions" target="_blank">Terms & Conditions</a></p>
+        <p>Privacy policy</p>
+      </div>
+      
+      <button disabled={!isValid}>Continue</button>
+    </form>
+    
+    <p>Having trouble trying to sign-in? Click <a href="/">here</a></p>
+  </div>
+</div>
       </>
     );
 

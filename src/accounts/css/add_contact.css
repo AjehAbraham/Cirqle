@@ -1,0 +1,188 @@
+:root {
+  --bg: #f1f1f1;
+  --text: #111;
+  --accent: #00F5D4;
+  --absText: #aaaaaa;
+  --border: #d1d1d1;
+  --card-bg: #fff;
+  --hover: #f5f5f5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000;
+    --text: #f1f1f1;
+    --accent: #00F5D4;
+    --absText: #888;
+    --border: #2a2a2a;
+    --card-bg: #121212;
+    --hover: #1a1a1a;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  color: var(--text);
+  background-color: var(--bg);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.add_list_modal {
+  position: fixed;
+  inset: 0;
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-top_menu {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.modal-top_menu p {
+  margin: 0 auto;
+  font-weight: 600;
+  font-size: 18px;
+}
+.modal-top_menu span {
+  position: absolute;
+  left: 20px;
+  cursor: pointer;
+}
+
+.form-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 20px;
+  overflow-y: auto;
+  gap: 14px;
+}
+
+.input-main-list {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  font-size: 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  width: 100%;
+  background: var(--card-bg);
+  transition: border-color 0.2s;
+  margin-top: 20px;
+}
+.input-main-list:focus-within {
+  border-color: var(--accent);
+}
+.input-main-list:has(input + input) {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  gap: 0;
+}
+.input-main-list:has(input + input) input {
+  padding: 14px 16px;
+  border: none;
+  border-bottom: 1px solid var(--border);
+}
+.input-main-list:has(input + input) input:last-child {
+  border-bottom: none;
+}
+.input-main-list:has(.sub-input) {
+  padding: 8px 8px 8px 16px;
+  gap: 8px;
+}
+
+.sub-input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1px;
+  padding: 0 8px;
+  border: none;
+  background: transparent;
+  min-width: 70px;
+}
+.sub-input b {
+  font-size: 11px;
+  color: var(--absText);
+  font-weight: 500;
+  text-transform: uppercase;
+}
+.sub-input p {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.input-main-list input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 16px;
+  flex: 1;
+  min-width: 0;
+}
+.input-main-list input::placeholder {
+  color: var(--absText);
+}
+
+.form-container button {
+  margin-top: 30px;
+  padding: 16px;
+  color: #000;
+  font-weight: 600;
+  font-size: 16px;
+  border: none;
+  border-radius: 14px;
+  background-color: var(--accent);
+  cursor: pointer;
+  width: 100%;
+}
+.form-container button:active {
+  opacity: 0.9;
+}
+.form-container  button:disabled {
+  cursor: not-allowed;
+  background-color: #444;
+  color: var(--absText);
+  opacity: 0.6;
+}
+@media (min-width: 1024px){
+  .form-container{
+    width: 50%;
+  }
+}
+.contact-status-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+.contact-status-modal button{
+  padding: 10px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 10px;
+}
+.status_container {
+  background: var(--card-bg);
+  padding: 32px 24px;
+  border-radius: 16px;
+  text-align: center;
+  max-width: 320px;
+  width: 90%;
+  border: 1px solid var(--border);
+}
