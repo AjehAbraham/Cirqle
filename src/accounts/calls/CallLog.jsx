@@ -1,17 +1,19 @@
+import {useState} from "react";
 import "../css/call_log.css";
+import Footer from "../components/Footer";
 
-function CallLog(){
-  const goBack = () => {
-    window.location.href
-  }
+
+export default function CallLog(){
+  
+  const[activeTab, setActiveTab] = useState("call");
   return(
+    <>
     <div className="call-log-main-container">
-      <span className="material-symbols-outlined">close</span>
-      <h1>Call log is Available</h1>
+      <h1 style={{fontSize: "20px"}}>Call log is Available</h1>
     </div>
-    
+    <Footer activeTab={activeTab} setActiveTab={setActiveTab}/>
+    </>
     );
   
   
 }
-export default CallLog;

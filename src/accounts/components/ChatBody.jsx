@@ -73,8 +73,12 @@ function ChatBody() {
       return matchSearch && matchFilter;
     })
    .sort((a, b) => new Date(b.At) - new Date(a.At));
-
+  const groupNavigator = () => {
+    navigate("/accounts/create-group");
+  }
   return (
+    <>
+
     <div className="container-container-wrapper">
       <ContactList isOpen={openContact} onClose={() => setOpenContact(false)} />
 
@@ -93,7 +97,7 @@ function ChatBody() {
           <p className={filter === 'all'? 'filter-active' : ''} onClick={() => setFilter('all')}>All</p>
           <p className={filter === 'unread'? 'filter-active' : ''} onClick={() => setFilter('unread')}>Unread</p>
           <p className={filter === 'groups'? 'filter-active' : ''} onClick={() => setFilter('groups')}>Groups</p>
-          <span className="material-symbols-outlined">add_circle</span>
+          <span className="material-symbols-outlined" onClick={groupNavigator}>add_circle</span>
         </div>
       </div>
 
@@ -135,6 +139,7 @@ function ChatBody() {
         )}
       </div>
     </div>
+    </>
   );
 }
 

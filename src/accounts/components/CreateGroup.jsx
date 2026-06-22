@@ -49,6 +49,9 @@ export default function CreateGroup() {
   const [step, setStep] = useState(1);
   const [selected, setSelected] = useState([]);
   const [groupInfo, setGroupInfo] = useState({ name: "", icon: "" });
+  const [search, setSearch] = useState("");
+  const [statusOpen, setStatusOpen] = useState(false);
+  const [statusOk, setStatusOk] = useState(true);
   const navigate = useNavigate();
 
   const toggleMember = (id) => {
@@ -59,8 +62,15 @@ export default function CreateGroup() {
 
   const handleCreate = () => {
     console.log("Creating group:", { ...groupInfo, members: selected });
-    navigate(-1);
+    setStatusOk(true);
+    setStatusOpen(true);
+    setTimeout(() => navigate(-1), 1200);
   };
+
+  const filteredContacts = dummyContacts.filter(c =>
+    c.name.toLowerCase().includes(search.toLowerCase()) ||
+    c.phone.includes(search)
+  );
 
   const modalRoot = document.getElementById('modal-root') || document.body;
 
@@ -75,27 +85,37 @@ export default function CreateGroup() {
         </div>
 
         <div className="selector-container">
-          <input type="text" placeholder="Search contacts or phone number" />
+          <input 
+            type="text" 
+            className="cg_search_input"
+            placeholder="Search contacts or phone number" 
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+          />
           
-          <div className="mylist-contact">
-            {dummyContacts.map(contact => (
-              <div key={contact.id} className="list-contact" onClick={() => toggleMember(contact.id)}>
-                <div className="list-layout-contact">
+          <div className="cg_list_wrap">
+            {filteredContacts.map(contact => (
+              <div key={contact.id} className="cg_list_item" onClick={() => toggleMember(contact.id)}>
+                <div className="cg_list_row">
                   <img src={contact.avatar} alt={contact.name} />
-                  <p>{contact.name}</p>
+                  <div className="cg_list_info">
+                    <p className="cg_list_name">{contact.name}</p>
+                    <p className="cg_list_phone">{contact.phone}</p>
+                  </div>
                   <input 
                     type="checkbox" 
+                    className="cg_list_check"
                     checked={selected.includes(contact.id)}
                     onChange={() => toggleMember(contact.id)}
                     onClick={e => e.stopPropagation()}
                   />
                 </div>
-                <p>{contact.phone}</p>
               </div>
             ))}
           </div>
 
           <button 
+            className="cg_next_btn"
             disabled={selected.length === 0} 
             onClick={() => setStep(2)}
           >
@@ -113,6 +133,13 @@ export default function CreateGroup() {
         />,
         modalRoot
       )}
+
+      <StatusModal 
+        isOpen={statusOpen} 
+        onClose={() => setStatusOpen(false)} 
+        success={statusOk} 
+        updated="saved"
+      />
     </>
   );
 }

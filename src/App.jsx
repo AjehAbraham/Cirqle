@@ -11,6 +11,8 @@ import MainChats from "./accounts/message/chats.jsx";
 import ViewMessage from "./accounts/message/view_message.jsx";
 import AddContact from "./accounts/components/AddContact";
 import CreateGroup from "./accounts/components/CreateGroup";
+import MyProfile from "./accounts/profile/MyProfile";
+import CallLog from "./accounts/calls/CallLog";
 
 function App() {
  
@@ -25,12 +27,14 @@ function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/verifyOtp" element={<VerifyOtp />} />
       
-       {/* AUTHENTICATED PATHS */}
+       {/* AUTHENTICATED ROUTES */}
        <Route path="/account_setup" element={<FinishReg />} />
        <Route path="/accounts/message/chats" element={<MainChats />} />
        <Route path="/accounts/message/:id/view" element={<ViewMessage />} />
        <Route path="/accounts/contacts/view" element={<AddContact />} />
        <Route path="/accounts/create-group" element={<CreateGroup />} />
+       <Route path="/accounts/profile" element={<MyProfile />} />
+       <Route path="/accounts/call/call-log" element={<CallLog />} />
       </Routes>
       </BrowserRouter>
 </>
