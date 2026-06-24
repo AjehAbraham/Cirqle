@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
 import "../css/create_group.css";
 import images from "../../assets/images.jpeg";
-
+import useTitle from "../../components/UseTitle";
 const dummyContacts = [
   { id: "5", name: "Ajeh Abraham", phone: "+234 9061748136", avatar: images },
   { id: "10", name: "Janet Smith", phone: "+234 8036295994", avatar: images },
@@ -46,6 +46,7 @@ function StatusModal({ isOpen, onClose, success, updated }) {
 }
 
 export default function CreateGroup() {
+  useTitle("Create-Group");
   const [step, setStep] = useState(1);
   const [selected, setSelected] = useState([]);
   const [groupInfo, setGroupInfo] = useState({ name: "", icon: "" });

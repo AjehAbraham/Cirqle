@@ -3,8 +3,11 @@ import MessageAction, {ForwardModal} from "../components/MessageAction";
 import EmojiModal from "../components/EmojiModal";
 import app_log from "../../assets/app_logo.png";
 import "../css/view_message.css";
+import useTitle from "../../components/UseTitle";
 
 export default function Chat() {
+  useTitle("message");
+  
   const [messages, setMessages] = useState([
     {id: "1", text: "Hello buddy!", time: "10:58PM", sender: "them", status: "sent", type: "text", reaction: ""},
     {id: "2", text: "Just testing", time: "11:00PM", sender: "me", status: "sent", type: "text", reaction: ""}

@@ -3,7 +3,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import "../css/add_contact.css";
 import CountryCodeSelector from "./CountryCode";
 import { createPortal } from "react-dom";
-
+import useTitle from "../../components/UseTitle";
 function StatusModal({ isOpen, onClose, success, updated }) {
   if (!isOpen) return null;
 
@@ -38,13 +38,14 @@ function StatusModal({ isOpen, onClose, success, updated }) {
 }
 
 export default function AddContact() {
+  useTitle("Manage-contact");
+  
   const [isOpen, setIsOpen] = useState(false);
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const tab = params.get('tab');
   const id = params.get('id');
   const isEditMode = tab === 'edit' &&!!id;
-
   const phoneBook = [
     { id: "5", cCode: "+234", firstName: "Smith", lastName: "Jabcob", phone: "9061748136" },
     { id: "10", cCode: "+234", firstName: "Janet", lastName: "", phone: "8036295994" },

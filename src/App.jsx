@@ -1,18 +1,20 @@
 import { useState } from 'react';
 import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom";
-import Welcome from "./home/Welcome.jsx";
-import WelcomeScreen from './home/WelcomeScreen2.jsx';
-import WelcomeScreen3 from './home/WelcomeScreen3.jsx';
-import Terms from "./home/Terms_conditions.jsx";
-import Login from './accounts/login.jsx';
-import VerifyOtp from './accounts/verifyOtp.jsx';
-import FinishReg from "./accounts/setup_account.jsx";
-import MainChats from "./accounts/message/chats.jsx";
-import ViewMessage from "./accounts/message/view_message.jsx";
+import Welcome from "./home/Welcome";
+import WelcomeScreen from './home/WelcomeScreen2';
+import WelcomeScreen3 from './home/WelcomeScreen3';
+import Terms from "./home/Terms_conditions";
+import Login from './accounts/login';
+import VerifyOtp from './accounts/verifyOtp';
+import FinishReg from "./accounts/setup_account";
+import MainChats from "./accounts/message/chats";
+import ViewMessage from "./accounts/message/view_message";
 import AddContact from "./accounts/components/AddContact";
 import CreateGroup from "./accounts/components/CreateGroup";
 import MyProfile from "./accounts/profile/MyProfile";
 import CallLog from "./accounts/calls/CallLog";
+import GeneralSettings from "./accounts/settings/GeneralSettings";
+
 
 function App() {
  
@@ -35,9 +37,11 @@ function App() {
        <Route path="/accounts/create-group" element={<CreateGroup />} />
        <Route path="/accounts/profile" element={<MyProfile />} />
        <Route path="/accounts/call/call-log" element={<CallLog />} />
+       <Route path="/accounts/settings/general_settings" element={<GeneralSettings />} />
       </Routes>
       </BrowserRouter>
 </>
+
   );
 }
 

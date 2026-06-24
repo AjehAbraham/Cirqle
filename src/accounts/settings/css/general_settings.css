@@ -1,0 +1,128 @@
+:root {
+  --bg: #f1f1f1;
+  --text: #111;
+  --accent: #00F5D4;
+  --absText: #aaaaaa;
+  --border: #d1d1d1;
+  --card-bg: #fff;
+  --hover: #f5f5f5;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000;
+    --text: #f1f1f1;
+    --accent: #00F5D4;
+    --absText: #888;
+    --border: #2a2a2a;
+    --card-bg: #121212;
+    --hover: #1a1a1a;
+  }
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  color: var(--text);
+  background-color: var(--bg);
+  font-family: system-ui, -apple-system, sans-serif;
+  overflow-y: auto;
+}
+
+.settings-main-container {
+  height: 100vh;
+  padding: 16px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: 10px;
+}
+
+.settings-main-container > h1 {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0 0 20px 0;
+  padding-bottom: 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.items-card-container {
+  display: flex;
+  flex-direction: column;
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.2s;
+  overflow-y: auto;
+}
+
+.items-card-container:hover {
+  background: var(--hover);
+}
+
+.items-card-container:last-child {
+  border-bottom: none;
+}
+
+.sub-card-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 6px;
+}
+.sub-card-list:last-child{
+  margin-bottom: 10px;
+}
+.sub-card-list span {
+  background-color: var(--accent);
+  color: #000;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.sub-card-list p {
+  font-weight: 600;
+  font-size: 17px;
+  margin: 0;
+}
+
+.lower-card-list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 54px;
+  gap: 12px;
+  text-align: left;
+}
+
+.lower-card-list p {
+  font-size: 14px;
+  color: var(--absText);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.lower-card-list span {
+  font-size: 18px;
+  color: var(--absText);
+  flex-shrink: 0;
+}
+.lower-card-list b{
+  font-size: 13px;
+}
+.epmpty{
+  padding: 80px;
+  margin-top: 100px;
+}

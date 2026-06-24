@@ -15,6 +15,10 @@ function Footer({ activeTab, setActiveTab }) {
     navigate("/accounts/profile");
     setActiveTab("profile");
   }
+  const navigateSettings = () => {
+    navigate("/accounts/settings/general_settings");
+    setActiveTab("settings");
+  }
   return (
     <div className="footer-container">
       <div className="footer-span-wrapper">
@@ -28,7 +32,7 @@ function Footer({ activeTab, setActiveTab }) {
           <h1 className={`selectedText ${activeTab === 'call' ? 'selectedText' : 'unselectText'}`}>Calls</h1>
         </div>
         
-        <div className="settings-wrapper" onClick={() => setActiveTab('settings')}>
+        <div className="settings-wrapper" onClick={navigateSettings}>
           <span className={`material-symbols-outlined ${activeTab === 'settings' ? 'selected' : 'unselect'}`}>settings</span>
           <h1 className={`selectedText ${activeTab === 'settings' ? 'selectedText' : 'unselectText'}`}>Settings</h1>
         </div>
