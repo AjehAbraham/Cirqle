@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import {useSearchParams, useNavigate } from "react-router-dom";
 import "../css/chat_body.css";
 import app_logo from "../../assets/app_logo.png";
 import ContactList from "./ContactList.jsx";
+
 
 function ChatBody() {
   const navigate = useNavigate();
@@ -13,7 +14,10 @@ function ChatBody() {
   useEffect(() => {
     setSearch("");
   }, [openContact]);
-
+  
+/* const [params] = useSearchParams();
+ const tab = params.get("tab"); */
+ 
   const handleContact = () => setOpenContact(true);
   const viewMessage = (id) => navigate(`/accounts/message/${id}/view`);
 
@@ -47,11 +51,11 @@ function ChatBody() {
   };
 
   const conversations = [
-    { id: "1", avatar: app_logo, name: "Zainab Muhammed", cCode: "+234", tel: "8036295994", type: "dm", lastMsg: "I know what am trying to say", sender: "you", At: new Date(Date.now() - 1000*60*30), msgType: "text", status: "sent" },
-    { id: "2", avatar: app_logo, name: "Ajeh Abraham", cCode: "+234", tel: "9061748136", type: "dm", lastMsg: "Bro i dey come", sender: "them", At: new Date(Date.now() - 1000*60*60*25), msgType: "text", status: "seen" },
-    { id: "3", avatar: app_logo, name: "Mike Chan", cCode: "+91", tel: "776845567", type: "dm", lastMsg: "Hello, i've been trying to reach out but you haven't been giving me any positive reply yet and am wondering what the issue was.", sender: "you", At: new Date(Date.now() - 1000*60*60*3), msgType: "text", status: "fail" },
-    { id: "4", avatar: app_logo, name: "UNI AGRIC(FCS)", cCode: "", tel: [], type: "group", lastMsg: "Hello,thanks for adding me!!", sender: "you", At: new Date(Date.now() - 1000*60*60*24*2), msgType: "text", status: "delivered" },
-    { id: "5", avatar: app_logo, name: "Serah Johnson", cCode: "+234", tel: "8036815672", type: "dm", lastMsg: "photo", sender: "you", At: new Date(Date.now() - 1000*60*60*24*8), msgType: "system", status: "seen" }
+    { id: "1", avatar: app_logo, name: "Zainab Muhammed", cCode: "+234", tel: "8036295994", type: "dm", lastMsg: "I know what am trying to say", sender: "you", At: new Date(Date.now() - 1000*60*30), msgType: "text", status: "sent", msgCount: 0},
+    { id: "2", avatar: app_logo, name: "Ajeh Abraham", cCode: "+234", tel: "9061748136", type: "dm", lastMsg: "Bro i dey come", sender: "them", At: new Date(Date.now() - 1000*60*60*25), msgType: "text", status: "seen",msgCount: 5},
+    { id: "3", avatar: app_logo, name: "Mike Chan", cCode: "+91", tel: "776845567", type: "dm", lastMsg: "Hello, i've been trying to reach out but you haven't been giving me any positive reply yet and am wondering what the issue was.", sender: "you", At: new Date(Date.now() - 1000*60*60*3), msgType: "text", status: "fail", msgCount: 0 },
+    { id: "4", avatar: app_logo, name: "UNI AGRIC(FCS)", cCode: "", tel: [], type: "group", lastMsg: "Hello,thanks for adding me!!", sender: "you", At: new Date(Date.now() - 1000*60*60*24*2), msgType: "text", status: "delivered", msgCount: 0},
+    { id: "5", avatar: app_logo, name: "Serah Johnson", cCode: "+234", tel: "8036815672", type: "dm", lastMsg: "photo", sender: "you", At: new Date(Date.now() - 1000*60*60*24*8), msgType: "system", status: "seen", msgCount: 0 }
   ];
 
   const filteredconvo = conversations
@@ -126,7 +130,9 @@ function ChatBody() {
                     {/*getPreview(conv).split(' ').slice(0, 5).join(' ')
                     */}
                   </p>
-                  <p>{renderStatus(conv.sender, conv.status)}</p>
+                  <p>{ 
+                  conv.msgCount > 0 && (<span className="msg-counter">{conv.msgCount}</span> )}
+                  {renderStatus(conv.sender, conv.status)}</p>
                 </div>
               </div>
             </div>

@@ -38,7 +38,18 @@ html, body {
   -webkit-overflow-scrolling: touch;
   margin-bottom: 10px;
 }
-
+.settings-main-container input{
+  padding: 10px;
+  width: 90%;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  margin-bottom: 10px;
+}
+.settings-main-container input:focus{
+  border: 2px solid var(--accent);
+  outline: none;
+}
 .settings-main-container > h1 {
   font-size: 24px;
   font-weight: 700;
@@ -46,6 +57,7 @@ html, body {
   padding-bottom: 12px;
   text-align: left;
   border-bottom: 1px solid var(--border);
+  color: var(--text);
 }
 
 .items-card-container {
@@ -122,7 +134,14 @@ html, body {
 .lower-card-list b{
   font-size: 13px;
 }
-.epmpty{
+.empty{
   padding: 80px;
-  margin-top: 100px;
+  margin-top: 50px;
+  color: var(--absText);
+}
+.empty span{
+  font-size: 35px;
+}
+.empty2{
+  margin-top: 20px;
 }

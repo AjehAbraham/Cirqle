@@ -79,6 +79,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2px;
+  text-align: left;
 }
 
 .chat-user-info p:first-child {
@@ -186,6 +187,8 @@ body {
   padding: 10px 14px;
   text-align: left;
   opacity: 0.6;
+  /*display: flex;
+  flex-direction: column; */
 }
 
 .wrapper-i p:first-child {
@@ -198,22 +201,27 @@ body {
 }
 
 .chat-meta-info {
-  text-align: right;
   margin: 4px 0 0 0;
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: flex-end;
+  align-self: flex-end;
   gap: 4px;
+  margin-left: auto;
 }
 
 .chat-meta-info p {
+  display: flex;
+  align-items: center;
   font-size: 11px;
   color: var(--absText);
+  margin-left: auto;
+  align-self: flex-end;
+  text-align:  right;
 }
 
 .chat-meta-info span {
-  font-size: 18px;
+  font-size: 20px;
   color: var(--absText);
 }
 

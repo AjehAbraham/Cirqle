@@ -7,17 +7,29 @@ import Terms from "./home/Terms_conditions";
 import Login from './accounts/login';
 import VerifyOtp from './accounts/verifyOtp';
 import FinishReg from "./accounts/setup_account";
+
 import MainChats from "./accounts/message/chats";
 import ViewMessage from "./accounts/message/view_message";
+
 import AddContact from "./accounts/components/AddContact";
 import CreateGroup from "./accounts/components/CreateGroup";
+
 import MyProfile from "./accounts/profile/MyProfile";
+import ViewProfile from "./accounts/profile/ViewProfile";
+
 import CallLog from "./accounts/calls/CallLog";
+
 import GeneralSettings from "./accounts/settings/GeneralSettings";
+import PrivacySetting from "./accounts/settings/PrivacySettings";
+import Notification from "./accounts/settings/NotificationSettings";
 
 
 function App() {
- 
+ {/*
+ const [selectedTheme, setSelectedTheme] = useState(localStorage.getItem("Theme") || "System");
+const [showThemeModal, setShowThemeModal] = useState(false);
+
+const handleTheme = () => setShowThemeModal(true);*/}
   return (
     <>
     <BrowserRouter>
@@ -33,11 +45,19 @@ function App() {
        <Route path="/account_setup" element={<FinishReg />} />
        <Route path="/accounts/message/chats" element={<MainChats />} />
        <Route path="/accounts/message/:id/view" element={<ViewMessage />} />
+       
        <Route path="/accounts/contacts/view" element={<AddContact />} />
        <Route path="/accounts/create-group" element={<CreateGroup />} />
+       
        <Route path="/accounts/profile" element={<MyProfile />} />
-       <Route path="/accounts/call/call-log" element={<CallLog />} />
+       <Route path="/accounts/:id/view_profile" element={<ViewProfile />} />
+       
+       <Route path="/accounts/call/call-log" element={<CallLog />} /> 
+       
        <Route path="/accounts/settings/general_settings" element={<GeneralSettings />} />
+       <Route path="/accounts/settings/privacy_setting" element={<PrivacySetting />} />
+       <Route path="/accounts/settings/notification_setting" element={<Notification />} />
+       
       </Routes>
       </BrowserRouter>
 </>

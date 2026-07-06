@@ -9,7 +9,7 @@ export default function CallLog(){
   return(
     <>
     <div className="call-log-main-container">
-      <h1 style={{fontSize: "20px"}}>Call log is Available</h1>
+      <h1 style={{fontSize: "20px"}}>Call log features not Available yet</h1>
     </div>
     <Footer activeTab={activeTab} setActiveTab={setActiveTab}/>
     </>

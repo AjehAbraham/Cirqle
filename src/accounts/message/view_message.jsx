@@ -4,6 +4,7 @@ import EmojiModal from "../components/EmojiModal";
 import app_log from "../../assets/app_logo.png";
 import "../css/view_message.css";
 import useTitle from "../../components/UseTitle";
+import {useNavigate} from "react-router-dom";
 
 export default function Chat() {
   useTitle("message");
@@ -12,7 +13,7 @@ export default function Chat() {
     {id: "1", text: "Hello buddy!", time: "10:58PM", sender: "them", status: "sent", type: "text", reaction: ""},
     {id: "2", text: "Just testing", time: "11:00PM", sender: "me", status: "sent", type: "text", reaction: ""}
   ]);
-
+  const navigate = useNavigate();
   const [input, setInput] = useState("");
   const [openEmoji, setOpenEmoji] = useState(false);
   const [isPickerOpen, setIsPickerOpen] = useState(false);
@@ -182,7 +183,10 @@ export default function Chat() {
   };
 
   const hasInput = input.trim().length > 0;
-
+  
+ const profileNavigator = () => {
+   navigate("/accounts/hah2726262/view_profile");
+ }
   return (
     <>
       {showForwardModal && (
@@ -201,8 +205,11 @@ export default function Chat() {
       <div className="chat-main-container">
         <div className="chat-header">
           <div className="chat-top-header">
-          <img src={app_log} alt="profile" />
-          <div className="chat-user-info">
+             <span className="material-symbols-outlined" onClick={() => navigate(-1)}>
+            arrow_back
+          </span>
+          <img src={app_log} alt="profile"  onClick={profileNavigator}/>
+          <div className="chat-user-info" onClick={profileNavigator}>
            <p>+234 906 1748 136</p>
             <p>Online</p>
             </div>
@@ -280,10 +287,12 @@ export default function Chat() {
                   </div>
                 )}
                 <div className="chat-meta-info">
-                  <p>{msg.time}</p>
+                  <p style={{fontSize: "13px"}}>{msg.time}
                   {msg.sender === "me" && (
                     <span className="material-symbols-outlined">{getTickIcon(msg.status)}</span>
+                    
                   )}
+                  </p>
                 </div>
               </div>
 

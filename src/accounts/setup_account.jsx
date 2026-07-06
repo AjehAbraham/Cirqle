@@ -69,7 +69,7 @@ function Completed({isOpen, onClose}){
   const location = useLocation();
 
   const startConversation = () => {
-    navigate("/accounts/message/chats", {state: {to: "start"}});
+    navigate("/accounts/message/chats?tab=start&cm=true", {state: {to: "start"}});
     onClose()
   }
   const handleContinue = () => {
@@ -83,8 +83,8 @@ function Completed({isOpen, onClose}){
         <img src={interaction_logo} alt="congrats" />
         <h1>Welcome to Cirqle 🎉</h1>
         <p>Registration Completed</p>
-        <button onClick={startConversation}>Start  messaging</button>
-        <button onClick={handleContinue}>Go to Chats</button>
+        <button onClick={startConversation}><span className="material-symbols-outlined">near_me</span> Start  messaging</button>
+        <button onClick={handleContinue}><span className="material-symbols-outlined">chat</span>Go to Chats</button>
       </div>
     </div>,
     document.body

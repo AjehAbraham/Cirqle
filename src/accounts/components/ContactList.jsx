@@ -33,7 +33,9 @@ function ContactList({isOpen, onClose}){
     navigate("/accounts/create-group");
     onClose();
   }
-
+const profileNavigator = (id) => {
+  navigate(`/accounts/${id}/view_profile`);
+}
   if(!isOpen) return null;
 
   return createPortal(
@@ -70,9 +72,9 @@ function ContactList({isOpen, onClose}){
           <h2 className="cl_section">All Sync Contacts</h2>
 
           <div className="cl_listwrap">
-            {filteredList.length > 0? (
+            {filteredList.length > 0 ? (
               filteredList.map((list) => (
-                <div className="cl_item" key={list.id}>
+                <div className="cl_item" key={list.id} onClick={() => profileNavigator(list.id)}>
                   <div className="cl_row">
                     <img src={images} alt={list.name} />
                     <p className="cl_name">{list.name || list.tel}</p>

@@ -213,7 +213,17 @@
 .status.sent { color: var(--absText); }
 .status.delivered { color: var(--absText); }
 .status.seen { color: var(--accent); }
-
+.msg-counter {
+  padding: 5px;
+  border-radius: 50%;
+  text-align: center;
+  margin-right: 3px;
+  color: black;
+  font-weight: 500;
+  background-color: var(--accent);
+  width: 30px;
+  height: 30px;
+}
 .empty-state {
   padding: 40px 16px;
   text-align: center;

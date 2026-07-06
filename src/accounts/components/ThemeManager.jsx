@@ -2,7 +2,7 @@ import {useState, useEffect} from "react";
 import {createPortal} from "react-dom";
 import "./css/theme_manager.css";
 
-export default function ThemeManager({isOpen, onClose}){
+export default function ThemeManager({isOpen, onClose, selected, onSelect}){
   const themes = ["Dark", "Light", "System"];
   
   const [selectedTheme, setSelectedTheme] = useState(() => {

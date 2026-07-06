@@ -246,8 +246,17 @@ body {
   margin: 8px 0 0 0;
   background-color: var(--accent);
   font-family: 'Poppins', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
 }
-
+.content-message-container button:last-child{
+  background-color: transparent;
+  border: 2px solid var(--accent);
+  color: var(--text);
+}
 @media (min-width: 768px) {
   .setup-main-container {
     padding: 60px 20px;

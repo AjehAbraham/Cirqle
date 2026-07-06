@@ -86,11 +86,11 @@ export default function MyProfile() {
     <>
       <div className="profile-container">
         <div className="profile-header">
-          <span className="material-symbols-outlined" onClick={() => navigate(-1)}>
+         {/* <span className="material-symbols-outlined" onClick={() => navigate(-1)}>
             arrow_back
-          </span>
+          </span>*/}
           <p>My Profile</p>
-          <span className="material-symbols-outlined">edit</span>
+         {/* <span className="material-symbols-outlined">edit</span> */}
         </div>
 
         <div className="profile-layouts">

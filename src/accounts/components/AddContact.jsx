@@ -4,6 +4,7 @@ import "../css/add_contact.css";
 import CountryCodeSelector from "./CountryCode";
 import { createPortal } from "react-dom";
 import useTitle from "../../components/UseTitle";
+
 function StatusModal({ isOpen, onClose, success, updated }) {
   if (!isOpen) return null;
 

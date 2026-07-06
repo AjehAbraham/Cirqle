@@ -14,11 +14,8 @@ import forwardRoute from "./src/routes/forwardMessageRoute.js";
 import updateSetting from "./src/routes/resetSettingsRoute.js";
 import refreshToken from "./src/routes/refreshTokenRoute.js";
 import editRouter from "./src/routes/editMessageRoute.js";
-<<<<<<< HEAD
 import loadConvoRoute from "../src/routes/loadConvoRoute.js";
-=======
-import loadConvoRoute from "./src/routes/loadConvoRoute.js";
->>>>>>> 7019625e3178f733a96060817841b6488dc38d97
+/*import loadConvoRoute from "./src/routes/loadConvoRoute.js";*/
 
 
 const app = express();
