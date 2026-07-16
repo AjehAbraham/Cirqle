@@ -1,10 +1,13 @@
 
 import { useState, useEffect, useRef } from "react";
-import app_logo from "../assets/app_logo.png";
+import app_logo from "../../assets/app_logo.png";
 import "./css/verify_otp.css";
 import { useLocation, useNavigate } from "react-router-dom";
+import useTitle from "../../components/UseTitle";
 
 function VerifyOtp(){
+  useTitle("Verify OTP");
+  
   const location = useLocation();
   const { code, phone, country, flag, total } = location.state || {};
   const navigate = useNavigate();

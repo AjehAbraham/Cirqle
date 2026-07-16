@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
-import "../css/my_profile.css";
+import "./css/my_profile.css";
 import images from "../../assets/images.jpeg";
 import Footer from "../components/Footer";
 

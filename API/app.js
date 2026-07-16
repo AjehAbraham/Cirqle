@@ -14,8 +14,8 @@ import forwardRoute from "./src/routes/forwardMessageRoute.js";
 import updateSetting from "./src/routes/resetSettingsRoute.js";
 import refreshToken from "./src/routes/refreshTokenRoute.js";
 import editRouter from "./src/routes/editMessageRoute.js";
-import loadConvoRoute from "../src/routes/loadConvoRoute.js";
-/*import loadConvoRoute from "./src/routes/loadConvoRoute.js";*/
+import loadConvoRoute from "./src/routes/loadConvoRoute.js";
+
 
 
 const app = express();
@@ -37,7 +37,7 @@ app.use("/api", loadConvoRoute);
 
 
 app.use( (req, res, next) => {
-   next( new NotFoundError("Route cannot be found", "NOT_FOUND_ERROR"));
+   next( new NotFoundError("Route cannot be qfound", "NOT_FOUND_ERROR"));
 });
 
 app.use( (err, req, res, next) => {

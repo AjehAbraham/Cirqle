@@ -4,8 +4,8 @@ import Welcome from "./home/Welcome";
 import WelcomeScreen from './home/WelcomeScreen2';
 import WelcomeScreen3 from './home/WelcomeScreen3';
 import Terms from "./home/Terms_conditions";
-import Login from './accounts/login';
-import VerifyOtp from './accounts/verifyOtp';
+import Login from './accounts/auth/login';
+import VerifyOtp from './accounts/auth/verifyOtp';
 import FinishReg from "./accounts/setup_account";
 
 import MainChats from "./accounts/message/chats";
@@ -38,8 +38,10 @@ const handleTheme = () => setShowThemeModal(true);*/}
       <Route path="/welcomeScreen" element={<WelcomeScreen />} />
       <Route path="/welcomeScreen3" element={<WelcomeScreen3 />} />
       <Route path="/terms_conditions" element={<Terms />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/verifyOtp" element={<VerifyOtp />} />
+
+      
+      <Route path="/accounts/auth/login" element={<Login />} />
+      <Route path="/accounts/auth/verifyOtp" element={<VerifyOtp />} />
       
        {/* AUTHENTICATED ROUTES */}
        <Route path="/account_setup" element={<FinishReg />} />

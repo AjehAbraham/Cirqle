@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import {createPortal} from "react-dom";
-import "../css/contact_list.css";
+import "./css/contact_list.css";
 import images from "../../assets/images.jpeg";
 import {useNavigate} from "react-router-dom";
 

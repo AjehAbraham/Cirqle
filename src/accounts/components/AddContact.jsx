@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
-import "../css/add_contact.css";
+import "./css/add_contact.css";
 import CountryCodeSelector from "./CountryCode";
 import { createPortal } from "react-dom";
 import useTitle from "../../components/UseTitle";

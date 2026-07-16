@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import MessageAction, {ForwardModal} from "../components/MessageAction";
 import EmojiModal from "../components/EmojiModal";
 import app_log from "../../assets/app_logo.png";
-import "../css/view_message.css";
+import "./css/view_message.css";
 import useTitle from "../../components/UseTitle";
 import {useNavigate} from "react-router-dom";
 
@@ -162,6 +162,7 @@ export default function Chat() {
     if (action.startsWith("forward-")) {
       setForwardMsg(selectedMsg);
       setShowForwardModal(true);
+     // setShowForwardModal(!!selectedMsg)
     }
 
     if (action === 'copy') {
@@ -189,7 +190,7 @@ export default function Chat() {
  }
   return (
     <>
-      {showForwardModal && (
+      {showForwardModal && selectedMsg &&(
         <ForwardModal msg={forwardMsg} onClose={() => {setShowForwardModal(false); setForwardMsg(null)}} />
       )}
 

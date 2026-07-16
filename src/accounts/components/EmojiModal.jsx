@@ -1,6 +1,6 @@
 import {useState, useEffect, useRef} from "react";
 import {createPortal} from "react-dom";
-import "../css/emoji.css";
+import "./css/emoji.css";
 import app_logo from "../../assets/app_logo.png";
 
 function EmojiModal({ isOpen, onClose, onSelect }) {

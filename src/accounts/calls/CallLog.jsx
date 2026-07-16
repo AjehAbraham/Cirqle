@@ -1,5 +1,5 @@
 import {useState} from "react";
-import "../css/call_log.css";
+import "./css/call_log.css";
 import Footer from "../components/Footer";
 import useTitle from "../../components/UseTitle";
 

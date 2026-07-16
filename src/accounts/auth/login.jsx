@@ -1,10 +1,10 @@
 import { useState, useEffect} from "react";
-import useTitle from "../components/UseTitle";
-import LanguageModal from "../components/LanguageSelector";
+import useTitle from "../../components/UseTitle";
+import LanguageModal from "../../components/LanguageSelector";
 import "./css/login.css";
-import app_logo from "../assets/app_logo.png";
-import CountryCodeSelector from "./components/CountryCode.jsx";
-import ng_flag from "../assets/flags/ng_flag.WEBP";
+import app_logo from "../../assets/app_logo.png";
+import CountryCodeSelector from "../components/CountryCode";
+import ng_flag from "../../assets/flags/ng_flag.WEBP";
 import {useNavigate} from "react-router-dom";
 //import VerifyOtp from "./verifyOtp.jsx";
 
@@ -86,7 +86,7 @@ if (digitsOnly.length === config.max && config.strip > 0) {
 const fullNumber = selectedCountry.cCode + digitsOnly;
  alert(selectedCountry.code + " " + fullNumber);
  //const navigate = useNavigate();
- navigate("/verifyOtp", {state: {code: selectedCountry.cCode, phone: digitsOnly, country: selectedCountry, flag: selectedCountry.flag, total: 5}});
+ navigate("/accounts/auth/verifyOtp", {state: {code: selectedCountry.cCode, phone: digitsOnly, country: selectedCountry, flag: selectedCountry.flag, total: 5}});
 }
     return(
       <>

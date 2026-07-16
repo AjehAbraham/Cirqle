@@ -1,4 +1,4 @@
-import "../css/footer.css";
+import "./css/footer.css";
 import {useNavigate, useLocation} from "react-router-dom";
 
 function Footer({ activeTab, setActiveTab }) {

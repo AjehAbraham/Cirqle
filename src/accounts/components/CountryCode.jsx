@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
-import "../css/country_code.css";
+import "./css/country_code.css";
 import ng_flag from "../../assets/flags/ng_flag.WEBP";
 import us_flag from "../../assets/flags/us_flag.WEBP";
 import ke_flag from "../../assets/flags/ke_flag.WEBP";

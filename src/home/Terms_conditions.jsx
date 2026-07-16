@@ -3,8 +3,8 @@ import app_logo from "../assets/app_logo.png";
 import {useNavigate} from "react-router-dom";
 import "../css/terms_condition.css";
 import useTitle from "../components/UseTitle";
-import LanguageModal from "../components/LanguageSelector.jsx";
-import Login from "../accounts/login.jsx";
+import LanguageModal from "../components/LanguageSelector";
+import Login from "../accounts/auth/login";
 
 function Terms(){
     useTitle("Terms & Conditions");
@@ -15,7 +15,7 @@ function Terms(){
    }
    const navigate = useNavigate();
    const navigator = () => {
-    navigate("/login");
+    navigate("/accounts/auth/login");
    }
     return (
         <>

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import "../css/message_action.css";
+import "./css/message_action.css";
 import app_logo from "../../assets/app_logo.png";
 
 export default function MessageAction({ isOpen, onClose, onSelect, option, msg }) {
@@ -12,7 +12,7 @@ export default function MessageAction({ isOpen, onClose, onSelect, option, msg }
     } else {
       document.body.style.overflow = 'unset';
     }
-    return () => document.body.style.overflow = 'unset';
+    //return () => document.body.style.overflow = 'unset';
   }, [isOpen]);
 
   if (!isOpen ||!msg) return null;
@@ -120,6 +120,7 @@ export function ForwardModal({ msg, onClose }) {
     { id: '3', name: 'Work Group', avatar: app_logo }
   ]);
 
+  //if(!msg || msg.id) return null;
   const toggleChat = (id) => {
     setSelectedChats(prev =>
       prev.includes(id)? prev.filter(c => c!== id) : [...prev, id]

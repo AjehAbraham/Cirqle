@@ -138,6 +138,7 @@ html, body {
 .lower-functional-container p{
   padding: 10px;
   text-align: left;
+  cursor: pointer;
 }
 .lower-functional-container p:nth-child(2){
   color: var(--danger);
@@ -210,6 +211,7 @@ input:checked + .slider::before {
 .bottom-functional-container p{
   color: var(--danger);
   padding: 10px;
+  cursor: pointer;
 }
 
 

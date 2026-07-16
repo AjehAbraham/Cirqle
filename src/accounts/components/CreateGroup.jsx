@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate } from "react-router-dom";
-import "../css/create_group.css";
+import "./css/create_group.css";
 import images from "../../assets/images.jpeg";
 import useTitle from "../../components/UseTitle";
 const dummyContacts = [

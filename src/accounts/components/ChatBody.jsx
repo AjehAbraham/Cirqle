@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import {useSearchParams, useNavigate } from "react-router-dom";
-import "../css/chat_body.css";
+import "./css/chat_body.css";
 import app_logo from "../../assets/app_logo.png";
 import ContactList from "./ContactList.jsx";
 
