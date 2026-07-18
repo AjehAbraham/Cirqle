@@ -14,10 +14,9 @@ function WelcomeScreen3(){
     }
     return(
         <>
-        <div className="main-container">
+        <div className="main-container-home">
             <img src={info_call_animation} alt="call animation" />
-            <h1>Make Crystal-Clear</h1>
-            <h1> Calls</h1>
+            <h1>Make Crystal-Clear<br /> Calls</h1>
             <p>Make HD voice and video calls with <br />
             individual or group, where ever <br />
             you are in the world!</p>

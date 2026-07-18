@@ -27,11 +27,11 @@ function Terms(){
 </div>
 <LanguageModal isOpen={isOpen} onClose={() => setIsOpen(false)} onSelect={handleSelect} />
 <div className="terms-main-container">
-  <div className="headers">
+  <div className="terms-headers">
     <img src={app_logo} alt="logo" />
-    <h1>Cirqle</h1>
+   {/* <h1>Cirqle</h1> */}
   </div>
-  <div className="container">
+  <div className="container-for-terms">
     <div className="terms-container">
       <h1>Terms & Conditions</h1>
       <h3>Please Accept our Terms and Conditions to continue</h3>

@@ -12,10 +12,9 @@ function WelcomeScreen(){
     }
     return(
         <>
-        <div className="main-container">
+        <div className="main-container-home">
             <img src={info_friends_animation} alt="call animation" />
-            <h1>Chat with Family</h1>
-            <h1>& Friends<br /></h1>
+            <h1>Chat with Family<br /> & Friends</h1>
             <p>Send text, share photos,videos, <br /> document and your location, one-to <br /> or groups - Stay connected to people who matters.</p>
             <div className="span-container">
                 <div className="pagination"></div> <div className="pagination" style={{backgroundColor: "#00F5D4"}}></div> <div className="pagination"></div> 

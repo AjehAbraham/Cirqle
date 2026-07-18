@@ -10,9 +10,9 @@ export const ValidateTel = (req, res, next) => {
   const cCode = countryCode.trim();
   const samples = ["+1", "+222", "+91", "+234"];
   if (!samples.includes(cCode)) {
-    throw new ValidationError("Invalid country code or country code not supported", "CCODE_VALIDATION_ERROR");
+    throw new ValidationError("Invalid country code or country code not supported", "CODE_VALIDATION_ERROR");
   }
-  req.body.CountryCode = cCode; 
+  req.body.countryCode = cCode; 
 
   const Phone = Tel.trim();
   const pattern = /^[0-9]+$/;
@@ -30,14 +30,14 @@ export const ValidateTel = (req, res, next) => {
   req.body.ip = ip;
   req.body.UserAgent = userAgent;
 
-  if (req.body.otp) {
+  /*if (req.body.otp) {
     const otp = req.body.otp.toString().trim();
     const regex = /^[0-9]{6}$/;
     if (!regex.test(otp)) {
       throw new ValidationError("Invalid OTP length. OTP must be 6 digits", "OTP_VALIDATION_ERROR");
     }
     req.body.otp = otp; 
-  }
+  }*/
 
   next();
 };

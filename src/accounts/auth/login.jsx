@@ -6,12 +6,12 @@ import app_logo from "../../assets/app_logo.png";
 import CountryCodeSelector from "../components/CountryCode";
 import ng_flag from "../../assets/flags/ng_flag.WEBP";
 import {useNavigate} from "react-router-dom";
-//import VerifyOtp from "./verifyOtp.jsx";
+import axios from "axios";
 
 function  Login(){
     useTitle("Login");
     const navigate = useNavigate();
-
+    const [errorMsg, setErrorMsg] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [language, setLang] = useState("English");
     const handleSelect = (lang) => {
@@ -77,16 +77,33 @@ const handlePhoneChange = (e) => {
 
 }
 
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
   e.preventDefault();
 let digitsOnly = phone.replace(/\s/g, "");
 if (digitsOnly.length === config.max && config.strip > 0) {
   digitsOnly = digitsOnly.slice(config.strip);
 }
 const fullNumber = selectedCountry.cCode + digitsOnly;
- alert(selectedCountry.code + " " + fullNumber);
- //const navigate = useNavigate();
- navigate("/accounts/auth/verifyOtp", {state: {code: selectedCountry.cCode, phone: digitsOnly, country: selectedCountry, flag: selectedCountry.flag, total: 5}});
+ //alert(selectedCountry.code + " " + fullNumber);
+ //navigate("/accounts/auth/verifyOtp", {state: {code: selectedCountry.cCode, phone: digitsOnly, country: selectedCountry,
+ //  flag: selectedCountry.flag, total: 5}});
+ /*const Fd = new FormData();
+ Fd.append("countryCode", selectedCountry.cCode);
+ Fd.append("Tel", digitsOnly);*/
+ try {
+  const response = await axios.post("http://localhost:3000/api/login", {countryCode: selectedCountry.cCode, Tel: digitsOnly});
+  console.log(response.data);
+  setErrorMsg(JSON.stringify(response));
+ }catch(error){
+  const backendError = error.response?.data?.error; 
+  
+  const msg = backendError?.message || "Unknown error";
+  const code = backendError?.code || "NO_CODE";
+  
+  setErrorMsg(`${code}: ${msg}`); 
+  
+  console.error("Full backend error:", backendError);
+}
 }
     return(
       <>
@@ -124,9 +141,11 @@ const fullNumber = selectedCountry.cCode + digitsOnly;
             onChange={handlePhoneChange}
           />
         </div>
-        
+        { errorMsg && (
+          <p className="phone_error" style={{userSelect: "text"}}>{errorMsg}</p>
+        )}
         {phone && !isValid && (
-          <p className="phone_error">Enter {config.max - config.strip} digits</p>
+          <p className="phone_error"> Enter {config.max - config.strip} digits</p>
         )}
       </div>
       

@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap');
-
-
 :root {
   --bg: #f1f1f1;
-  --text: #a1a1a1;
+  --text: #111;
   --accent: #00F5D4;
-  --absText: #a1a1a1;
+  --absText: #aaaaaa;
+  --border: #d1d1d1;
+  --card-bg: #fff;
+  --hover: #f5f5f5;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -13,26 +13,75 @@
     --bg: #000;
     --text: #f1f1f1;
     --accent: #00F5D4;
-    --absText: #a1a1a1;
+    --absText: #888;
+    --border: #2a2a2a;
+    --card-bg: #121212;
+    --hover: #1a1a1a;
   }
 }
-
-html {
-  background-color: var(--bg);
-  min-height: 100%;
+[data-theme= "dark" ]{
+     --bg: #000;
+    --text: #f1f1f1;
+    --accent: #00F5D4;
+    --absText: #888;
+    --border: #2a2a2a;
+    --card-bg: #121212;
+    --hover: #1a1a1a; 
 }
-
-body {
-  font-size: 13px;
-  min-height: 100vh;
-  width: 100%;
+[data-theme= "light"]{
+    --bg: #f1f1f1;
+  --text: #111;
+  --accent: #00F5D4;
+  --absText: #aaaaaa;
+  --border: #d1d1d1;
+  --card-bg: #fff;
+  --hover: #f5f5f5;
+}
+* { box-sizing: border-box; }
+html, body {
   margin: 0;
   padding: 0;
-  user-select: none;
+  font-size: 13px;
+  height: 100%;
+  user-select: text;
   color: var(--text);
   background-color: var(--bg);
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.language-selectors {
+  margin: 12px;
+  padding: 12px 16px;
+  border: 2px solid var(--absText);
+  border-radius: 10px;
+  font-size: 15px;
+  width: 30%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   box-sizing: border-box;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+@media (min-width: 1025px) {
+  .language-selectors{
+    width: 20%;
+  }
+}
+.language-selectors span {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.language-selectors span:nth-child(1) {
+  color: var(--accent);
+}
+
+.language-selectors span:nth-child(2) {
+  color: var(--absText);
+  font-size: 15px;
 }
 
 .terms-main-container {
@@ -40,7 +89,7 @@ body {
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding: 40px 20px;
+  padding: 5px;
   gap: 24px;
   box-sizing: border-box;
   color: var(--text);
@@ -58,7 +107,7 @@ body {
   font-weight: 700;
   letter-spacing: -0.02em;
 }
-.headers {
+.terms-headers {
   width: 100%;
   max-width: 500px;
   display: flex;
@@ -68,33 +117,33 @@ body {
   margin: 0;
 }
 
-.headers img {
-  width: 160px;
-  height: 160px;
+.terms-headers img {
+  width: 120px;
+  height: 120px;
   object-fit: contain;
   flex-shrink: 0;
 }
 
-.headers h1 {
-  font-size: 40px;
+.terms-headers h1 {
+  font-size: 30px;
   margin: 0;
   text-align: center;
 }
 
-.container {
+.container-for-terms {
   width: 100%;
   max-width: 700px;
   background-color: transparent;
 }
 
 .terms-container h1 {
-  font-size: 30px;
+  font-size: 20px;
   margin: 0 0 10px 0;
   text-align: center;
 }
 
 .terms-container h3 {
-  font-size: 18px;
+  font-size: 15px;
   margin: 0 0 24px 0;
   text-align: center;
   color: var(--absText);
@@ -102,7 +151,7 @@ body {
 }
 
 .terms-container p {
-  font-size: 15px;
+  font-size: 13px;
   text-align: left;
   margin: 0 0 16px 0;
   line-height: 1.6;
@@ -138,47 +187,4 @@ body {
 .functional-layout button:nth-child(1) {
   background-color: var(--absText);
   color: var(--bg);
-}
-
-.language-selectors {
-  margin: 12px 20px;
-  padding: 12px 16px;
-  border: 2px solid var(--absText);
-  border-radius: 10px;
-  font-size: 18px;
-  width: calc(100% - 40px);
-  max-width: 400px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-sizing: border-box;
-  background-color: var(--bg);
-  color: var(--text);
-}
-
-.language-selectors span {
-  font-size: 20px;
-  line-height: 1;
-}
-
-.language-selectors span:nth-child(1) {
-  color: var(--accent);
-}
-
-.language-selectors span:nth-child(2) {
-  color: var(--absText);
-}
-
-@media (min-width: 768px) {
-  .headers img {
-    width: 200px;
-    height: 200px;
-  }
-  .headers h1 {
-    font-size: 50px;
-  }
-  .terms-container h1 {
-    font-size: 36px;
-  }
 }

@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import helmet from "helmet";
+import cors from "cors";
 import cookieParser from "cookie-parser"
 import http from "http";
 import {initSocket} from "./socket.js";
@@ -22,8 +23,9 @@ const app = express();
 app.use(express.json());
 app.use(cookieParser());
 app.use(helmet());
+app.use(cors());
 
-//await connectDB();
+await connectDB();
 
 app.use("/api", loginRoute);
 app.use("/api", verifyRouter);
@@ -44,9 +46,9 @@ app.use( (err, req, res, next) => {
   const status = err.status || 500;
   const code = err.code || "INTERNAL_SERVER_ERROR";
   const message = err.message || "Error occurred on the server while trying to complete your request, please retry again later";
-  
+  console.log(err);
   res.status(status).json({
-	error: {message, code}  
+	error: {message, code, stack: err.stack}  
   });
 });
 

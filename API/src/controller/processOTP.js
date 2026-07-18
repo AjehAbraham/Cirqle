@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 
 export const processOTP = asyncHandler(async (req, res, next) => {
   const Tel = req.body.Tel;
-  const CountryCode = req.body.CountryCode;
+  const CountryCode = req.body.countryCode;
   const IP = req.body.ip;
   const UserAgent = req.body.UserAgent;
   const OTP = req.body.otp;

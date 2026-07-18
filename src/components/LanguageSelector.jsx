@@ -35,7 +35,7 @@ function LanguageModal({isOpen, onClose, onSelect, currentLang = "English"}){
   return createPortal(
     
     <div className="selector-modal">
-      <div className="modal-container">
+      <div className="modal-container-for-lang">
         <input type="search" placeholder="Search language" onChange={(e) => setSearch(e.target.value)} value={search} />
        <div className="list-languages">
             {filterLanguage.length > 0 ? (filterLanguage.map((lang) => (
@@ -47,7 +47,7 @@ function LanguageModal({isOpen, onClose, onSelect, currentLang = "English"}){
                 )} </p>
           )) ) : (<h3> No language search result found</h3>)}
        </div>
-       <div className="btn-container">
+       <div className="btn-container-for-lang">
         <button onClick={onClose}>Close</button>
         <button onClick={handleSelected}>Select</button>
        </div>

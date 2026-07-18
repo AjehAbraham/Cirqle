@@ -1,9 +1,9 @@
 import express from "express";
 import {ValidateTel} from "../middleware/validateTel.js";
-import {authenticate} from "../middleware/auth.js";
-import {processOTP} from "../controller/processOTP.js";
+import { processLogin } from "../controller/processLogin.js";
+
 
 const loginRoute = express.Router();
 
-loginRoute.post("/login", ValidateTel, processOTP);
+loginRoute.post("/login", ValidateTel, processLogin);
 export default loginRoute;
