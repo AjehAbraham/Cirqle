@@ -60,10 +60,11 @@ function CountryCodeSelector({isOpen, onClose, onSelect, currentCountry = "Niger
    <div className="flag-modal">
     <div className="flag-container">
         <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search country or code"/>
+        <div className="container-for-flag-contents">
         <div className="flag-content">
          { 
            filterCountry.length > 0 ? (filterCountry.map((c) =>
-            <p key={c.code} onClick={() => handleSelect(c)} style={{backgroundColor: selectedCountry === c.country ? "#00F5D4" : "none", 
+            <p key={c.code} onClick={() => handleSelect(c)} style={{backgroundColor: selectedCountry === c.country ? "var(--accent" : "transparent", 
                 fontWeight: selectedCountry === c.country ? "bold" : "normal",
                 color: selectedCountry === c.country ? "black" : "white"
             }}> 
@@ -74,10 +75,11 @@ function CountryCodeSelector({isOpen, onClose, onSelect, currentCountry = "Niger
                 <span className="material-symbols-outlined">check</span>
             )}</p>
            )) : (
-            <p>No search result found</p> 
+            <p className="flag_error">No search result found <span className="material-symbols-outlined">search_off</span></p> 
              )}
         </div>
-        <div className="selector-btn">
+        </div>
+        <div className="selector-btn-for-cCode">
             <button onClick={onClose}>Close</button>
         </div>
     </div>

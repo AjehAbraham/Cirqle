@@ -102,9 +102,13 @@ height: 60vh;
     font-size: 25px;
 }
 .list-languages h3{
+    display: flex;
+    justify-content: center;
+    color: var(--absText);
     font-size: 15px;
     font-weight: normal;
     text-align: center;
+    gap: 3px;
 }
 .btn-container-for-lang {
     width: 100%;

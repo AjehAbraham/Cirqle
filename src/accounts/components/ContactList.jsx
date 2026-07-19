@@ -52,6 +52,10 @@ const profileNavigator = (id) => {
               <span className="material-symbols-outlined">person_add</span>
               <span>Add new contact</span>
             </div>
+              <div className="cl_action">
+              <span className="material-symbols-outlined">import_contacts</span>
+              <span>Import contacts</span>
+            </div>
             <div className="cl_action" onClick={groupNavigator}>
               <span className="material-symbols-outlined">groups</span>
               <span>Create new Group</span>

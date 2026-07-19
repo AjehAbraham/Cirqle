@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useState, useMemo} from "react";
 import {useNavigate, useLocation} from "react-router-dom";
 import useTitle from "../components/UseTitle.jsx";
 import setup_logo from "../assets/setup_logo.png";
@@ -15,28 +15,31 @@ function FinishReg() {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const [preview, setPreview] = useState(setup_logo); 
- 
+  const [inputs, setInputs] = useState({name: "",bio: ""});
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInputs(prev => ({...prev, [name]: value }));
+  };
+  const isEnabled = useMemo(() => {
+    return inputs.name.trim()!== "" || inputs.bio.trim()!== "";
+  }, [inputs]);
+
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setPreview(URL.createObjectURL(file)); 
     }
   };
-const handleContinue = () => {
+const handleContinue = (e) => {
+  console.log(inputs);
     navigate("/accounts/message/chats", {state: {to: "nil"}});
   }
   return (
     <>
       <Completed isOpen={isOpen} onClose={() => setIsOpen(false)} />
       <div className="setup-main-container">
-       {/* <div className="min-logo">
-          <img src={app_logo} />
-          Cirqle
-        </div> */}
         <h1 className="skip" onClick={handleContinue}>Skip</h1>
         <div className="account-content">
-
-          {/* Circular upload */}
           <div className="avatar-upload">
             <label htmlFor="avatar-upload" >
             <img src={preview} alt="profile preview"/> </label>
@@ -52,10 +55,10 @@ const handleContinue = () => {
           <h1>Setup Your Profile</h1>
           <form method="post">
             <label>Display Name</label><br />
-            <input type="text" placeholder="your name (optional)"/><br />
+            <input type="text" name="name" value={inputs.name} placeholder="your name (optional)" onChange={handleChange}/><br />
             <label>Bio (optional)</label><br />
-            <textarea placeholder="write about yourself"></textarea><br />
-            <button type="button" onClick={() => setIsOpen(true)}>Finish</button>
+            <textarea value={inputs.bio} name="bio" placeholder="write about yourself" onChange={handleChange}></textarea><br />
+            <button type="button" onClick={() => setIsOpen(true)} disabled={!isEnabled}>Finish</button>
           </form>
         </div>
       </div>

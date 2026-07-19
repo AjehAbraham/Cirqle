@@ -39,7 +39,7 @@ function StatusModal({ isOpen, onClose, success, updated }) {
 }
 
 export default function AddContact() {
-  useTitle("Manage-contact");
+  useTitle("Manage contacts");
   
   const [isOpen, setIsOpen] = useState(false);
   const [params] = useSearchParams();

@@ -89,18 +89,17 @@ function VerifyOtp(){
     const fullOtp = otp.join("");
     if (fullOtp.length === otpLength) {
       alert(`Verifying ${fullOtp} for ${code}${phone}`);
-        navigate("/account_setup");
+        navigate("/accounts/account_setup");
     }
   }
 
   return(
-<div className="wrapper-container">
-  <h1>Verify phone number</h1>
-
+<div className="wrapper-container-for-otp">
   <div className="otp-main-container">
     <div className="otp-logo">
       <img src={app_logo} alt="logo" />
     </div>
+    <h1>Verify phone number</h1>
 
     <form onSubmit={handleSubmit}>
       <p>
@@ -143,7 +142,7 @@ function VerifyOtp(){
         Verify
       </button>
 
-      <p>Having trouble receiving OTP? click <a href="/">here</a></p>
+      <p>Having trouble receiving OTP? click <a href="/home/support/help?tab=otp&text=trouble">here</a></p>
     </form>
   </div>
 </div>

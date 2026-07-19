@@ -52,7 +52,7 @@ html, body {
 .language-selectors {
   margin: 12px;
   padding: 12px 16px;
-  border: 2px solid var(--absText);
+  border: 2px solid var(--border);
   border-radius: 10px;
   font-size: 15px;
   width: 30%;

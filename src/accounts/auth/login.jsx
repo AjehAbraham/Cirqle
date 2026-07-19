@@ -116,9 +116,7 @@ const fullNumber = selectedCountry.cCode + digitsOnly;
 </div>
 
 <div className="login-main-container">
-  <h1>Login/Sign-up</h1>
-  
-  <div className="logo-container">
+  <div className="logo-container-for-login">
     <img src={app_logo} alt="Cirqle logo" />
   </div>
   
@@ -126,9 +124,9 @@ const fullNumber = selectedCountry.cCode + digitsOnly;
     <h1>Enter your phone number to login or create account</h1>
     
     <form method="post" onSubmit={handleSubmit} style={{width: '100%'}}>
-      <div className="input-wrapper">
-        <div className="input-containers" style={{borderColor: phone && !isValid ? "#ff4d4f" : "var(--border)"}}>
-          <div className="wrappers" onClick={() => setOpenCountry(true)}>
+      <div className="input-wrapper-for-login">
+        <div className="input-containers-for-login" style={{borderColor: phone && !isValid ? "#ff4d4f" : "var(--border)"}}>
+          <div className="wrappers-for-login" onClick={() => setOpenCountry(true)}>
             <img src={selectedCountry.flag} alt={selectedCountry.name} />
             <p>{selectedCountry.cCode}</p>
             <span className="material-symbols-outlined">keyboard_arrow_down</span>
@@ -145,19 +143,19 @@ const fullNumber = selectedCountry.cCode + digitsOnly;
           <p className="phone_error" style={{userSelect: "text"}}>{errorMsg}</p>
         )}
         {phone && !isValid && (
-          <p className="phone_error"> Enter {config.max - config.strip} digits</p>
+          <p className="phone_error"> Enter at least {config.max - config.strip} digits</p>
         )}
       </div>
       
       <div className="terms-text">
-        <p>By clicking continue you agree to the <a href="/terms_conditions" target="_blank">Terms & Conditions</a></p>
+        <p>By clicking continue you agree to the <a href="/terms_and_conditions" target="_blank">Terms & Conditions</a></p>
         <p>Privacy policy</p>
       </div>
       
       <button disabled={!isValid}>Continue</button>
     </form>
     
-    <p>Having trouble trying to sign-in? Click <a href="/">here</a></p>
+    <p>Having trouble trying to sign-in? Click <a href="/home/support/help?tab=login&text=trouble" target="_blank">here</a></p>
   </div>
 </div>
       </>

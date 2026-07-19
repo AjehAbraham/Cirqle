@@ -2,7 +2,7 @@
 import useTitle from "../components/UseTitle.jsx";
 import  info_call_animation from "../assets/info_call_animation.jpg";
 import "../css/welcomeScreen.css";
-import Terms from "./Terms_conditions.jsx";
+import Terms from "./TermsConditions.jsx";
 import { useNavigate } from "react-router";
 
 
@@ -10,7 +10,7 @@ function WelcomeScreen3(){
     useTitle("Cirqle-Welcome");
     const navigate = useNavigate();
     const navigator = () => {
-        navigate("/terms_conditions");
+        navigate("/terms_and_conditions");
     }
     return(
         <>

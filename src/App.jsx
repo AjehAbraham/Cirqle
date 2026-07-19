@@ -3,7 +3,7 @@ import {BrowserRouter, Routes, Route, useNavigate} from "react-router-dom";
 import Welcome from "./home/Welcome";
 import WelcomeScreen from './home/WelcomeScreen2';
 import WelcomeScreen3 from './home/WelcomeScreen3';
-import Terms from "./home/Terms_conditions";
+import Terms from "./home/TermsConditions";
 import Login from './accounts/auth/login';
 import VerifyOtp from './accounts/auth/verifyOtp';
 import FinishReg from "./accounts/setup_account";
@@ -35,16 +35,16 @@ const handleTheme = () => setShowThemeModal(true);*/}
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<Welcome />} />
-      <Route path="/welcomeScreen" element={<WelcomeScreen />} />
-      <Route path="/welcomeScreen3" element={<WelcomeScreen3 />} />
-      <Route path="/terms_conditions" element={<Terms />} />
+      <Route path="/welcome" element={<WelcomeScreen />} />
+      <Route path="/welcome2" element={<WelcomeScreen3 />} />
+      <Route path="/terms_and_conditions" element={<Terms />} />
 
       
       <Route path="/accounts/auth/login" element={<Login />} />
       <Route path="/accounts/auth/verifyOtp" element={<VerifyOtp />} />
       
        {/* AUTHENTICATED ROUTES */}
-       <Route path="/account_setup" element={<FinishReg />} />
+       <Route path="/accounts/account_setup" element={<FinishReg />} />
        <Route path="/accounts/message/chats" element={<MainChats />} />
        <Route path="/accounts/message/:id/view" element={<ViewMessage />} />
        

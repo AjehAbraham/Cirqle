@@ -45,7 +45,7 @@ function LanguageModal({isOpen, onClose, onSelect, currentLang = "English"}){
                  {selectedLanguage === lang && (
                   <span className="material-symbols-outlined">check </span>
                 )} </p>
-          )) ) : (<h3> No language search result found</h3>)}
+          )) ) : (<h3> No search result found  <span className="material-symbols-outlined">search_off</span></h3>)}
        </div>
        <div className="btn-container-for-lang">
         <button onClick={onClose}>Close</button>
