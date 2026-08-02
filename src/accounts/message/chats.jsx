@@ -5,7 +5,7 @@ import "./css/chats.css";
 import Footer from "../components/Footer.jsx";
 import ChatBody from "../components/ChatBody.jsx";
 import app_logo from "../../assets/app_logo.png";
-import info_friends_animation from "../../assets/info_friends_animation.png";
+import info_friends_animation from "../../assets/info_friends_animation.PNG";
 import interaction_logo from "../../assets/interaction_logo.png";
 
 
