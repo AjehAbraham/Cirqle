@@ -4,8 +4,9 @@ import { useNavigate } from "react-router-dom";
 import "./css/my_profile.css";
 import images from "../../assets/images.jpeg";
 import Footer from "../components/Footer";
-
+import useTitle from "../../components/UseTitle";
 export default function MyProfile() {
+  useTitle("MyProfile");
   const [activeTab, setActiveTab] = useState("profile");
   const [bio, setBio] = useState("Unavailable");
   const [phone] = useState("+234 9061748136");
@@ -86,11 +87,7 @@ export default function MyProfile() {
     <>
       <div className="profile-container">
         <div className="profile-header">
-         {/* <span className="material-symbols-outlined" onClick={() => navigate(-1)}>
-            arrow_back
-          </span>*/}
           <p>My Profile</p>
-         {/* <span className="material-symbols-outlined">edit</span> */}
         </div>
 
         <div className="profile-layouts">
@@ -148,6 +145,7 @@ export default function MyProfile() {
             </button>
           </form>
         </div>
+          <Footer activeTab={activeTab} setActiveTab={setActiveTab}/>
       </div>
 
       {showImageModal && createPortal(
@@ -161,7 +159,7 @@ export default function MyProfile() {
         modalRoot
       )}
 
-      <Footer activeTab={activeTab} setActiveTab={setActiveTab}/>
+    
     </>
   );
 }

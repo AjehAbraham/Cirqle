@@ -73,6 +73,8 @@ html, body {
     width: 40%;
     max-width: 480px;
     margin: 0 auto;
+     border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
   }
 }
 
@@ -177,7 +179,7 @@ html, body {
 }
 
 .resend-container p {
-  font-size: 14px;
+  font-size: 13px;
   margin: 0;
 }
 
@@ -194,7 +196,7 @@ html, body {
   cursor: pointer;
   border: none;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 15px;
   border-radius: 12px;
   background-color: var(--accent);
   transition: opacity 0.2s;

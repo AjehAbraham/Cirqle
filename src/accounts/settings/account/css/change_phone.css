@@ -1,0 +1,139 @@
+:root {
+  --bg: #f1f1f1;
+  --text: #111;
+  --accent: #00F5D4;
+  --absText: #aaaaaa;
+  --border: #d1d1d1;
+  --card-bg: #fff;
+  --hover: #f5f5f5;
+  --danger: #ff3b30;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000;
+    --text: #f1f1f1;
+    --accent: #00F5D4;
+    --absText: #888;
+    --border: #2a2a2a;
+    --card-bg: #121212;
+    --hover: #1a1a1a;
+  }
+}
+
+[data-theme= "dark"]{
+  --bg: #000;
+  --text: #f1f1f1;
+  --accent: #00F5D4;
+  --absText: #888;
+  --border: #2a2a2a;
+  --card-bg: #121212;
+  --hover: #1a1a1a; 
+}
+
+[data-theme= "light"]{
+  --bg: #f1f1f1;
+  --text: #111;
+  --accent: #00F5D4;
+  --absText: #aaaaaa;
+  --border: #d1d1d1;
+  --card-bg: #fff;
+  --hover: #f5f5f5;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  color: var(--text);
+  background-color: var(--bg);
+  user-select: text;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+
+.main-container-for-phone{
+min-height: 100vh;
+height: 100vh;
+width: 100%;
+overflow-y: auto;
+}
+
+@media (min-width: 1025px){
+    .main-container-for-phone{
+        width: 480px;
+        margin: 0 auto;
+         border-left: 1px solid var(--border);
+         border-right: 1px solid var(--border);
+    }
+}
+.header-for-phone{
+display: flex;
+position: sticky;
+top: 0;
+align-items: center;
+z-index: 5;
+padding: 14px 16px;
+background-color: var(--card-bg);
+border-bottom: 2px solid var(--border);
+}
+.header-for-phone > h1{
+    font-size: 18px;
+    color: var(--text);
+    letter-spacing: 0.1ch;
+}
+.header-for-phone span{
+    color: var(--text);
+    cursor: pointer;
+}
+.container-content-for-phone{
+display: block;
+}
+.container-content-for-phone span{
+    font-size: 60px;
+    margin-top: 10px;
+    color: var(--accent);
+}
+.container-content-for-phone h3{
+    font-weight: normal;
+    font-size: 15px;
+    color: var(--absText);
+}
+.phone-form-container{
+
+}
+.phone-form-container button{
+    padding: 10px 14px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 10px;
+    width: 60%;
+    color: #000;
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: var(--accent);
+}
+.form{
+display: flex;
+flex-direction: column;
+align-self: flex-start;
+width: 100%;
+text-align: left;
+margin-left: 10px;
+margin-right: 10px;
+margin-top: 30px;
+padding: 10px 12px;
+background-color: var(--card-bg);
+}
+.form h4{
+    color: var(--absText);
+}
+.form:nth-child(1){
+    margin-top: 10px;
+}
+.phone-form-Modal-overlay{
+
+}

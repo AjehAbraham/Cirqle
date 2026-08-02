@@ -8,7 +8,7 @@ function WelcomeScreen(){
     useTitle("Cirqle-Welcome");
     const navigate = useNavigate();
     const navigator = () => {
-        navigate("/welcome2");
+        navigate("/home/welcome2");
     }
     return(
         <>

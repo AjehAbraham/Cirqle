@@ -7,7 +7,26 @@ import {useNavigate} from "react-router-dom";
 function ContactList({isOpen, onClose}){
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
-
+  const [activeMenuId, setActiveMenuId] = useState(null)
+  
+  const toggleMenu = (id, e) =>{
+    e.stopPropagation();
+    setActiveMenuId(prev => prev === id ? null : id);
+  }
+  const handleEdit = (id, e) => {
+    e.stopPropagation();
+    setActiveMenuId(null);
+    console.log("editing", id);
+    navigate(`/accounts/contacts/view?tab=edit&id=${id}`) 
+  }
+  const handleDelete = (id, e) => {
+    e.stopPropagation();
+    setActiveMenuId(null);
+    console.log("Delete", id);
+  }
+  const handleImports = () =>{
+    alert("Importing...");
+  }
   const Lists = [
     {id:"9282hahwhw", name: "Ajeh Abraham", tel: "+234 9061748136", bio: "Jesus loves you"},
     {id: "hshwh72727hs", name: "Serah Johnson", tel: "+1 7334 901 54", bio: "Available"},
@@ -34,7 +53,7 @@ function ContactList({isOpen, onClose}){
     onClose();
   }
 const profileNavigator = (id) => {
-  navigate(`/accounts/${id}/view_profile`);
+  navigate(`/accounts/profile/${id}/view`);
 }
   if(!isOpen) return null;
 
@@ -52,7 +71,7 @@ const profileNavigator = (id) => {
               <span className="material-symbols-outlined">person_add</span>
               <span>Add new contact</span>
             </div>
-              <div className="cl_action">
+              <div className="cl_action" onClick={handleImports}>
               <span className="material-symbols-outlined">import_contacts</span>
               <span>Import contacts</span>
             </div>
@@ -82,6 +101,13 @@ const profileNavigator = (id) => {
                   <div className="cl_row">
                     <img src={images} alt={list.name} />
                     <p className="cl_name">{list.name || list.tel}</p>
+                  <div className="option-wrapper-for-contact" onClick={(e) => {e.stopPropagation()}}>
+                      <span className="material-symbols-outlined" onClick={(e) => toggleMenu(list.id, e)}>more_horiz</span>
+                     <div className={`manage-conatct-option ${activeMenuId === list.id ? "show" : ""}`}>
+                      <p onClick={(e) => handleEdit(list.id, e)}>Edit</p>
+                      <p onClick={(e) => handleDelete(list.id, e)}>Delete</p>
+                      </div>
+                    </div>
                   </div>
                   <p className="cl_bio">{list.bio}</p>
                 </div>

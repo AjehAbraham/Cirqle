@@ -74,6 +74,8 @@ html, body {
   padding: 10px;
   border-bottom: 1px solid var(--border);
   position: relative;
+  align-self: flex-start;
+  width: 100%;
 }
 .modal-top_menu p {
   margin-left: 0 auto;

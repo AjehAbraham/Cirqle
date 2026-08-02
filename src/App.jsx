@@ -9,7 +9,7 @@ import VerifyOtp from './accounts/auth/verifyOtp';
 import FinishReg from "./accounts/setup_account";
 
 import MainChats from "./accounts/message/chats";
-import ViewMessage from "./accounts/message/view_message";
+import ViewMessage from "./accounts/message/ViewMessage";
 
 import AddContact from "./accounts/components/AddContact";
 import CreateGroup from "./accounts/components/CreateGroup";
@@ -20,9 +20,17 @@ import ViewProfile from "./accounts/profile/ViewProfile";
 import CallLog from "./accounts/calls/CallLog";
 
 import GeneralSettings from "./accounts/settings/GeneralSettings";
+import AccountHome from "./accounts/settings/account/home";
+import ChatSettings from './accounts/settings/ChatSettings';
 import PrivacySetting from "./accounts/settings/PrivacySettings";
 import Notification from "./accounts/settings/NotificationSettings";
+import About from './accounts/settings/About';
 
+
+
+import LinkDevice from './accounts/settings/account/LinkDevice';
+import ChangePhone from './accounts/settings/account/ChangePhone';
+import DeleteAccount from './accounts/settings/account/DeleteAccount';
 
 function App() {
  {/*
@@ -35,9 +43,9 @@ const handleTheme = () => setShowThemeModal(true);*/}
     <BrowserRouter>
     <Routes>
       <Route path="/" element={<Welcome />} />
-      <Route path="/welcome" element={<WelcomeScreen />} />
-      <Route path="/welcome2" element={<WelcomeScreen3 />} />
-      <Route path="/terms_and_conditions" element={<Terms />} />
+      <Route path="/home/welcome" element={<WelcomeScreen />} />
+      <Route path="/home/welcome2" element={<WelcomeScreen3 />} />
+      <Route path="/home/terms_and_conditions" element={<Terms />} />
 
       
       <Route path="/accounts/auth/login" element={<Login />} />
@@ -52,14 +60,20 @@ const handleTheme = () => setShowThemeModal(true);*/}
        <Route path="/accounts/create-group" element={<CreateGroup />} />
        
        <Route path="/accounts/profile" element={<MyProfile />} />
-       <Route path="/accounts/:id/view_profile" element={<ViewProfile />} />
+       <Route path="/accounts/profile/:id/view" element={<ViewProfile />} />
        
        <Route path="/accounts/call/call-log" element={<CallLog />} /> 
        
        <Route path="/accounts/settings/general_settings" element={<GeneralSettings />} />
+       <Route path='/accounts/settings/account_setting' element={<AccountHome />} />
+       <Route path='/accounts/settings/chat_settings' element={<ChatSettings />} />
        <Route path="/accounts/settings/privacy_setting" element={<PrivacySetting />} />
        <Route path="/accounts/settings/notification_setting" element={<Notification />} />
-       
+        <Route path='/accounts/settings/about' element={<About />} />
+
+       <Route path='/accounts/settings/account/link_device' element={<LinkDevice />} />
+       <Route path='/accounts/settings/account/change_phone' element={< ChangePhone />} />
+       <Route path='/accounts/settings/account/delete_my_account' element={<DeleteAccount />} /> 
       </Routes>
       </BrowserRouter>
 </>

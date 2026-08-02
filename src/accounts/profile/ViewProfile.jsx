@@ -1,277 +1,250 @@
-import {useState, useEffect} from "react";
-import {useNavigate} from "react-router-dom";
-import {createPortal} from "react-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createPortal } from "react-dom";
 import "./css/view_profile.css";
 import app_logo from "../../assets/app_logo.png";
 import animated_logo from "../../assets/animated_logo.png";
 import images from "../../assets/images.jpeg";
 import useTitle from "../../components/UseTitle";
-import AddContact from "../components/AddContact";
-
 
 export default function ViewProfile(){
   const navigate = useNavigate();
   useTitle("View Profile");
-  const [isOpen, setIsOpen] = useState(false);
-  const[isOpenModal, setIsOpenModal] = useState(false);
-  const [selected, setSelected] = useState(null);
-  const handleEdit = () => {
-    navigate("/accounts/contacts/view?tab=edit&id=727272ahahahahwh");
-  }
-  const openStared = () => {
-    setSelected("star");
-    setIsOpenModal(true);
-  }
-  const openClear = () => {
-    setSelected("clear");
-    setIsOpenModal(true);
-  }
-  const openDelete = () =>{
-    setSelected("delete");
-    setIsOpenModal(true);
-  }
-  const openBlock = () => {
-    setSelected("block");
-    setIsOpenModal(true);
-  }
-  const openReport = () => {
-    setSelected("report");
-    setIsOpenModal(true);
-  }
+  
+  const [isMediaOpen, setIsMediaOpen] = useState(false);
+  const [isActionOpen, setIsActionOpen] = useState(false);
+  const [actionType, setActionType] = useState(null);
+  const [disappearing, setDisappearing] = useState(false);
+
+  const phone = "+234 9061748246";
+  const contactId = "727272ahwh";
+
+  const openAction = (type) => {
+    setActionType(type);
+    setIsActionOpen(true);
+  };
+
+  const handleEdit = () => navigate(`/accounts/contacts/view?tab=edit&id=${contactId}`);
+
+  const mediaItems = [
+    {id: "1", url: app_logo, date: new Date()},
+    {id: "2", url: images, date: new Date("2026-04-03")},
+    {id: "3", url: animated_logo, date: new Date("2026-05-01")}
+  ];
+  
+  const docItems = [
+    {id: "d1", name: "Project.docx", date: new Date()},
+    {id: "d2", name: "AEE501.pdf", date: new Date("2026-03-10")}
+  ];
+  
+  const linkItems = [
+    {id: "l1", url: "https://www.google.com", date: new Date("2023-01-16")},
+    {id: "l2", url: "https://www.facebook.com", date: new Date("2023-01-16")},
+    {id: "l3", url: "https://www.w3schools.com", date: new Date("2021-12-19")}
+  ];
+
   return (
-        <>
-          <MediaModal isOpen={isOpen}  onClose={() => setIsOpen(false)} />
-          <FunctionalModal isOpen={isOpenModal} onClose={() => setIsOpenModal(false)} selected={selected}/>
-          <div className="profile-container-1">
-        <div className="profile-header-container">
-          <span className="material-symbols-outlined" onClick={() => navigate(-1) }>arrow_back</span>
-          <img src={images} alt="profile avatar" />
-          <p>Ajeh Abraham <span className="material-symbols-outlined" onClick={handleEdit}>edit</span></p>
-          <p>+234 9061748246</p>
+    <>
+      <MediaModal 
+        isOpen={isMediaOpen}  
+        onClose={() => setIsMediaOpen(false)} 
+        media={mediaItems}
+        docs={docItems}
+        links={linkItems}
+      />
+      <ActionModal 
+        isOpen={isActionOpen} 
+        onClose={() => setIsActionOpen(false)} 
+        type={actionType}
+        phone={phone}
+      />
+
+      <div className="profile-container">
+        <div className="profile-header">
+          <button className="icon-btn" onClick={() => navigate(-1)} aria-label="Back">
+            <span className="material-symbols-outlined">arrow_back</span>
+          </button>
+          <img src={images} alt="Ajeh Abraham avatar" className="avatar" />
+          <div className="profile-name">
+            <h1>Ajeh Abraham</h1>
+            <button className="icon-btn" onClick={handleEdit} aria-label="Edit contact">
+              <span className="material-symbols-outlined">edit</span>
+            </button>
+          </div>
+          <p className="profile-phone">{phone}</p>
         </div>
-        <div className="media-function">
-          <p>Media,Docs,Links</p>
-          <p onClick={() => setIsOpen(true)}>3  <span className="material-symbols-outlined">arrow_forward_ios</span></p>
-        </div>
-        <div className="media-scroll-container">
-          <img src={app_logo} alt="media" />
-          <img src={animated_logo} alt="media" />
-          <img src={images} alt="media" />
-        </div>
-        <div className="lower-functional-container">
-          <p onClick={openStared}>Stared Messages</p>
-          <p onClick={openClear}>Clear Chat</p>
-          <p onClick={openDelete}>Delete Chat</p>
-          <div className="sub-functional">
-            <p>Turn on Disapearing messaging</p>
-            {/*<input type="checkbox" /> */}
-            <label className="switch">
-  <input type="checkbox" />
-  <span className="slider"></span>
-</label>
+
+        <div className="section media-section">
+          <div className="section-header">
+            <p>Media, Docs, Links</p>
+            <button className="link-btn" onClick={() => setIsMediaOpen(true)}>
+              {mediaItems.length} <span className="material-symbols-outlined">arrow_forward_ios</span>
+            </button>
+          </div>
+          <div className="media-scroll">
+            {mediaItems.slice(0,3).map(item => (
+              <img key={item.id} src={item.url} alt="media" onClick={() => setIsMediaOpen(true)} />
+            ))}
           </div>
         </div>
-        <div className="bottom-functional-container">
-          <p onClick={openBlock}>Block </p>
-          <p onClick={openReport}>Report</p>
+
+        <div className="section actions-section">
+          <button className="row-btn" onClick={() => openAction("star")}>Starred Messages</button>
+          <button className="row-btn danger" onClick={() => openAction("clear")}>Clear Chat</button>
+          <button className="row-btn danger" onClick={() => openAction("delete")}>Delete Chat</button>
+          <div className="row-toggle">
+            <p>Turn on Disappearing Messages</p>
+            <label className="switch">
+              <input 
+                type="checkbox" 
+                checked={disappearing} 
+                onChange={() => setDisappearing(!disappearing)} 
+              />
+              <span className="slider"></span>
+            </label>
+          </div>
+        </div>
+
+        <div className="section danger-section">
+          <button className="row-btn danger" onClick={() => openAction("block")}>Block</button>
+          <button className="row-btn danger" onClick={() => openAction("report")}>Report</button>
         </div>
       </div>
     </>
-    );
-}
-function MediaModal({isOpen, onClose}){
-  const [isTab, setIsTab] = useState("media");
-  const mediaArry = [
-    {id: "7272hshsu3", url: app_logo, date: new Date()},
-   {id: "+37373uwuw", url: images, date: new Date("2026-4-03")},
-    {id: "jshsu72727272", url: animated_logo, date: new Date("2026-05-01")}
-    
-    ];
-    const docxArry = [
-      {id: "hah722727", name: "Project.docx", url: "", date: new Date()},
-    {id: "827272jwjwj", name: "AEE501", url: "", date: new Date()}
-    ];
-    const linksArry = [
-      {id: "jsjs72727", url: "https:wwww.google.com", date: new Date("2023-01-16")},
-      {id: "jsjsjwehu3", url: "www.facebook.com", date: new Date("2023-01-16")},
-      {id: "jsjs82828282", url: "www.w3schools.com", date: new Date("2021-12-19")}
-      
-      ];
-  const sortedMedia = [...mediaArry].sort( (a,b) => b.date - a.date);
-  const sortedDocx = [...docxArry].sort( (a,b) => b.date - a.date);
-  const sortedLink = [...linksArry].sort( (a,b) => b.date - a.date);
-  
-  const isMedia = () => {
-    setIsTab("media");
-  }
-  const isDocx = () => {
-    setIsTab("Docx");
-  }
-  const isLink = () => {
-    setIsTab("Link");
-  }
-  {/*
-  {sortedMedia.map((item, index) => {
-  const current = item.date.toLocaleString("en-US", {
-    month: "long",
-    year: "numeric",
-  });
-
-  const previous =
-    index > 0
-      ? sortedMedia[index - 1].date.toLocaleString("en-US", {
-          month: "long",
-          year: "numeric",
-        })
-      : null;
-
-  return (
-    <div key={item.id}>
-      {current !== previous && (
-        <h3>{current}</h3>
-      )}
-
-      <img src={item.url} alt="" />
-    </div>
   );
-})}
-*/}
- if(!isOpen) return null;
+}
+
+function MediaModal({isOpen, onClose, media, docs, links}){
+  const [tab, setTab] = useState("media");
+  
+  if(!isOpen) return null;
+
+  const sortedMedia = [...media].sort((a,b) => b.date - a.date);
+  const sortedDocs = [...docs].sort((a,b) => b.date - a.date);
+  const sortedLinks = [...links].sort((a,b) => b.date - a.date);
+  
   return createPortal(
-    <div className="media-modal-container">
-    <div className="media-modal-header">
-      <span className="material-symbols-outlined" onClick={onClose}>
-        close
-      </span>
-      <p onClick={isMedia} style={{borderBottom: isTab === "media" ? "3px solid #00F5D4" : "none", color: isTab === "media" ? "var(--absText)" : "var(--text)"}}>Media</p>
-      <p onClick={isDocx} style={{borderBottom: isTab === "Docx" ? "3px solid #00F5D4" : "none", color: isTab === "Docx" ? "var(--absText)" : "var(--text)"}}>Document</p>
-      <p onClick={isLink} style={{borderBottom: isTab === "Link" ? "3px solid #00F5D4" : "none", color: isTab === "Link" ? "var(--absText)" : "var(--text)"}}>Links</p>
-    </div>
-    <div className="media-content-wrapper">
-      {isTab === "media" && (
-      <div className="media-string">
-       {
-         sortedMedia.length > 0 ?(
-         sortedMedia.map((item) => (
-         <img src={item.url} key={item.id} alt="media"/>
-         )
-         )
-         ) :(
-         <p>No media</p>
-         )
-       }
-      </div>
-      )}
-      {isTab === "Docx" && (
-      <div className="docx-string">
-        {
-          sortedDocx.length > 0 ? (
-          sortedDocx.map( (item) => (
-          <div className="doc-cage" key={item.id}>
-            <p>{item.name}</p>
-            <span className="material-symbols-outlined">download</span>
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-full" onClick={e => e.stopPropagation()}>
+        <div className="modal-header">
+          <button className="icon-btn" onClick={onClose} aria-label="Close">
+            <span className="material-symbols-outlined">close</span>
+          </button>
+          <div className="tabs">
+            <button className={tab === "media" ? "active" : ""} onClick={() => setTab("media")}>Media</button>
+            <button className={tab === "docs" ? "active" : ""} onClick={() => setTab("docs")}>Documents</button>
+            <button className={tab === "links" ? "active" : ""} onClick={() => setTab("links")}>Links</button>
           </div>
-          )
-          )
-          ): (
-          <p>No Document</p>
-          )
-        }
+        </div>
+        
+        <div className="modal-body">
+          {tab === "media" && (
+            <div className="media-grid">
+              {sortedMedia.length ? sortedMedia.map(item => (
+                <img key={item.id} src={item.url} alt="media" />
+              )) : <p className="empty">No media</p>}
+            </div>
+          )}
+
+          {tab === "docs" && (
+            <div className="docs-list">
+              {sortedDocs.length ? sortedDocs.map(item => (
+                <div className="doc-item" key={item.id}>
+                  <span className="material-symbols-outlined">description</span>
+                  <p>{item.name}</p>
+                  <button className="icon-btn"><span className="material-symbols-outlined">download</span></button>
+                </div>
+              )) : <p className="empty">No documents</p>}
+            </div>
+          )}
+
+          {tab === "links" && (
+            <div className="links-list">
+              {sortedLinks.length ? sortedLinks.map(item => (
+                <a key={item.id} href={item.url} target="_blank" rel="noreferrer">{item.url}</a>
+              )) : <p className="empty">No links</p>}
+            </div>
+          )}
+        </div>
       </div>
-      )}
-      {isTab === "Link" && (
-      <div className="link-string" >
-       {
-         sortedLink.length > 0 ? (
-         sortedLink.map( (item) => (
-         <p key={item.id}>{item.url}</p>
-         )
-         )
-         ):(
-         <p>No links</p>
-         )
-       } 
-      </div>
-      )}
-      
-    </div>
     </div>,
     document.body
-    );
+  );
 }
 
-function FunctionalModal({isOpen, onClose, selected}){
-  const [selectedIndex, setSelectedIndex] = useState(null);
-  const [textarea, setTextArea] = useState("");
-  const arry = ["Harmful or Dangerous message","Inappropriate content", "Violence or Hateful speech", "Others"];
+function ActionModal({isOpen, onClose, type, phone}){
+  const [selectedReason, setSelectedReason] = useState(null);
+  const [reasonText, setReasonText] = useState("");
+  const reasons = ["Harmful or Dangerous message","Inappropriate content", "Violence or Hateful speech", "Others"];
   
   if(!isOpen) return null;
   
+  const canSubmit = selectedReason !== null && !(selectedReason === 3 && reasonText.trim() === "");
+
   return createPortal(
-    <div className="content-container-for-function" onClick={onClose}>
+    <div className="modal-overlay" onClick={onClose}>
       <div className="modal-box" onClick={e => e.stopPropagation()}>
         
-        {selected === "star" && (
-          <div className="stared-message-container">
+        {type === "star" && (
+          <div className="starred-container">
             <h2>Starred Messages</h2>
-            <div className="msg-content-star">
+            <div className="starred-msg">
               <p>Hello, i know what i'm trying to do</p>
-              <span className="time">12:56AM</span>
+              <span>12:56AM</span>
             </div>
-            <button className="modal-btn secondary" onClick={onClose}>Close</button>
+            <button className="btn secondary" onClick={onClose}>Close</button>
           </div>
         )}
 
-        {selected === "clear" && (
+        {type === "clear" && (
           <>
-            <p>Are you sure you want to clear messages with <b>+234 9061748136</b>?</p>
-            <button className="modal-btn primary">Yes, proceed</button>
-            <button className="modal-btn secondary" onClick={onClose}>Cancel</button>
+            <p>Clear all messages with <b>{phone}</b>?</p>
+            <button className="btn primary">Yes, Clear</button>
+            <button className="btn secondary" onClick={onClose}>Cancel</button>
           </>
         )}
 
-        {selected === "delete" && (
+        {type === "delete" && (
           <>
-            <p>Are you sure you want to delete all messages with <b>+234 9061748136</b>?</p>
-            <button className="modal-btn danger">Yes, delete</button>
-            <button className="modal-btn secondary" onClick={onClose}>Cancel</button>
+            <p>Delete chat with <b>{phone}</b>? This cannot be undone.</p>
+            <button className="btn danger">Delete</button>
+            <button className="btn secondary" onClick={onClose}>Cancel</button>
           </>
         )}
 
-        {selected === "block" && (
+        {type === "block" && (
           <>
-            <p>Are you sure you want to block <b>+234 9061748136</b>?</p>
-            <button className="modal-btn danger">Block</button>
-           {/*} <button className="modal-btn danger">Block and Report</button> */}
-            <button className="modal-btn secondary" onClick={onClose}>Cancel</button>
+            <p>Block <b>{phone}</b>?</p>
+            <button className="btn danger">Block</button>
+            <button className="btn secondary" onClick={onClose}>Cancel</button>
           </>
         )}
 
-        {selected === "report" && (
+        {type === "report" && (
           <>
-            <h1 style={{fontSize: "20px"}}>Report <b>+234 9061748136</b></h1>
-            <div className="report-list">
-              {/*<p>Harmful or Dangerous message</p>
-              <p>Inappropriate content</p>
-              <p>Violence or Hateful speech</p>
-              <p>Others</p> */}
-              {
-                arry.length > 0 && (
-                arry.map((list, index) => 
-                <p key={index} className={selectedIndex === index ? "selected" : ""} onClick= { () => setSelectedIndex(index)}>{list}</p>
-                )
-                )
-              }
-              {
-                selectedIndex === 3  && (
-                <textarea placeholder="explain reason" rows="4" cols="5" maxlength="120" value={textarea} onChange={(e) => setTextArea(e.target.value)}/>
-                )
-              }
-             
-              <button className="btn-sub" disabled={selectedIndex === null || (selectedIndex === 3 && textarea.trim() === "")}>submit</button> 
-              
+            <h2>Report {phone}</h2>
+            <div className="report-options">
+              {reasons.map((reason, index) => (
+                <button 
+                  key={index} 
+                  className={`reason-btn ${selectedReason === index ? "selected" : ""}`}
+                  onClick={() => setSelectedReason(index)}
+                >
+                  {reason}
+                </button>
+              ))}
+              {selectedReason === 3 && (
+                <textarea 
+                  placeholder="Explain reason" 
+                  rows="4" 
+                  maxLength="120" 
+                  value={reasonText} 
+                  onChange={(e) => setReasonText(e.target.value)}
+                />
+              )}
+              <button className="btn primary" disabled={!canSubmit}>Submit</button> 
             </div>
-            <button className="modal-btn secondary" onClick={onClose}>Cancel</button>
+            <button className="btn secondary" onClick={onClose}>Cancel</button>
           </>
         )}
       </div>

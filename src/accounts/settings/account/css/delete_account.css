@@ -1,0 +1,289 @@
+:root {
+  --bg: #f1f1f1;
+  --text: #111;
+  --accent: #00F5D4;
+  --absText: #aaaaaa;
+  --border: #d1d1d1;
+  --card-bg: #fff;
+  --hover: #f5f5f5;
+  --danger: #ff3b30;
+  --disabled: #c7c7c7;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000;
+    --text: #f1f1f1;
+    --accent: #00F5D4;
+    --absText: #888;
+    --border: #2a2a2a;
+    --card-bg: #121212;
+    --hover: #1a1a1a;
+    --disabled: #2a2a2a;
+  }
+}
+
+[data-theme="dark"]{
+  --bg: #000;
+  --text: #f1f1f1;
+  --accent: #00F5D4;
+  --absText: #888;
+  --border: #2a2a2a;
+  --card-bg: #121212;
+  --hover: #1a1a1a; 
+  --disabled: #2a2a2a;
+}
+
+[data-theme="light"]{
+  --bg: #f1f1f1;
+  --text: #111;
+  --accent: #00F5D4;
+  --absText: #aaaaaa;
+  --border: #d1d1d1;
+  --card-bg: #fff;
+  --hover: #f5f5f5;
+  --disabled: #c7c7c7;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  color: var(--text);
+  background-color: var(--bg);
+  user-select: text;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.main-container-for-delete{
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--bg);
+}
+
+@media (min-width: 1025px){
+    .main-container-for-delete{
+        width: 480px;
+        margin: 0 auto;
+        border-left: 1px solid var(--border);
+        border-right: 1px solid var(--border);
+    }
+}
+
+.header-for-delete{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  padding: 14px 16px;
+  background-color: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.header-for-delete > h1 {
+  font-size: 18px;
+  color: var(--text);
+  margin: 0;
+}
+
+.header-for-delete span{
+  color: var(--text);
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.content-for-delete{
+  padding: 24px 16px;
+}
+
+.content-for-delete > span.material-symbols-outlined{
+  font-size: 48px;
+  color: var(--danger);
+  display: block;
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.content-for-delete h3{
+  margin: 12px 0 8px;
+  font-size: 16px;
+  text-align: left;
+}
+
+.content-for-delete ul{
+  text-align: left;
+  padding-left: 20px;
+  margin: 0 0 16px;
+  color: var(--absText);
+  font-size: 14px;
+}
+
+.content-for-delete p{
+  color: var(--absText);
+  margin: 0 0 16px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.phone-input-wrapper{
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin: 0 0 16px;
+}
+
+.phone-input-wrapper select{
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background-color: var(--card-bg);
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+}
+
+.phone-input-wrapper input{
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background-color: var(--card-bg);
+  color: var(--text);
+  outline: none;
+}
+
+.phone-input-wrapper input:focus,
+.otp-inputs input:focus{
+  border-color: var(--accent);
+  outline: 2px solid var(--accent);
+}
+
+.content-for-delete button,
+.content-container-for-delete button{
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  color: #000;
+  font-weight: 600;
+  font-size: 16px;
+  width: 100%;
+  cursor: pointer;
+  background-color: var(--accent);
+  margin: 0;
+  display: block;
+  transition: opacity 0.2s;
+}
+
+.content-for-delete button:hover:not(:disabled),
+.content-container-for-delete button:hover:not(:disabled){
+  opacity: 0.9;
+}
+
+.content-for-delete button:disabled,
+.content-container-for-delete button:disabled{
+  cursor: not-allowed;
+  color: var(--absText);
+  background-color: var(--disabled);
+  opacity: 0.6;
+}
+
+.Modal-for-delete-overlay{
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  backdrop-filter: blur(10px);
+  background-color: rgba(0,0,0,0.6);
+  z-index: 99;
+  padding: 16px;
+}
+
+.content-container-for-delete{
+  width: 100%;
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid var(--border);
+  margin-top: 60px;
+}
+
+@media (min-width: 1025px){
+    .content-container-for-delete{
+        width: 480px;
+        margin: 60px auto 0;
+    }
+}
+
+.content-container-for-delete h3{
+  margin: 8px 0 4px;
+  text-align: left;
+}
+
+.content-container-for-delete p{
+  margin: 0 0 16px;
+  color: var(--absText);
+  font-size: 14px;
+  text-align: left;
+}
+
+.content-header-for-otp{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.content-header-for-otp span{
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.otp-inputs{
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.otp-inputs input{
+  width: 48px;
+  height: 52px;
+  outline: none;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background-color: var(--bg);
+  color: var(--text);
+}
+
+.resend-section{
+  margin-bottom: 16px;
+  font-size: 14px;
+  color: var(--absText);
+  text-align: left;
+}
+
+.resend-section .link-btn{
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  width: auto;
+  display: inline;
+}
+
+.resend-section .link-btn:disabled{
+  color: var(--absText);
+  cursor: not-allowed;
+  background: none;
+  opacity: 1;
+}

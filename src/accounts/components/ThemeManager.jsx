@@ -28,7 +28,7 @@ export default function ThemeManager({isOpen, onClose, selected, onSelect}){
   return createPortal(
     <div className="theme-modal-container" onClick={onClose}>
       <div className="theme-container" onClick={(e) => e.stopPropagation()}>
-        <h1>Theme Manager</h1>
+        <h1>App theme</h1>
         <div className="theme-selector">
           {themes.map((theme) => 
             <p 

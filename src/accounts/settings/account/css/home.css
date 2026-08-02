@@ -1,0 +1,159 @@
+:root {
+  --bg: #f1f1f1;
+  --text: #111;
+  --accent: #00F5D4;
+  --absText: #aaaaaa;
+  --border: #d1d1d1;
+  --card-bg: #fff;
+  --hover: #f5f5f5;
+  --danger: #ff3b30;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000;
+    --text: #f1f1f1;
+    --accent: #00F5D4;
+    --absText: #888;
+    --border: #2a2a2a;
+    --card-bg: #121212;
+    --hover: #1a1a1a;
+  }
+}
+
+[data-theme= "dark"]{
+  --bg: #000;
+  --text: #f1f1f1;
+  --accent: #00F5D4;
+  --absText: #888;
+  --border: #2a2a2a;
+  --card-bg: #121212;
+  --hover: #1a1a1a; 
+}
+
+[data-theme= "light"]{
+  --bg: #f1f1f1;
+  --text: #111;
+  --accent: #00F5D4;
+  --absText: #aaaaaa;
+  --border: #d1d1d1;
+  --card-bg: #fff;
+  --hover: #f5f5f5;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  color: var(--text);
+  background-color: var(--bg);
+  user-select: text;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+.account-main-container{
+  margin: 0;
+  width: 100%;
+  min-height: 100vh;
+}
+
+@media (min-width: 1025px){
+  .account-main-container{
+    width: 480px;
+    margin: 0 auto;
+    border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+}
+
+.account-header{
+  display: flex;
+  padding: 14px 16px;
+  align-items: center;
+  border-bottom: 2px solid var(--border);
+  background: var(--card-bg);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.account-header h1{
+  margin-left: 12px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.account-header span{
+  color: var(--text);
+  cursor: pointer;
+}
+
+.account-content{
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+}
+
+.account-option-item{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.2s;
+  background: var(--card-bg);
+}
+.account-option-item:nth-child(1){
+  margin-top: 15px;
+}
+.account-option-item:hover{
+  background: var(--hover);
+}
+
+.account-option-header{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.account-option-header span{
+  color: var(--accent);
+  font-size: 22px;
+}
+
+.account-option-header .danger-title{
+  color: var(--danger);
+}
+
+.account-option-header h1{
+  font-size: 15px;
+  color: var(--text);
+  font-weight: 600;
+  margin: 0;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+}
+
+.account-option-desc{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 34px;
+  margin-top: 4px;
+}
+
+.account-option-desc h2{
+  font-size: 14px;
+  color: var(--absText);
+  font-weight: 400;
+  margin: 0;
+}
+
+.account-option-desc span{
+  color: var(--absText);
+  font-size: 20px;
+}

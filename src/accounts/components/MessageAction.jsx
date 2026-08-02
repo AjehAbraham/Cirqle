@@ -9,10 +9,10 @@ export default function MessageAction({ isOpen, onClose, onSelect, option, msg }
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
-    } else {
+    }
+    return () => {
       document.body.style.overflow = 'unset';
     }
-    //return () => document.body.style.overflow = 'unset';
   }, [isOpen]);
 
   if (!isOpen ||!msg) return null;
@@ -34,7 +34,6 @@ export default function MessageAction({ isOpen, onClose, onSelect, option, msg }
           <span onClick={() => onSelect('react-🥹')}>🥹</span>
           <span onClick={() => onSelect('react-🙄')}>🙄</span>
         </div>
-
         <div className="action-container" onClick={e => e.stopPropagation()}>
           <h1 onClick={() => onSelect(`reply-${msg.id}`)}>
             <span className="material-symbols-outlined">reply</span>Reply
@@ -66,7 +65,6 @@ export default function MessageAction({ isOpen, onClose, onSelect, option, msg }
           )}
         </div>
       </div>
-
       {showEdit && (
         <EditModal
           msg={msg}
@@ -85,6 +83,13 @@ export default function MessageAction({ isOpen, onClose, onSelect, option, msg }
 
 function EditModal({ msg, onClose, onSave }) {
   const [text, setText] = useState(msg.text || '');
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    }
+  }, []);
 
   return createPortal(
     <div className="edit-modal-backdrop" onClick={onClose}>
@@ -120,7 +125,13 @@ export function ForwardModal({ msg, onClose }) {
     { id: '3', name: 'Work Group', avatar: app_logo }
   ]);
 
-  //if(!msg || msg.id) return null;
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = 'unset';
+    }
+  }, []);
+
   const toggleChat = (id) => {
     setSelectedChats(prev =>
       prev.includes(id)? prev.filter(c => c!== id) : [...prev, id]
@@ -151,14 +162,13 @@ export function ForwardModal({ msg, onClose }) {
           <h3>Forward to...</h3>
           <button onClick={onClose}>Close</button>
         </div>
-
         <div className="forward-preview">
           {msg.type === 'text' && msg.text}
           {msg.type === 'emoji' && <span style={{fontSize: 36}}>{msg.text}</span>}
           {msg.type === 'sticker' && <img src={msg.text} alt="sticker" />}
+          {msg.type === 'image' && <img src={msg.text} alt="image" />}
           <span className="forward-label">Forwarded</span>
         </div>
-
         <div className="chat-list">
           {chats.map(chat => (
             <div
@@ -172,7 +182,6 @@ export function ForwardModal({ msg, onClose }) {
             </div>
           ))}
         </div>
-
         <button
           className="forward-btn"
           disabled={selectedChats.length === 0}

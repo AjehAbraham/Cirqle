@@ -10,7 +10,7 @@ function WelcomeScreen3(){
     useTitle("Cirqle-Welcome");
     const navigate = useNavigate();
     const navigator = () => {
-        navigate("/terms_and_conditions");
+        navigate("/home/terms_and_conditions");
     }
     return(
         <>

@@ -1,0 +1,233 @@
+:root {
+  --bg: #f1f1f1;
+  --text: #111;
+  --accent: #00F5D4;
+  --absText: #aaaaaa;
+  --border: #d1d1d1;
+  --card-bg: #fff;
+  --hover: #f5f5f5;
+  --danger: #ff3b30;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000;
+    --text: #f1f1f1;
+    --accent: #00F5D4;
+    --absText: #888;
+    --border: #2a2a2a;
+    --card-bg: #121212;
+    --hover: #1a1a1a;
+  }
+}
+
+[data-theme= "dark"]{
+  --bg: #000;
+  --text: #f1f1f1;
+  --accent: #00F5D4;
+  --absText: #888;
+  --border: #2a2a2a;
+  --card-bg: #121212;
+  --hover: #1a1a1a; 
+}
+
+[data-theme= "light"]{
+  --bg: #f1f1f1;
+  --text: #111;
+  --accent: #00F5D4;
+  --absText: #aaaaaa;
+  --border: #d1d1d1;
+  --card-bg: #fff;
+  --hover: #f5f5f5;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  color: var(--text);
+  background-color: var(--bg);
+  user-select: text;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+
+.main-container-for-chat-settings{
+min-height: 100vh;
+height: 100vh;
+width: 100%;
+overflow-y: auto;
+text-align: left;
+}
+
+@media (min-width: 1025px){
+    .main-container-for-chat-settings{
+        width: 480px;
+        margin: 0 auto;
+         border-left: 1px solid var(--border);
+         border-right: 1px solid var(--border);
+    }
+}
+
+.header-container-for-chat-settings{
+display: flex;
+position: sticky;
+top: 0;
+align-items: center;
+z-index: 5;
+padding: 14px 16px;
+background-color: var(--card-bg);
+border-bottom: 2px solid var(--border);
+}
+.header-container-for-chat-settings > h1{
+    font-size: 18px;
+    color: var(--text);
+    letter-spacing: 0.1ch;
+}
+.header-container-for-chat-settings span{
+    color: var(--text);
+    cursor: pointer;
+}
+.content-container-for-chat-settings{
+margin-left: 8px;
+}
+.c-list-for-chat{
+display: flex;
+flex-direction: column;
+margin-top: 25px;
+}
+.c-list-for-chat h3{
+    color: var(--absText);
+}
+.c-list-for-chat p{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-top: 1px solid var(--border);
+}
+.c-list-for-chat p:hover{
+    opacity: 0.6;
+}
+.c-list-for-chat b{
+    margin-left: auto;
+    color: var(--absText);
+}
+.c-list-for-chat span{
+    color: var(--accent);
+    margin-right: 5px;
+}
+.c-list-for-chat p:nth-child(1){
+    border-top: 1px solid var(--border);
+}
+
+.c-list-for-chat p:last-child{
+    border-bottom: 1px solid var(--border);
+}
+.c-list-for-chat:nth-child(1) p span:last-child{
+    margin-left: auto;
+    font-size: 20px;
+    color: var(--absText);
+    cursor: pointer;
+}
+.c-list-for-chat:last-child p:last-child, .c-list-for-chat:last-child p:last-child span{
+    color: var(--danger);
+}
+
+.modal-overlay-for-chat-s{
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+position: fixed;
+z-index: 9999;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+backdrop-filter: blur(6px);
+background-color: rgba(0,0,0,0.6);
+}
+
+.container-contents-for-chat-s{
+ width: 480px;
+  max-width: 90vw;
+  max-height: 80vh;
+  padding: 20px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: var(--card-bg);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  overflow-y: auto;
+}
+
+.sub-layout-for-chats{
+display: flex;
+flex-direction: column;
+gap: 12px;
+}
+
+.sub-layout-for-chats h3{
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    text-align: center;
+    color: var(--text);
+}
+
+.sub-layout-for-chats p{
+    margin: 0;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text);
+}
+.sub-layout-for-chats p:last-of-type{
+    font-size: 12px;
+    color: var(--absText);
+}
+
+.button-group{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.container-contents-for-chat-s button{
+    padding: 12px 16px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 15px;
+    width: 100%;
+    margin: 0;
+    display: block;
+    color: #000;
+    cursor: pointer;
+    background-color: var(--accent);
+    transition: opacity 0.2s;
+}
+
+.container-contents-for-chat-s button:hover{
+    opacity: 0.9;
+}
+
+.container-contents-for-chat-s button:active{
+    opacity: 0.8;
+}
+
+.container-contents-for-chat-s .btn-danger{
+    color: white;
+    background-color: var(--danger);
+}
+
+.container-contents-for-chat-s .btn-cancel{
+    color: var(--text);
+    background-color: var(--hover);
+}

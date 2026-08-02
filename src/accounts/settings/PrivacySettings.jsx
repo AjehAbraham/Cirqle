@@ -18,7 +18,8 @@ export default function PrivacySetting(){
     OStatus: 0,
     about: 0,
     disappearing: false,
-    desc: 4
+    desc: 4,
+    readReceipt: true
   });
 
   const openModal = (key) => {
@@ -84,16 +85,22 @@ export default function PrivacySetting(){
           </div>
 
           <div className="p-list">
-            <p>Auto Disappearing messages</p>
+            <p>Read receipts</p>
             <div className="selected-timer-container">
-            {/*<label className="switch">
+            <label className="switch">
               <input
                 type="checkbox"
-                checked={settings.disappearing}
-                onChange={(e) => updateSettings("disappearing", e.target.checked)}
+                checked={settings.readReceipt}
+                onChange={(e) => updateSettings("readReceipt", e.target.checked)}
               />
               <span className="slider"></span>
-            </label> */}
+            </label>
+            </div>
+            </div>
+
+          <div className="p-list">
+            <p>Auto Disappearing messages</p>
+            <div className="selected-timer-container">
             <p onClick={() => openModal("desc")}>
               {timer[settings.desc]}
               </p>

@@ -1,62 +1,66 @@
-import {useState, useEffect, useRef} from "react";
+import {useState, useEffect} from "react";
 import {createPortal} from "react-dom";
 import "./css/emoji.css";
-import app_logo from "../../assets/app_logo.png";
 
 function EmojiModal({ isOpen, onClose, onSelect }) {
-  const [activeTab, setActiveTab] = useState('emoji'); // 'emoji' | 'sticker' | 'gif'
+  const [activeTab, setActiveTab] = useState('emoji');
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
   return createPortal(
     <div className="emoji-modal-container" onClick={onClose}>
       <div className="emoji-modal-content" onClick={e => e.stopPropagation()}>
-        
-        {/* Close button */}
-        <span 
-          className="material-symbols-outlined close-btn" 
+        <span
+          className="material-symbols-outlined close-btn"
           onClick={onClose}
-         id="closebtn">
+          id="closebtn"
+        >
           close
         </span>
-
-        {/* Tab menu */}
         <div className="top-menu">
-          <span 
-            className={`material-symbols-outlined ${activeTab === 'emoji' ? 'active' : ''}`}
+          <span
+            className={`material-symbols-outlined ${activeTab === 'emoji'? 'active' : ''}`}
             onClick={() => setActiveTab('emoji')}
           >
             mood
           </span>
-          <span 
-            className={`material-symbols-outlined ${activeTab === 'sticker' ? 'active' : ''}`}
+          <span
+            className={`material-symbols-outlined ${activeTab === 'sticker'? 'active' : ''}`}
             onClick={() => setActiveTab('sticker')}
           >
             sticker
           </span>
-          <span 
-            className={`material-symbols-outlined ${activeTab === 'gif' ? 'active' : ''}`}
+          <span
+            className={`material-symbols-outlined ${activeTab === 'gif'? 'active' : ''}`}
             onClick={() => setActiveTab('gif')}
           >
             gif
           </span>
         </div>
-
-        {/* Tab content */}
         <div className="emoji-contents">
           {activeTab === 'emoji' && <ShowEmoji onSelect={onSelect} />}
           {activeTab === 'sticker' && <ShowSticker onSelect={onSelect} />}
           {activeTab === 'gif' && <ShowGif onSelect={onSelect} />}
         </div>
-
       </div>
     </div>,
     document.body
   );
 }
+
 function ShowEmoji({ onSelect }) {
-  const emojis = ['😀', '😂', '❤️', '👍', '🔥'];
-  
+  const emojis = [
+    '😀','😃','😄','😁','😆','😅','😂','🤣','🥲','🥹','😊','😇','🙂','🙃','😉','😌','😍','🥰','😘','😗','😙','😚','😋','😛','😝','😜','🤪','🤨','🧐','🤓','😎','🤩','🥳','😏','😒','😞','😔','😟','😕','🙁','☹️','😣','😖','😫','😩','🥺','😢','😭','😤','😠','😡','🤬','🤯','😳','🥵','🥶','😱','😨','😰','😥','😓','🤗','🤔','🤭','🤫','🤥','😶','😐','😑','😬','🙄','😯','😦','😧','😮','😲','🥱','😴','🤤','😪','😵','🤐','🥴','🤢','🤮','🤧','😷','🤒','🤕','🤑','🤠','😈','👿','👹','👺','🤡','💩','👻','💀','☠️','👽','👾','🤖','🎃','😺','😸','😹','😻','😼','😽','🙀','😿','😾'
+  ];
   return (
     <div className="container-for-emoji">
       {emojis.map(emoji => (

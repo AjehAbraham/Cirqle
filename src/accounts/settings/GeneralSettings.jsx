@@ -15,6 +15,9 @@ export default function GeneralSettings(){
    const handleTheme = () => {
      setIsOpen(true);
    }
+   const handleAccount = () => {
+    navigate("/accounts/settings/account_setting");
+   }
    const handlePrivacy = () => {
      navigate("/accounts/settings/privacy_setting");
    }
@@ -23,13 +26,13 @@ export default function GeneralSettings(){
    }
    
    const arry = [
-     {id: 1, title: "Account", desc: " Security, change number, linked devices", icon: "person", onClick: () => alert("Account")},
-     {id: 2, title: "Chats", desc: "Theme, wallpapers, chat history", icon: "chat", onClick: () => alert("Chats")},
+     {id: 1, title: "Account", desc: " Security, change number, linked devices", icon: "person", onClick: handleAccount},
+     {id: 2, title: "Chats", desc: "Theme, wallpapers, chat history", icon: "chat", onClick: () => navigate("/accounts/settings/chat_settings")},
      {id: 3, title: "Privacy", desc: " Last seen, profile photo, online status, About, auto disappearing message", icon: "lock", onClick: handlePrivacy},
      {id: 4, title: "Notifications", desc: " Message, group, call tones", icon: "notifications", onClick: handleNotification},
-     {id: 5, title: " Storage and Data", desc: " Network usage, auto-download", icon: "storage", onClick: () => alert("Media storage")},
+    // {/*id: 5, title: " Storage and Data", desc: " Network usage, auto-download", icon: "storage", onClick: () => alert("Media storage")*/},
      {id: 6, title: "Appearance", desc: "App Theme", icon: "palette", onClick: handleTheme},
-     {id: 7, title: "About", desc: "App info, terms, privacy policy", icon: "info", onClick: () => alert("About")}
+     {id: 7, title: "About", desc: "App info, Terms & Conditions, Privacy policy, Help & Support", icon: "help", onClick: () => navigate("/accounts/settings/about")}
      ];
      const [query, setQuery] = useState("");
     const filterList = arry.filter ( list =>
@@ -68,9 +71,9 @@ export default function GeneralSettings(){
     </div>
     )
   }
-</div>
-<div className="empty2" />
+  <div className="empty2" />
        <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
+</div>
        </>
     );
 }

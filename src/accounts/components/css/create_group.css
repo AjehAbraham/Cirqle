@@ -1,7 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Poppins:wght@600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
-
 :root {
+  
   --bg: #f1f1f1;
   --text: #111;
   --accent: #00F5D4;
@@ -22,14 +20,36 @@
     --hover: #1a1a1a;
   }
 }
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
+[data-theme= "dark" ]{
+     --bg: #000;
+    --text: #f1f1f1;
+    --accent: #00F5D4;
+    --absText: #888;
+    --border: #2a2a2a;
+    --card-bg: #121212;
+    --hover: #1a1a1a; 
+}
+[data-theme= "light"]{
+    --bg: #f1f1f1;
+  --text: #111;
+  --accent: #00F5D4;
+  --absText: #aaaaaa;
+  --border: #d1d1d1;
+  --card-bg: #fff;
+  --hover: #f5f5f5;
+}
+* { box-sizing: border-box; }
 html, body {
+  margin: 0;
+  padding: 0;
+  font-size: 13px;
   height: 100%;
+  user-select: text;
   color: var(--text);
   background-color: var(--bg);
   font-family: system-ui, -apple-system, sans-serif;
 }
+
 
 .contact-status-modal {
   position: fixed;
@@ -69,6 +89,15 @@ html, body {
   background: var(--bg);
   color: var(--text);
 }
+@media (min-width: 1025px){
+  .group-container-main{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+  }
+}
 .group-header {
   display: flex;
   align-items: center;
@@ -79,6 +108,8 @@ html, body {
   position: sticky;
   top: 0;
   z-index: 10;
+  align-self: flex-start;
+  width: 100%;
 }
 .group-header span { cursor: pointer; font-size: 24px; }
 .group-header p { margin: 0; font-size: 18px; font-weight: 600; }
@@ -173,6 +204,15 @@ html, body {
   font-weight: bold;
   font-size: 16px;
   cursor: pointer;
+}
+@media (min-width: 1025px){
+  .cg_next_btn{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 40%;
+  }
 }
 .cg_next_btn:disabled {
   opacity: 0.5;
