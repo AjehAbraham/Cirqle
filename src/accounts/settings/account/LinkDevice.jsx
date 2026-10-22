@@ -1,28 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import "./css/link_device.css";
 import { useNavigate } from "react-router";
+import api from "../../../api/axios";
 import useTitle from "../../../components/UseTitle";
+import Loader from "../../components/Loader";
+
 export default function LinkDevice(){
     useTitle("Link devices");
     const [isOpen, setIsOpen] = useState(false);
     const [isOpenLink, setIsOpenLink] = useState(false);
     const [selectedDevice, setSelected] = useState(null);
+    const [openLoader, setOpenLoader] = useState(false);
+    const [loaderTitile, setLoaderTitle] = useState("");
+    const [devices, setDevices] = useState([]);
     const navigate = useNavigate();
 
-    const arry = [
-        {id: 1, name: "Iphone 11", desc: "Current", location: "Lagos, Nigeria", status: "Active now"},
-        {id: 2, name: "Windows", desc: "This Device", location: "Abuja, Nigeria", status: "Today at 12:18AM"},
-        {id: 3, name: "Tablet", desc:"", location: "Jos, Nigeria", status: "Today at 6:15PM"},
-        {id: 4, name: "mac", desc: "", location: "Enugu, Nigeria", status: "1 hour ago"},
-        {id: 5, name: "web", desc: "", location: "Lagos, Nigeria", status: "Just now"},
-        {id: 6, name: "ipad", desc: "", location: "Lagos, Nigeria", status: "Just now"},
-        {id: 7, name: "unknown", desc: "", location: "Lagos, Nigeria", status: "Just now"}
-    ];
+  
+    const loadDevices = async () => {
+        setOpenLoader(true);
+        setLoaderTitle("loading devices...");
+        try{
+        const {data} = await api.post("/account/devices");
+        if(data.success) setDevices(data.data);
+        }catch(error){
+           const backendError = error.response?.data.error;
+           const statusCode = backendError?.status || 500;
+           const code = backendError?.code || "NO_CODE";
+           const message = backendError?.message || "Unknown error occured";
+        }finally{
+            setOpenLoader(false);
+            setLoaderTitle("");
+        }
+
+    }
+    useEffect( () => {
+        loadDevices();
+    }, []);
 
     const getDeviceIcon = (name) =>{
         const deviceName = name.toLowerCase();
-        if(deviceName.includes("iphone") || deviceName.includes("android") || deviceName.includes("mobile")) return "mobile_2"; // fixed typo
+        if(deviceName.includes("iphone") || deviceName.includes("android") || deviceName.includes("mobile")) return "mobile_2";
         if(deviceName.includes("windows") || deviceName.includes("pc") || deviceName.includes("desktop")) return "laptop_windows";
         if(deviceName.includes("mac") || deviceName.includes("macbook")) return "laptop_mac";
         if(deviceName.includes("web") || deviceName.includes("browser") || deviceName.includes("chrome")) return "public";
@@ -39,6 +57,19 @@ export default function LinkDevice(){
         setIsOpen(false);
         setSelected(null);
     }
+    function formatDate(dbDate){
+     const date = new Date(dbDate);
+     return date.toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "Africa/Lagos"
+     });
+    }
+   
 
     return(
         <>
@@ -59,20 +90,19 @@ export default function LinkDevice(){
             <p>Use Cirqle on other device</p>
             <button onClick={() => setIsOpenLink(true)}>Link a Device</button>
 
-            { arry.length > 0 ?(
+            { devices.length > 0 ?(
             <div className="lower-content-for-link-device">
                 <h1>All Sync Devices</h1>
-                { arry.map((device) => (
+                { devices.map((device) => (
                 
-                <div className="content-content-for-links" key={device.id} onClick={() => handleSession(device)}>
+                <div className="content-content-for-links" key={device._id} onClick={() => handleSession(device)}>
                     <div className="content-header-for-link">
-                        <span className="material-symbols-outlined">{getDeviceIcon(device.name)}</span>
-                        <h1>{device.name}</h1>
-                        <p>{device.desc}</p>
+                        <span className="material-symbols-outlined">{getDeviceIcon(device.DeviceName)}</span>
+                        <h1>{device.DeviceName}</h1>
+                        <p>Active</p>
                     </div>
                     <div className="lower-list-for-link">
-                        <p>{device.location}</p>
-                        <p>{device.status}</p>
+                        <p><b>Last Active:</b> {formatDate(device.LastActive)}</p>
                     </div>
                 </div>
                 ))}
@@ -107,16 +137,28 @@ function LinkDeviceModal({isOpen, onClose}){
 function LinkSessionManager({isOpen, onClose, device}){
     const getDeviceIcon = (name) =>{
         const deviceName = name.toLowerCase();
-        if(deviceName.includes("iphone") || deviceName.includes("android") || deviceName.includes("mobile")) return "mobile_2"; // fixed typo
+        if(deviceName.includes("iphone") || deviceName.includes("android") || deviceName.includes("mobile")) return "mobile_2";
         if(deviceName.includes("windows") || deviceName.includes("pc") || deviceName.includes("desktop")) return "laptop_windows";
         if(deviceName.includes("mac") || deviceName.includes("macbook")) return "laptop_mac";
         if(deviceName.includes("web") || deviceName.includes("browser") || deviceName.includes("chrome")) return "public";
         if(deviceName.includes("ipad") || deviceName.includes("tablet")) return "tablet_mac";
         return "device_unknown";
     }
-    
+    function formatDate(dbDate){
+     const date = new Date(dbDate);
+     return date.toLocaleDateString("en-US", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "Africa/Lagos"
+     });
+    }
+   
     if(!isOpen || !device) return null;
-    
+
     return createPortal(
         <div className="link-modal-overlay">
             <div className="modal-content-for-link-devices">
@@ -125,12 +167,12 @@ function LinkSessionManager({isOpen, onClose, device}){
                 <h3>Manage Device</h3>
                 </div>
                 <div className="info-for-modal-link">
-                    <span className="material-symbols-outlined" id="span-logo">{getDeviceIcon(device.name)}</span>
-                    <p>{device.name}</p>
-                    <p>Id: {device.id}</p> 
-                    <p><span className="material-symbols-outlined">history</span>{device.location} {device.status}</p>
-                   { device.desc != "" ? (<p><span className="material-symbols-outlined">captive_portal</span>{device.desc}</p>):("") }
-                    <button onClick={() => console.log("Logout", device.id)}>Log out</button>
+                    <span className="material-symbols-outlined" id="span-logo">{getDeviceIcon(device.DeviceName)}</span>
+                    <p style={{textTransform: "capitalize"}}>{device.DeviceName}</p>
+                    <p><span className="material-symbols-outlined">history</span><b>IP: </b>{device.IP || ""}; <b>Last Active: </b> {formatDate(device.LastActive)} </p>
+                   { device.UserAgent?.browser != "" ? (<p style={{textTransform: "capitalize"}}>
+                    <span className="material-symbols-outlined">captive_portal</span>{device.UserAgent?.browser}</p>):("") }
+                    <button onClick={() => console.log("Logout", device._id)}>Log out</button>
                 </div>
             </div>
         </div>,

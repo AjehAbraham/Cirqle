@@ -2,9 +2,9 @@
 import {sessionManager} from "../models/deviceManagerModel.js";
 
 async function verifyDevice(id, deviceId, tokenVersion){
-	const device = await sessionManager.findOne({UniqueId: id, DeviceId: deviceId});
-	if(!device) return {succes: false};
+	const device = await sessionManager.findOne({UniqueID: id, DeviceID: deviceId});
+	if(!device) return {success: false};
 	if(device.TokenVersion !== tokenVersion) return {success: false};
-	return {sucess: true};
+	return {success: true};
 }
 export  default verifyDevice;

@@ -1,11 +1,13 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { replace, useLocation, useNavigate, useParams, useSearchParams} from "react-router-dom";
 import { createPortal } from "react-dom";
 import "./css/view_profile.css";
 import app_logo from "../../assets/app_logo.png";
 import animated_logo from "../../assets/animated_logo.png";
 import images from "../../assets/images.jpeg";
 import useTitle from "../../components/UseTitle";
+import api from "../../api/axios";
+import Loader from "../components/Loader";
 
 export default function ViewProfile(){
   const navigate = useNavigate();
@@ -15,10 +17,42 @@ export default function ViewProfile(){
   const [isActionOpen, setIsActionOpen] = useState(false);
   const [actionType, setActionType] = useState(null);
   const [disappearing, setDisappearing] = useState(false);
+  const [openLoader, setOpenLoader] = useState(false);
+  const [loaderTitle, setLoaderTitle] = useState("");
+  const [profile, setProfile] = useState([]);
+  const {id} = useParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [mediaType, setMediaType] = useState();
 
-  const phone = "+234 9061748246";
-  const contactId = "727272ahwh";
 
+  const fetchProfile = async () => {
+    setOpenLoader(true);
+    setLoaderTitle("loading profile...");
+    try{
+    const {data} = await api.post("/account/profile", {id: id});
+    if(data.success) setProfile(data.data);
+    else return "Forbidden";
+    const raw = localStorage.getItem("user");
+    const user = JSON.parse(raw);
+    if(user.cCode.toString() === data.data.User.CountryCode.toString() && user.phone.toString() === data.data.User.Phone.toString()) 
+      navigate("/accounts/profile", {replace: true});
+    }catch(error){
+     const backendError = error.response?.data.error;
+     const statusCode = backendError?.status || 500;
+     const code = backendError?.code || "NO_CODE";
+     const message = backendError?.message || "Errro occured";
+    }finally{
+      setOpenLoader(false);
+      setLoaderTitle("");
+    }
+  }
+   
+  useEffect( () => {
+    fetchProfile();
+  }, [id]);
+
+  const phone = `${profile.User?.CountryCode} ${profile.User?.Phone}`;
+  const contactId =`${profile.saved?._id}`;
   const openAction = (type) => {
     setActionType(type);
     setIsActionOpen(true);
@@ -26,6 +60,28 @@ export default function ViewProfile(){
 
   const handleEdit = () => navigate(`/accounts/contacts/view?tab=edit&id=${contactId}`);
 
+  const openMedia = (type) =>{
+    if(type === "photos" || type === "docs" || type === "links"){
+      setIsMediaOpen(true);
+      setMediaType(type);
+    }else{
+      setSearchParams({});
+    }
+  }
+   
+  const handleMedia = () =>{
+    const tab = searchParams.get('tab') === "media";
+    const phase = searchParams.get("phase");
+    if(tab && phase) openMedia(phase);
+  }
+  const closeMedia = () => {
+    navigate(location.pathname, {replace: true});
+    setIsMediaOpen(false);
+  }
+   useEffect( () => {
+    handleMedia();
+   }, [searchParams]);
+    
   const mediaItems = [
     {id: "1", url: app_logo, date: new Date()},
     {id: "2", url: images, date: new Date("2026-04-03")},
@@ -47,16 +103,21 @@ export default function ViewProfile(){
     <>
       <MediaModal 
         isOpen={isMediaOpen}  
-        onClose={() => setIsMediaOpen(false)} 
+        onClose={closeMedia} 
         media={mediaItems}
         docs={docItems}
         links={linkItems}
+        type={mediaType}
       />
       <ActionModal 
         isOpen={isActionOpen} 
         onClose={() => setIsActionOpen(false)} 
         type={actionType}
         phone={phone}
+      />
+      <Loader 
+      isOpen={openLoader}
+      title={loaderTitle}
       />
 
       <div className="profile-container">
@@ -66,7 +127,7 @@ export default function ViewProfile(){
           </button>
           <img src={images} alt="Ajeh Abraham avatar" className="avatar" />
           <div className="profile-name">
-            <h1>Ajeh Abraham</h1>
+            <h1>{profile.saved?.Name || profile.Info?.Name || phone} <br /> {profile.Info?.About || ""}</h1>
             <button className="icon-btn" onClick={handleEdit} aria-label="Edit contact">
               <span className="material-symbols-outlined">edit</span>
             </button>
@@ -77,13 +138,13 @@ export default function ViewProfile(){
         <div className="section media-section">
           <div className="section-header">
             <p>Media, Docs, Links</p>
-            <button className="link-btn" onClick={() => setIsMediaOpen(true)}>
+            <button className="link-btn" onClick={() => navigate(`${location.pathname}?tab=media&phase=photos`, {replace: true})}>
               {mediaItems.length} <span className="material-symbols-outlined">arrow_forward_ios</span>
             </button>
           </div>
           <div className="media-scroll">
             {mediaItems.slice(0,3).map(item => (
-              <img key={item.id} src={item.url} alt="media" onClick={() => setIsMediaOpen(true)} />
+              <img key={item.id} src={item.url} alt="media" onClick={ () => navigate(`${location.pathname}?tab=media&phase=photos`, {replace: true})} />
             ))}
           </div>
         </div>
@@ -114,15 +175,29 @@ export default function ViewProfile(){
   );
 }
 
-function MediaModal({isOpen, onClose, media, docs, links}){
+function MediaModal({isOpen, onClose,type, media, docs, links}){
   const [tab, setTab] = useState("media");
-  
+  const navigate = useNavigate();
+  const location = useLocation();
+
   if(!isOpen) return null;
 
   const sortedMedia = [...media].sort((a,b) => b.date - a.date);
   const sortedDocs = [...docs].sort((a,b) => b.date - a.date);
   const sortedLinks = [...links].sort((a,b) => b.date - a.date);
-  
+
+  const openPhotos = () =>{
+    navigate(`${location.pathname}?tab=media&phase=photos`, {replace: true});
+    setTab("media");
+  }
+  const openDocs = () =>{
+    navigate(`${location.pathname}?tab=media&phase=docs`, {replace: true});
+    setTab("docs");
+  }
+  const openLinks = () =>{
+    navigate(`${location.pathname}?tab=media&phase=links`, {replace: true});
+    setTab("links");
+  }
   return createPortal(
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-full" onClick={e => e.stopPropagation()}>
@@ -131,14 +206,14 @@ function MediaModal({isOpen, onClose, media, docs, links}){
             <span className="material-symbols-outlined">close</span>
           </button>
           <div className="tabs">
-            <button className={tab === "media" ? "active" : ""} onClick={() => setTab("media")}>Media</button>
-            <button className={tab === "docs" ? "active" : ""} onClick={() => setTab("docs")}>Documents</button>
-            <button className={tab === "links" ? "active" : ""} onClick={() => setTab("links")}>Links</button>
+            <button className={tab === "media" ? "active" : ""} onClick={openPhotos}>Media</button>
+            <button className={tab === "docs" ? "active" : ""} onClick={openDocs}>Documents</button>
+            <button className={tab === "links" ? "active" : ""} onClick={openLinks}>Links</button>
           </div>
         </div>
         
         <div className="modal-body">
-          {tab === "media" && (
+          {type === "photos" && tab === "media" && (
             <div className="media-grid">
               {sortedMedia.length ? sortedMedia.map(item => (
                 <img key={item.id} src={item.url} alt="media" />
@@ -146,7 +221,7 @@ function MediaModal({isOpen, onClose, media, docs, links}){
             </div>
           )}
 
-          {tab === "docs" && (
+          {type === "docs" && tab === "docs" && (
             <div className="docs-list">
               {sortedDocs.length ? sortedDocs.map(item => (
                 <div className="doc-item" key={item.id}>
@@ -158,7 +233,7 @@ function MediaModal({isOpen, onClose, media, docs, links}){
             </div>
           )}
 
-          {tab === "links" && (
+          {type === "links" && tab === "links" && (
             <div className="links-list">
               {sortedLinks.length ? sortedLinks.map(item => (
                 <a key={item.id} href={item.url} target="_blank" rel="noreferrer">{item.url}</a>
@@ -206,7 +281,7 @@ function ActionModal({isOpen, onClose, type, phone}){
 
         {type === "delete" && (
           <>
-            <p>Delete chat with <b>{phone}</b>? This cannot be undone.</p>
+            <p>Do you want to delete chat with <b>{phone}</b>?  <br/><b>Note: </b>This action cannot be undone.</p>
             <button className="btn danger">Delete</button>
             <button className="btn secondary" onClick={onClose}>Cancel</button>
           </>
@@ -214,7 +289,7 @@ function ActionModal({isOpen, onClose, type, phone}){
 
         {type === "block" && (
           <>
-            <p>Block <b>{phone}</b>?</p>
+            <p>Are you sure you want to block <b>{phone}</b>?</p>
             <button className="btn danger">Block</button>
             <button className="btn secondary" onClick={onClose}>Cancel</button>
           </>

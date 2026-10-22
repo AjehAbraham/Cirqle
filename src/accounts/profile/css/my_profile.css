@@ -47,19 +47,21 @@ html, body {
   background-color: var(--bg);
   font-family: system-ui, -apple-system, sans-serif;
 }
-.profile-container {
+.profile-container-h {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   padding-bottom: 80px;
   overflow-y: auto;
+  width: 100%;
 }
 @media (min-width: 1025px){
-  .profile-container{
+  .profile-container-h{
     width: 50%;
     justify-content: center;
     margin: auto;
-     border-left: 1px solid var(--border);
+    overflow-y: auto;
+    border-left: 1px solid var(--border);
     border-right: 1px solid var(--border);
   }
 }
@@ -133,6 +135,7 @@ html, body {
   border-radius: 12px;
   padding: 20px;
   border: 1px solid var(--border);
+
 }
 
 .profile-form label {
@@ -339,4 +342,113 @@ html, body {
   font-size: 12px;
   color: var(--absText);
   margin-top: 6px;
+}
+
+
+
+.side-animated-logo-container {
+  display: none;
+}
+@media (min-width: 1025px){
+  .chats-page{
+    width: 50%;
+     border-left: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+  }
+  .side-animated-logo-container{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: auto;
+  }
+}
+.logo-scroller {
+  width: 100%;
+  overflow: hidden;
+  background: var(--card-bg);
+  padding: 20px 0;
+  display: none;
+}
+
+.logo-track {
+  display: flex;
+  gap: 40px;
+  animation: scroll-left 20s linear infinite;
+}
+
+.logo-track img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  /*filter: grayscale(1);
+  opacity: 0.6;*/
+}
+
+@keyframes scroll-left {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.home-slider {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.slide.active {
+  opacity: 1;
+}
+
+.slide img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 24px;
+  box-shadow: 0px 8px 24px rgba(0, 245, 212, 0.3);
+}
+
+.slide h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+  text-align: center;
+}
+
+.slider-dots {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background: var(--border);
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.dot.active {
+  width: 24px;
+  border-radius: 10px;
+  background: var(--accent);
 }

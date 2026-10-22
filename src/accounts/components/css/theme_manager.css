@@ -69,7 +69,7 @@ background-color: rgba(0,0,0,0.6);
   flex-direction: column;
   background-color: var(--card-bg);
 }
-@media (m8n-width: 1025px){
+@media (min-width: 1025px){
   .theme-container{
     width: 480px;
     height: 60vh;

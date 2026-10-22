@@ -10,72 +10,58 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-// UPLOAD IMAGE ONLY 
+export const profileStorage = new CloudinaryStorage({
+  cloudinary,
+  params: async (req, file) => ({
+    folder: `Cirqle/profiles/${req.user.id}/images`,
+    public_id: `avatar`,
+    resource_type: "image",
+    overwrite: true,
+    invalidate: true,
+    tags: ["profile", req.user.id],
+    allowed_formats: ["jpg", "png", "jpeg", "webp"],
+    transformation: [{ width: 500, height: 500, crop: "thumb", gravity: "face" }]
+  })
+});
+
 export const imageStorage = new CloudinaryStorage({
   cloudinary,
   params: async (req, file) => ({
-    folder: "Uploads/images/",
+    folder: `Cirqle/chats/${req.chatID}/images`,
     resource_type: "image",
-    tags: ["profile", req.user.id],
-    context: {
-      userId: req.user.id,
-      uploadedBy: req.user.role,
-	  originalName: file.originalname
-    },
-	access_mode: "authenticated",
-    allowed_formats: ['jpg', 'png', 'jpeg', 'webp'],
-    transformation: [{ width: 1080, height: 1080, crop: 'limit' }]
+    tags: ["chat_image", req.user.id, req.chatID],
+    allowed_formats: ["jpg", "png", "jpeg", "webp"],
+    transformation: [{ width: 1920, height: 1920, crop: "limit", quality: "auto" }]
   })
 });
 
-// UPLOAD VIDEO FILE
 export const videoStorage = new CloudinaryStorage({
   cloudinary,
   params: async (req, file) => ({
-    folder: "Uploads/videos/",
+    folder: `Cirqle/chats/${req.chatID}/videos`,
     resource_type: "video",
-    tags: ["video", req.user.id],
-	context: {
-      userId: req.user.id,
-      uploadedBy: req.user.role,
-	  originalName: file.originalname
-    },
-	access_mode: "authenticated",
-    allowed_formats: ['mp4', 'mov', 'avi', 'webm']
+    tags: ["video", req.user.id, req.chatID],
+    allowed_formats: ["mp4", "mov", "avi", "webm"]
   })
 });
 
-// UPLOAD AUDIO FILE
 export const audioStorage = new CloudinaryStorage({
   cloudinary,
   params: async (req, file) => ({
-    folder: "Uploads/audio/",
-    resource_type: "video", 
-    tags: ["audio", req.user.id],
-	context: {
-      userId: req.user.id,
-      uploadedBy: req.user.role,
-	  originalName: file.originalname
-    },
-	access_mode: "authenticated",
-    allowed_formats: ['mp3', 'wav', 'ogg', 'm4a']
+    folder: `Cirqle/chats/${req.chatID}/audio`,
+    resource_type: "video",
+    tags: ["audio", req.user.id, req.chatID],
+    allowed_formats: ["mp3", "wav", "ogg", "m4a"]
   })
 });
 
-// UPLAOD DOCUMENT 
 export const rawStorage = new CloudinaryStorage({
   cloudinary,
   params: async (req, file) => ({
-    folder: "Uploads/docs/",
+    folder: `Cirqle/chats/${req.chatID}/docs`,
     resource_type: "raw",
-    tags: ["document", req.user.id],
-	context: {
-      userId: req.user.id,
-      uploadedBy: req.user.role,
-	  originalName: file.originalname
-    },
-	access_mode: "authenticated",
-    allowed_formats: ['pdf', 'docx', 'xlsx', 'txt']
+    tags: ["document", req.user.id, req.chatID],
+    allowed_formats: ["pdf", "docx", "xlsx", "txt"]
   })
 });
 

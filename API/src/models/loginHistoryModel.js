@@ -13,15 +13,15 @@ const loginSchema = new mongoose.Schema({
       message: "phone must be 8-12 digits only"
 	  }
   },
-  Email: {type: String, validate: {
+/*  Email: {type: String, validate: {
 	 // validator: v =>  /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v),
 	  validator: v => validator.isEmail(v),
 	  message: "Invalid email "
   }
-  },
+  },*/
 	CreatedAt: {type: Date, default: Date.now},
 	IP: {type: String, required: true, maxlength: 18},
-	UserAgent: {type: String, required: true}
+	UserAgent: {browser: { type: String }, os: { type: String }, device: { type: String }, raw: { type: String }},
 
 });
 export const loginHistory = mongoose.model( "Login_history", loginSchema);

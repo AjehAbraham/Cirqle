@@ -4,6 +4,9 @@ import "./css/add_contact.css";
 import CountryCodeSelector from "./CountryCode";
 import { createPortal } from "react-dom";
 import useTitle from "../../components/UseTitle";
+import api from "../../api/axios";
+import Loader from "./Loader";
+
 
 function StatusModal({ isOpen, onClose, success, updated }) {
   if (!isOpen) return null;
@@ -43,15 +46,51 @@ export default function AddContact() {
   
   const [isOpen, setIsOpen] = useState(false);
   const [params] = useSearchParams();
+  const [openLoader, setOpenLoader] = useState(false);
+  const [loaderTitle, setLoaderTitle] = useState("");
   const navigate = useNavigate();
   const tab = params.get('tab');
   const id = params.get('id');
-  const isEditMode = tab === 'edit' &&!!id;
-  const phoneBook = [
-    { id: "5", cCode: "+234", firstName: "Smith", lastName: "Jabcob", phone: "9061748136" },
-    { id: "10", cCode: "+234", firstName: "Janet", lastName: "", phone: "8036295994" },
-    { id: "15", cCode: "+91", firstName: "Faith", lastName: "Suasan", phone: "787677398" }
-  ];
+  const isEditMode = tab === 'edit' && !!id;
+  const [phoneBook, setPhoneBook] = useState([]);
+
+  const fetch = async () =>{
+    if(!isEditMode) return;
+    setOpenLoader(true);
+    setLoaderTitle("Loading...");
+    try{
+    const {data} = await api.post("/account/contact/get", {id: id});
+    if(data.success) {
+      setPhoneBook(data.data);
+         const contact = Array.isArray(data.data)
+       ? data.data.find(c => c._id === id)
+        : data.data;
+
+      if(contact){
+        setInputs({
+          firstName: contact.FirstName || "",
+          lastName: contact.LastName || "",
+          phone: formatPhone(contact.Phone, 'NG')
+        });
+        setSelectedCountry(countryList[contact.CountryCode] || countryList[contact.cCode] || country);
+      }
+    
+    }
+    }catch(error){
+    const backendError = error.response?.data.error;
+    const statusCode = backendError?.status || 500;
+    const code = backendError?.code || "NO_CODE";
+    const message = backendError?.message || "Unknown error occured";
+    alert(backendError);
+    }finally{
+     setOpenLoader(false);
+     setLoaderTitle("");
+    }
+  }
+ 
+  useEffect( () => {
+    fetch();
+  }, [id]);
 
   const countryList = {
     "+234": { name: "Nigeria", code: "NG", cCode: "+234" },
@@ -83,19 +122,6 @@ export default function AddContact() {
     return `${digits.slice(0,3)} ${digits.slice(3,6)} ${digits.slice(6)}`;
   };
 
-  useEffect(() => {
-    if (isEditMode) {
-      const contact = phoneBook.find(c => c.id === id);
-      if (contact) {
-        setInputs({
-          firstName: contact.firstName,
-          lastName: contact.lastName,
-          phone: formatPhone(contact.phone, countryList[contact.cCode]?.code || 'NG')
-        });
-        setSelectedCountry(countryList[contact.cCode] || country);
-      }
-    }
-  }, [isEditMode, id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -108,22 +134,32 @@ export default function AddContact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+     setOpenLoader(true)
+     setLoaderTitle(isEditMode ? "Editing contact..." : "Saving contact...");
+
     const cleanPhone = inputs.phone.replace(/\D/g, '');
     const payload = {
-      id: isEditMode? id : Date.now().toString(),
-      fullName: `${inputs.firstName} ${inputs.lastName}`.trim(),
-      firstName: inputs.firstName,
-      lastName: inputs.lastName,
-      cCode: country.cCode,
-      phone: cleanPhone
+      route: isEditMode ? "edit" : "save",
+      //id: isEditMode? id : Date.now().toString(),
+      fullName: `${inputs.firstName.trim()} ${inputs.lastName.trim()}`.replace(/\s+/g, ' ').trim(),
+      firstName: inputs.firstName.trim(),
+      lastName: inputs.lastName.trim(),
+      cCode: country.cCode.trim(),
+      phone: cleanPhone.trim()
     };
-    console.log(payload);
-
+    
     try {
-// API CALLS
+      const {data} = await api.post("/account/contact/manage", payload);
+      if(data.success){
       setStatus({isOpen: true, success: true, updated: isEditMode? 'updated' : 'created'});
+      }else{
+         setStatus({isOpen: true, success: false, updated: isEditMode? 'updated' : 'created'});
+      }
     } catch {
       setStatus({isOpen: true, success: false, updated: isEditMode? 'updated' : 'created'});
+    }finally{
+      setOpenLoader(false);
+      setLoaderTitle("");
     }
   };
 
@@ -132,14 +168,13 @@ export default function AddContact() {
     setStatus({isOpen: false, success: false, updated: 'created'});
 
     if (wasSuccess) {
-
-      if (window.history.length > 1) navigate(-1);
-      else navigate('/accounts/message/chats');
-    } else {
       if (!isEditMode) {
         setInputs({firstName: "", lastName: "", phone: ""});
         setSelectedCountry({name: "Nigeria", code: "NG", cCode: "+234"});
       }
+    } else {
+      /*  if (window.history.length > 2) navigate(-1);
+          else navigate('/accounts/message/chats');*/
     }
   };
 
@@ -165,6 +200,7 @@ export default function AddContact() {
         success={status.success}
         updated={status.updated}
       />
+      <Loader isOpen={openLoader} title={loaderTitle} />
       <div className="add_list_modal">
         <div className="modal-top_menu">
           <span className="material-symbols-outlined" onClick={handleClose}>arrow_back</span>

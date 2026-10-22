@@ -5,32 +5,100 @@ import "./css/my_profile.css";
 import images from "../../assets/images.jpeg";
 import Footer from "../components/Footer";
 import useTitle from "../../components/UseTitle";
+import app_logo from "../../assets/app_logo.png";
+import info_friends_animation from "../../assets/info_friends_animation.PNG";
+import interaction_logo from "../../assets/interaction_logo.png";
+import api from "../../api/axios";
+import Loader from "../components/Loader";
+
 export default function MyProfile() {
   useTitle("MyProfile");
   const [activeTab, setActiveTab] = useState("profile");
-  const [bio, setBio] = useState("Unavailable");
-  const [phone] = useState("+234 9061748136");
-  const [name, setName] = useState("Ajeh Abraham");
+  const [bio, setBio] = useState("");
+  const [phone, setPhone] = useState("");
+  const [name, setName] = useState("");
   const [tempName, setTempName] = useState(name);
   const [isEditingName, setIsEditingName] = useState(false);
-  const [avatar, setAvatar] = useState(images);
+  const [avatar, setAvatar] = useState();
+  const [avatarFile, setAvatarFile] = useState(null);
   const [tempAvatar, setTempAvatar] = useState(null);
   const [showImageModal, setShowImageModal] = useState(false);
-  const [isDirty, setIsDirty] = useState(false); // track changes for button
+  const [isDirty, setIsDirty] = useState(false);
   const navigate = useNavigate();
   const nameInputRef = useRef(null);
+  const [openLoader, setOpenLoader] = useState(false);
+  const [loaderTitle, setLoaderTitle] = useState("");
+  const [profile, setProfile] = useState([]);
 
   const modalRoot = document.getElementById('modal-root') || document.body;
+
+   const fetchProfile = async () =>{
+    setOpenLoader(true);
+    setLoaderTitle("Loading...");
+     const raw = localStorage.getItem("user");
+     const user = JSON.parse(raw);
+     try{
+       const {data} = await api.post("/account/profile", {id: user.id});
+       if(data.success) {
+        setProfile(data.data);
+        setName(data.data.Info.Name || `${data.data.User?.CountryCode} ${data.data.User?.Phone}`);
+        setBio(data.data.Info.About || "Hey!, i'm available on Cirqle");
+        setAvatar(data.data.Info.ImageUrl || images);
+        setPhone(`${data.data.User.CountryCode} ${data.data.User.Phone}`);
+       }
+     }catch(error){
+     const backendError = error.response?.data.error;
+     const statusCode = backendError?.status || 500;
+     const code = backendError?.code || "NO_CODE";
+     const message = backendError?.message || "Errro occured";
+     }finally{
+      setOpenLoader(false);
+      setLoaderTitle("");
+     }
+   }
+
+  useEffect( () => {
+  fetchProfile();
+  }, []);
 
   useEffect(() => {
     if (isEditingName) nameInputRef.current?.focus();
   }, [isEditingName]);
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
-    console.log("Saving profile:", { name, bio, phone, avatar });
+    setOpenLoader(true);
+    setLoaderTitle("Updating profile...");
     setIsDirty(false);
-    // TODO: API call
+    try{
+       const raw = localStorage.getItem("user");
+       const user = JSON.parse(raw);
+       const formData = new FormData();
+      formData.append("name", name);
+      formData.append("bio", bio);
+     
+      if(avatarFile) formData.append("avatar", avatarFile); 
+      const { data } = await api.post("/account/update/profile", formData, {
+        headers: { "Content-Type": "multipart/form-data" }
+      });
+      if(data.success) {
+        setBio(data.result.About);
+        setName(data.result.Name || `${user.cCode} ${user.phone}`);
+        setAvatar(data.result.ImageUrl);
+        setAvatarFile(null);
+        setIsDirty(true);
+        alert("profile updated successfully");
+      }
+    }catch(error){
+     const backendError = error.response?.data.error;
+     const statusCode = backendError?.statusCode || 500;
+     const code = backendError?.code || "NO_CODE";
+     const message = backendError?.message || "Errro occured";
+    }finally{
+      setOpenLoader(false);
+      setLoaderTitle("");
+    }
+   
   };
 
   const saveName = () => {
@@ -51,6 +119,7 @@ export default function MyProfile() {
     if (file) {
       const imageUrl = URL.createObjectURL(file);
       setTempAvatar(imageUrl);
+      setAvatarFile(file);
     }
   };
 
@@ -67,6 +136,7 @@ export default function MyProfile() {
     if (tempAvatar) URL.revokeObjectURL(tempAvatar);
     setTempAvatar(null);
     setShowImageModal(false);
+    setAvatarFile(null);
   };
 
   const handleRemoveImage = () => {
@@ -82,10 +152,31 @@ export default function MyProfile() {
     setBio(e.target.value);
     setIsDirty(true);
   };
+const logos = [
+  app_logo,
+  info_friends_animation,
+  interaction_logo
+ ]
+ const slides = [
+  { img: app_logo, title: "Connect with friends" },
+  { img: info_friends_animation, title: "Share moments" },
+  { img:interaction_logo, title: "Join communities" },
+];
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex(prev => (prev + 1) % slides.length);
+    }, 4000); 
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
 
   return (
     <>
-      <div className="profile-container">
+    <Loader isOpen={openLoader} title={loaderTitle} />
+    <div className="flex-background-container" style={{display: "flex"}}>
+      <div className="profile-container-h">
         <div className="profile-header">
           <p>My Profile</p>
         </div>
@@ -145,9 +236,37 @@ export default function MyProfile() {
             </button>
           </form>
         </div>
-          <Footer activeTab={activeTab} setActiveTab={setActiveTab}/>
+         
       </div>
+       <Footer activeTab={activeTab} setActiveTab={setActiveTab}/>
 
+<div className="side-animated-logo-container">
+    <div className="logo-scroller">
+      <div className="logo-track">
+        {
+          [...logos, ...logos].map((logo, i) => 
+          <img src={logo} key={i} alt="logo" />
+        )}
+      </div>
+    </div>
+
+   
+   <div className="home-slider">
+      {slides.map((slide, i) => (
+        <div key={i} className={i === index ? "slide active" : "slide"}>
+          <img src={slide.img} alt={slide.title} />
+          <h1>{slide.title}</h1>
+        </div>
+      ))}
+
+      <div className="slider-dots">
+        {slides.map((_, i) => (
+          <span key={i} className={i === index ? "dot active" : "dot"} />
+        ))}
+      </div>
+    </div>
+   </div>
+</div>
       {showImageModal && createPortal(
         <ImagePickerModal
           onClose={cancelImage}

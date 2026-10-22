@@ -10,8 +10,9 @@ const aboutSchema = new mongoose.Schema({
 	PublicID: {type: String},
 	CreateAt: {type: Date, required: true, default: Date.now},
 	IP: {type: String, required: true, maxlength: 18, minlength: 8},
-	UserAgent: {type: String, required: true}
+	UserAgent: {browser: { type: String }, os: { type: String }, device: { type: String }, raw: { type: String }
+},
 });
 
-export const updateAbout = mongoose.model("Profile_info", aboutSchema);
+export const aboutModel = mongoose.model("Profile_info", aboutSchema);
  

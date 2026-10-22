@@ -160,6 +160,7 @@ font-size: 80px;
   font-weight: bold;
   white-space: nowrap;
   color: var(--text);
+  text-transform: capitalize;
 }
 
 .content-header-for-link p{

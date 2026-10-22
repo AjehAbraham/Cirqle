@@ -6,39 +6,44 @@ import jwt from "jsonwebtoken";
 
 
 export const processOTP = asyncHandler(async (req, res, next) => {
-  const Tel = req.body.Tel;
-  const CountryCode = req.body.countryCode;
+  const {countryCode, Tel, otp, session} = req.body;
+  const { browser, os, device, raw } = req.parsedUA || {};
+  const userAgentObject = { browser, os, device, raw }; 
+  const deviceName = `${device} on ${os}`;
   const IP = req.body.ip;
-  const UserAgent = req.body.UserAgent;
-  const OTP = req.body.otp;
   
-  if (!OTP) {
-    throw new BadRequestError("OTP is required", "OTP_REQUIRED");
-  }
+  const result = await verify(otp, countryCode, Tel, session, IP, userAgentObject, deviceName);
+   if(!result.success) return res.status(200).json(result);
 
-  const result = await verify(OTP, CountryCode, Tel, IP, UserAgent, true);
-   if(!result.success){
-	   throw new InternalServerError("Error occured trying to complete your request", "OTP_VALIDATION_FAILED");
-   }
    const payLoad = {
 	  id: result.user.id,
 	  deviceId: result.user.deviceId,
 	  tokenVersion: result.user.tokenVersion
    };
-   const NewaccessToken = jwt.sign(payLoad , process.env.ACCESS_SECRET, {expiresIn: "15m"});
-   const refreshToken = jwt.sign(payLoad, process.env.REFRESH_SECRET, {expiresIn: "90d"});
+   const NewaccessToken = jwt.sign(payLoad , process.env.ACCESS_TOKEN_SECRET, {expiresIn: "90d"});
+   const refreshToken = jwt.sign(payLoad, process.env.REFRESH_TOKEN_SECRET, {expiresIn: "15m"});
    
    
    res.cookie('refreshToken', refreshToken, {
-	 httpOnly: true,
+	   httpOnly: true,
      secure: true,
      sameSite: "lax",
-     maxAge: 90 * 24 * 60 * 60 * 1000 
+     maxAge: 15*60*1000
    });
-  
+  res.cookie('access_token', NewaccessToken, {
+	   httpOnly: true,
+     secure: true,
+     sameSite: "lax",
+     maxAge: 90*24*60*60*1000
+   });
+   res.cookie('deviceToken', result.deviceCode, {
+     httpOnly: true,
+     secure: true,
+     sameSite: "lax",
+     maxAge: 30*24*60*60*1000
+   });
   res.status(200).json({
     success: true,
-    user: result.user,
-	accessToken: NewaccessToken
+    data: {user: result.user}
   });
 });

@@ -31,7 +31,7 @@ export default function ChatSettings(){
             <div className="c-list-for-chat">
                 <h3>Display</h3>
                 <p onClick={() => setIsOpen(true)}><span className="material-symbols-outlined">contrast_square</span>Theme <b>{selectedTheme}</b></p>
-                <p><span className="material-symbols-outlined">Wallpaper</span> Wallpaper <span className="material-symbols-outlined">arrow_forward_ios</span></p>
+                <p onClick={() => navigate("/accounts/settings/chat/wallpaper")}><span className="material-symbols-outlined">Wallpaper</span> Wallpaper <span className="material-symbols-outlined">arrow_forward_ios</span></p>
             </div>
             <div className="c-list-for-chat">
                 <h3>Chat history</h3>

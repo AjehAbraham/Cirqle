@@ -3,6 +3,9 @@ import { createPortal } from "react-dom";
 import { useNavigate } from "react-router";
 import "./css/delete_account.css";
 import useTitle from "../../../components/UseTitle";
+import Loader from "../../components/Loader";
+import api from "../../../api/axios";
+
 const COUNTRIES = [
   { name: "Nigeria", code: "+234", flag: "🇳🇬", example: "8061234567" },
   { name: "USA", code: "+1", flag: "🇺🇸", example: "2025550123" },
@@ -11,16 +14,25 @@ const COUNTRIES = [
   { name: "Canada", code: "+1", flag: "🇨🇦", example: "4165550123" },
   { name: "Australia", code: "+61", flag: "🇦🇺", example: "412345678" },
   { name: "France", code: "+33", flag: "🇫🇷", example: "612345678" },
+  { name: "Kenya", code: "+254", flag: "ke_flag", example: "44889900"},
+  { name: "United Kingdom", code: "+44", flag: "gb_flag", example: "56776554"},
+  { name: "India", code: "+91", flag: "in_flag", example: "78809988"},
 ];
-
+ 
+ 
 export default function DeleteAccount(){
     useTitle("Delete Account");
     const navigate = useNavigate();
     const [phone, setPhone] = useState("");
     const [country, setCountry] = useState(COUNTRIES[0]);
     const [isOpen, setIsOpen] = useState(false);
+    const [openLoader, setOpenLoader] = useState(false);
+    const [loaderTitle, setLoaderTitle] = useState("");
 
-    const actualNumber = "+2349061748136";
+    
+    const raw = localStorage.getItem("user");
+    const user = JSON.parse(raw);
+    const actualNumber = `${user.cCode}${user.phone}`;
 
     const normalize = (num) => num.replace(/\D/g, "");
     const fullNumber = `${country.code}${normalize(phone)}`;
@@ -32,10 +44,27 @@ export default function DeleteAccount(){
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(fullNumber === actualNumber){
-            setIsOpen(true);
-        } else {
-            alert("Number does not match");
+        setOpenLoader(true);
+        setLoaderTitle("please wait...");
+        if(fullNumber !== actualNumber) {
+            setOpenLoader(false);
+            setLoaderTitle("");
+            return alert("Number does not match");
+        }
+        try{
+          const {data} = await api.post("/account/delete_account", {phone: fullNumber});
+          if(!data.success) alert(data.message);
+          alert(data.message);
+          localStorage.removeItem("user");
+          navigate("/accounts/auth/login", {replace: true});
+        }catch(error){
+         const backendError = error.response?.data.error;
+         const code = backendError?.code || "NO_CODE";
+         const statusCode = backendError.status || 500;
+         const message = backendError.message || "Unknown error occured";
+        }finally{
+            setOpenLoader(false);
+            setLoaderTitle("");
         }
     }
 
@@ -46,6 +75,9 @@ export default function DeleteAccount(){
       onClose={() => setIsOpen(false)}
       phoneNumber={fullNumber}
     />
+     <Loader 
+     isOpen={openLoader} 
+     title={loaderTitle} />
 
      <div className="main-container-for-delete">
         <div className="header-for-delete">
@@ -62,7 +94,7 @@ export default function DeleteAccount(){
             <li>You won't be able to recover your account</li>
           </ul>
           <h3>To continue, confirm your number</h3>
-          <p>Test number: {actualNumber}</p>
+          <p>Select your country code and enter yout phone number</p>
 
           <form onSubmit={handleSubmit}>
             <div className="phone-input-wrapper">

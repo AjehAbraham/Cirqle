@@ -2,19 +2,27 @@ import {useState, useEffect} from "react";
 import {createPortal} from "react-dom";
 import "./css/theme_manager.css";
 
-export default function ThemeManager({isOpen, onClose, selected, onSelect}){
+export default function hemeManager({isOpen, onClose, selected, onSelect}) {
   const themes = ["Dark", "Light", "System"];
   
   const [selectedTheme, setSelectedTheme] = useState(() => {
     return localStorage.getItem("Theme") || "System";
   });
 
+ 
+  useEffect(() => {
+    if (selectedTheme !== "System") {
+      document.documentElement.setAttribute("data-theme", selectedTheme.toLowerCase());
+    }
+  }, []);
+
   const handleSelect = (theme) => {
     setSelectedTheme(theme);
     localStorage.setItem("Theme", theme);
     
-    if(theme === "System"){
-      document.documentElement.removeAttribute("data-theme");
+    if (theme === "System") {
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
     } else {
       document.documentElement.setAttribute("data-theme", theme.toLowerCase());
     }
@@ -51,4 +59,18 @@ export default function ThemeManager({isOpen, onClose, selected, onSelect}){
     </div>,
     document.body
   );
+}
+
+export function useThemeInit() {
+  useEffect(() => {
+    const saved = localStorage.getItem("Theme") || "System";
+    
+    if (saved === "System") {
+      document.documentElement.removeAttribute("data-theme");
+      const isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
+    } else {
+      document.documentElement.setAttribute("data-theme", saved.toLowerCase());
+    }
+  }, []);
 }

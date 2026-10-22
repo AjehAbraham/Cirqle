@@ -111,6 +111,8 @@ html, body {
   align-self: flex-end;
   text-align: right;
   font-size: 18px;
+  display: none;
+  /*margin-left: auto;*/
 }
 @media (min-width: 1025px) {
   .main-container-home button{

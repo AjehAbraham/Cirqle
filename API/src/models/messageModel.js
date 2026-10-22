@@ -139,7 +139,10 @@ const messageSchema = new mongoose.Schema(
       default: Date.now,
       required: true,
     },
+   UserAgent: {browser: { type: String }, os: { type: String }, device: { type: String }, raw: { type: String }},
+
   },
+
   {
     timestamps: false,
   }
@@ -284,6 +287,11 @@ const starredSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Conversation",
       required: true,
+    },
+    UniqueID: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "RegisterDB",
+      required: true
     },
 
     Type: {

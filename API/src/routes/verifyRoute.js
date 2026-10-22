@@ -1,7 +1,9 @@
 import express from "express";
-import { ValidateTel } from "../middleware/validateTel.js"; 
+import { ValidateOTP } from "../middleware/ValidateOTP.js";
 import { processOTP } from "../controller/processOTP.js";
+import { parseUserAgent } from "../middleware/parseUserAgent.js";
+
 
 const verifyRouter = express.Router();
-verifyRouter.post("/verify", ValidateTel, processOTP);
+verifyRouter.post("/verify/otp", ValidateOTP, parseUserAgent, processOTP);
 export default verifyRouter;

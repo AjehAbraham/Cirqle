@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import {useSearchParams, useNavigate } from "react-router-dom";
+import {useSearchParams, useNavigate, replace } from "react-router-dom";
 import "./css/chat_body.css";
 import app_logo from "../../assets/app_logo.png";
 import ContactList from "./ContactList.jsx";
@@ -7,6 +7,7 @@ import ContactList from "./ContactList.jsx";
 
 function ChatBody() {
   const navigate = useNavigate();
+  const [params, setParams] = useSearchParams();
   const [openContact, setOpenContact] = useState(false);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
@@ -15,10 +16,25 @@ function ChatBody() {
     setSearch("");
   }, [openContact]);
   
-/* const [params] = useSearchParams();
- const tab = params.get("tab"); */
- 
-  const handleContact = () => setOpenContact(true);
+ const tab = params.get("tab") === "start";
+ const showConatct =  params.get("cm") === "true";
+   useEffect( () => {
+     if(tab && showConatct){
+      setOpenContact(true);
+     }
+   }, [tab, showConatct]); 
+  
+
+ const closeContact = () => {
+       if(showConatct){
+        setParams({}, { replace: true});
+        setOpenContact(false);
+       }
+ }
+
+  const handleContact = () => {
+    navigate("/accounts/message/chats?tab=start&&cm=true");
+  }
   const viewMessage = (id) => navigate(`/accounts/message/${id}/view`);
 
   const formatDate = (date) => {
@@ -84,7 +100,7 @@ function ChatBody() {
     <>
 
     <div className="container-container-wrapper">
-      <ContactList isOpen={openContact} onClose={() => setOpenContact(false)} />
+      <ContactList isOpen={openContact} onClose={closeContact} />
 
       <div className="top-container-wrapper">
         <input

@@ -5,6 +5,10 @@ import "./css/general_settings.css";
 import Footer from "../components/Footer";
 import useTitle from "../../components/UseTitle";
 import ThemeManager from "../components/ThemeManager";
+import app_logo from "../../assets/app_logo.png";
+import info_friends_animation from "../../assets/info_friends_animation.PNG";
+import interaction_logo from "../../assets/interaction_logo.png";
+
 
 export default function GeneralSettings(){
   useTitle("General Settings");
@@ -38,9 +42,34 @@ export default function GeneralSettings(){
     const filterList = arry.filter ( list =>
     list.title.toLowerCase().includes(query.toLowerCase()) || list.desc.toLowerCase().includes(query.toLowerCase())
       );
+
+
+      const logos = [
+        app_logo,
+        info_friends_animation,
+        interaction_logo
+       ]
+       const slides = [
+        { img: app_logo, title: "Connect with friends" },
+        { img: info_friends_animation, title: "Share moments" },
+        { img:interaction_logo, title: "Join communities" },
+      ];
+        const [index, setIndex] = useState(0);
+      
+        useEffect(() => {
+          const timer = setInterval(() => {
+            setIndex(prev => (prev + 1) % slides.length);
+          }, 4000); // change every 4s
+          return () => clearInterval(timer);
+        }, [slides.length]);
+
   return(
     <>
       <ThemeManager isOpen={isOpen} onClose={() => setIsOpen(false)} selectedTheme={selectedTheme} onSelect={setSelectedTheme}/>
+
+<div className="flex-background-container" style={{display: "flex"}}>
+
+
 <div className="settings-main-container">
   <h1>Settings</h1>
   <input type="text" placeholder="search settings" value={query} onChange={(e) => setQuery(e.target.value)}/>
@@ -74,6 +103,37 @@ export default function GeneralSettings(){
   <div className="empty2" />
        <Footer activeTab={activeTab} setActiveTab={setActiveTab} />
 </div>
+
+
+
+<div className="side-animated-logo-container">
+    <div className="logo-scroller">
+      <div className="logo-track">
+        {
+          [...logos, ...logos].map((logo, i) => 
+          <img src={logo} key={i} alt="logo" />
+        )}
+      </div>
+    </div>
+
+   
+   <div className="home-slider">
+      {slides.map((slide, i) => (
+        <div key={i} className={i === index ? "slide active" : "slide"}>
+          <img src={slide.img} alt={slide.title} />
+          <h1>{slide.title}</h1>
+        </div>
+      ))}
+
+      <div className="slider-dots">
+        {slides.map((_, i) => (
+          <span key={i} className={i === index ? "dot active" : "dot"} />
+        ))}
+      </div>
+    </div>
+   </div>
+
+   </div>
        </>
     );
 }

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import useTitle from "../../components/UseTitle.jsx";
-import {useNavigate} from "react-router-dom";
 import "./css/chats.css";
 import Footer from "../components/Footer.jsx";
 import ChatBody from "../components/ChatBody.jsx";
@@ -28,7 +27,7 @@ function MainChats(){
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex(prev => (prev + 1) % slides.length);
-    }, 4000); // change every 4s
+    }, 4000); 
     return () => clearInterval(timer);
   }, [slides.length]);
   return(

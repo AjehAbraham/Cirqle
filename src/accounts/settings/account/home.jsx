@@ -7,7 +7,7 @@ export default function AccountHome(){
   const navigate = useNavigate();
   
   const options = [
-    {id: 1, icon: "smartphone", title: "Change Number", desc: "Update your phone number", onClick:() => navigate("/accounts/settings/account/change_phone")},
+    {id: 1, icon: "smartphone", title: "Change Number", desc: "Update your phone number", onClick:() => navigate("/accounts/settings/account/verify_number")},
     {id: 2, icon: "devices", title: "Link Device", desc: "Manage devices", onClick: () => navigate("/accounts/settings/account/link_device")},
     {id: 3, icon: "delete", title: "Delete Account", desc: "Delete your account permanentely", onClick: () => navigate("/accounts/settings/account/delete_my_account")},
   ];
