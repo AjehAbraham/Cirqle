@@ -54,7 +54,7 @@ const messageSchema = new mongoose.Schema(
 
     SeenBy: [
       {
-        userId: String,
+        UserID: String,
         At: Date,
       },
     ],

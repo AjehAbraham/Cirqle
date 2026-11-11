@@ -31,7 +31,7 @@ export default function ProtectedRoute({ children }) {
       } catch (error) {
         const backendError = error.response?.data?.error;
         const statusCode = backendError?.statusCode || backendError?.status;
-        if(statusCode === 500 || statusCode === 403){
+        if(statusCode === 403 || statusCode == 422 || statusCode === 401){
         localStorage.removeItem("user");
         navigate("/accounts/auth/login", { replace: true });
         }else{

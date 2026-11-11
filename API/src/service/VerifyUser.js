@@ -1,5 +1,4 @@
 import { registerModel } from "../models/registerModel.js";
-import jwt from "jsonwebtoken";
 
 
 export default async function Authenticate (cCode, phone){

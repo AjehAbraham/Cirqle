@@ -4,6 +4,6 @@ import {authenticate} from "../middleware/auth.js";
 
 const loadConvoRoute = express.Router();
 
-loadConvoRoute.post("/message/chat/reload", authenticate, loadConvo);
+loadConvoRoute.post("/account/message/chats", authenticate, loadConvo);
 
 export default loadConvoRoute;

@@ -62,6 +62,7 @@ export default function DeleteAccount(){
          const code = backendError?.code || "NO_CODE";
          const statusCode = backendError.status || 500;
          const message = backendError.message || "Unknown error occured";
+         alert(message);
         }finally{
             setOpenLoader(false);
             setLoaderTitle("");

@@ -3,6 +3,8 @@ import {useSearchParams, useNavigate, replace } from "react-router-dom";
 import "./css/chat_body.css";
 import app_logo from "../../assets/app_logo.png";
 import ContactList from "./ContactList.jsx";
+import api from "../../api/axios.js";
+import Loader from "./Loader.jsx";
 
 
 function ChatBody() {
@@ -11,6 +13,8 @@ function ChatBody() {
   const [openContact, setOpenContact] = useState(false);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all");
+  const [conversations, setConversations] = useState([]);
+
 
   useEffect(() => {
     setSearch("");
@@ -66,13 +70,38 @@ function ChatBody() {
     return conv.lastMsg;
   };
 
-  const conversations = [
-    { id: "1", avatar: app_logo, name: "Zainab Muhammed", cCode: "+234", tel: "8036295994", type: "dm", lastMsg: "I know what am trying to say", sender: "you", At: new Date(Date.now() - 1000*60*30), msgType: "text", status: "sent", msgCount: 0},
+  /*const conversations = [
+    { id: "1", avatar: app_logo, name: "Zainab Muhammed", cCode: "+234", tel: "8036295994", type: "dm", 
+     lastMsg: "I know what am trying to say", sender: "you", At: new Date(Date.now() - 1000*60*30), 
+     msgType: "text", status: "sent", msgCount: 0},
     { id: "2", avatar: app_logo, name: "Ajeh Abraham", cCode: "+234", tel: "9061748136", type: "dm", lastMsg: "Bro i dey come", sender: "them", At: new Date(Date.now() - 1000*60*60*25), msgType: "text", status: "seen",msgCount: 5},
     { id: "3", avatar: app_logo, name: "Mike Chan", cCode: "+91", tel: "776845567", type: "dm", lastMsg: "Hello, i've been trying to reach out but you haven't been giving me any positive reply yet and am wondering what the issue was.", sender: "you", At: new Date(Date.now() - 1000*60*60*3), msgType: "text", status: "fail", msgCount: 0 },
     { id: "4", avatar: app_logo, name: "UNI AGRIC(FCS)", cCode: "", tel: [], type: "group", lastMsg: "Hello,thanks for adding me!!", sender: "you", At: new Date(Date.now() - 1000*60*60*24*2), msgType: "text", status: "delivered", msgCount: 0},
     { id: "5", avatar: app_logo, name: "Serah Johnson", cCode: "+234", tel: "8036815672", type: "dm", lastMsg: "photo", sender: "you", At: new Date(Date.now() - 1000*60*60*24*8), msgType: "system", status: "seen", msgCount: 0 }
-  ];
+  ];*/
+ useEffect(() => {
+  const getConvo = async () => {
+    try {
+      const { data } = await api.post("/account/message/chats");
+      console.log(data); 
+      if (data.success && Array.isArray(data.data)) {
+        setConversations(data.data);
+      }
+      alert(data);
+    } catch (error) {
+      const backendError = error.response?.data?.error;
+      const code = backendError?.code || "UNKNOWN_ERROR";
+      const statusCode = backendError?.statusCode || "NO_CODE";
+      const message = backendError?.message || "Error occured";
+      console.log({ code, statusCode, message, full: error.response?.data });
+    }finally{
+    alert("Hello");
+  }
+  }
+
+  getConvo();
+}, []); 
+
 
   const filteredconvo = conversations
    .filter((conv) => {

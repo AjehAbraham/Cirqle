@@ -1,2 +1,6 @@
 node_modules
 .env
+WEB
+dist
+compose.yml
+compose.override.yml

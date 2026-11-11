@@ -9,7 +9,8 @@ export const authenticate = async (req, res, next) => {
 
  try{
    const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
-   const device = await verifyDevice(decoded.id, decoded.deviceId, decoded.tokenVersion);
+   const token = req.cookies?.deviceToken;
+   const device = await verifyDevice(decoded.id, decoded.deviceId, token, decoded.tokenVersion);
    if(!device.success) throw new UnauthorizedError("BAD_TOKEN");
 
    req.user = decoded;

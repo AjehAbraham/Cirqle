@@ -9,8 +9,9 @@ import { saveOTP } from "../models/OTPmodel.js";
 import { RateLimiting } from "../models/RateLimiting.js";
 import { ContactList } from "../models/contactListModel.js";
 import mongoose from "mongoose";
+import { original } from "./saveForwardedMessage.js";
 
-export async function DeleteAccountService(userID, phone) {
+export async function DeleteAccountService(userID,phone) {
   let mongoSession = null;
   let useTransaction = true;
 
@@ -40,11 +41,11 @@ export async function DeleteAccountService(userID, phone) {
 
     await settings.deleteOne({ UniqueID: userID }, opts);
     await aboutModel.deleteOne({ UniqueID: userID }, opts);
-    await RateLimiting.deleteOne({ UniqueID: userID }, opts);
+    await RateLimiting.deleteOne({UniqueID: fullPhone  }, opts);
     await loginHistory.deleteMany({ UniqueID: userID }, opts);
-    await OTPSessionManager.deleteMany({ UniqueID: userID }, opts);
+    await OTPSessionManager.deleteMany({ Phone: fullPhone }, opts);
     await sessionManager.deleteMany({ UniqueID: userID }, opts);
-    await saveOTP.deleteMany({ UniqueID: userID }, opts);
+    await saveOTP.deleteMany({ CountryCode: user.CountryCode, Phone: user.Phone }, opts);
     await ContactList.deleteMany({ UniqueID: userID }, opts);
     await ContactList.updateMany({ ContactUserID: userID }, { $set: { ContactUserID: null } }, opts);
 
@@ -76,7 +77,7 @@ export async function DeleteAccountService(userID, phone) {
       );
     }
 
-    await messageModel.updateMany({ SenderID: userID }, { $set: { DeletedFor: userID } }, opts);
+    await messageModel.updateMany({ SenderID: userID }, { $addToSet: { DeletedFor: userID } }, opts);
     await starMessage.deleteMany({ UniqueID: userID }, opts);
     await registerModel.deleteOne({ _id: userID }, opts);
 
@@ -104,17 +105,15 @@ async function DeleteAccountServiceNoTx(userID, phone) {
 
     await settings.deleteOne({ UniqueID: userID });
     await aboutModel.deleteOne({ UniqueID: userID });
-    await RateLimiting.deleteOne({ UniqueID: userID });
+    await RateLimiting.deleteOne({ UniqueID: fullPhone });
     await loginHistory.deleteMany({ UniqueID: userID });
-    await OTPSessionManager.deleteMany({ UniqueID: userID });
+    await OTPSessionManager.deleteMany({ Phone: fullPhone });
     await sessionManager.deleteMany({ UniqueID: userID });
-    await saveOTP.deleteMany({ UniqueID: userID });
+    await saveOTP.deleteMany({ CountryCode: user.CountryCode, Phone: user.Phone });
     await ContactList.deleteMany({ UniqueID: userID });
     await ContactList.updateMany(
   { ContactUserID: userID }, 
-  { $unset: { ContactUserID: "" }, $set: { isDeletedContact: true } }, 
-  opts
-);
+  { $unset: { ContactUserID: "" }, $set: { isDeletedContact: true } });
 
     const conversations = await conversationModel.find({ "Participants.UniqueID": userID }, { _id: 1, Type: 1 });
 
@@ -139,7 +138,7 @@ async function DeleteAccountServiceNoTx(userID, phone) {
       );
     }
 
-    await messageModel.updateMany({ SenderID: userID }, { $set: { DeletedFor: userID } });
+    await messageModel.updateMany({ SenderID: userID }, { $addToSet: { DeletedFor: userID } });
     await starMessage.deleteMany({ UniqueID: userID });
     await registerModel.deleteOne({ _id: userID });
 

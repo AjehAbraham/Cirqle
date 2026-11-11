@@ -45,8 +45,11 @@ export async function verify(OTP, cCode, Tel, session, IP, userAgentArray, devic
       try {
         user = await registerModel.create({ CountryCode: cCode, Phone: Tel, Role: "user" });
       } catch (err) {
-        if (err.code === 11000) throw new ConflictError("Phone number already registered", "PHONE_CONFLICT_ERROR");
-        throw new InternalServerError("Failed to login/register user", "INTERNAL_SERVER_ERROR");
+        if (err.code === 11000) {
+          user = await registerModel.findOne({ CountryCode: cCode, Phone: Tel });
+        } else {
+          throw new InternalServerError("Failed to login/register user", "INTERNAL_SERVER_ERROR");
+        }
       }
     }
 
@@ -77,7 +80,12 @@ export async function verify(OTP, cCode, Tel, session, IP, userAgentArray, devic
       UserAgent: userAgentArray
     });
 
-    await settings.findOne({ UniqueID: user._id });
+    await settings.updateOne(
+      { UniqueID: user._id },
+      { $setOnInsert: { UniqueID: user._id } },
+      { upsert: true }
+    );
+
     const checkAbout = await aboutModel.findOne({ UniqueID: user._id });
     const aboutCode = checkAbout ? 1 : 0;
 
